@@ -81,19 +81,19 @@ function initDemoDB(){
   if(!localStorage.getItem("ecmProducts")){
     localStorage.setItem("ecmProducts", JSON.stringify(DEMO_PRODUCTS));
     localStorage.setItem("ecmCats", JSON.stringify(DEMO_CATS));
-    localStorage.setItem("ecmOrders", "[]");
+    sessionStorage.setItem("ecmOrders", "[]");
     localStorage.setItem("ecmCust", '[{"user":"user123","orders":[]}]');
   }
 }
 function loadState() {
   admin.products = JSON.parse(localStorage.getItem("ecmProducts")||"[]");
   admin.cats = JSON.parse(localStorage.getItem("ecmCats")||"[]");
-  admin.orders = JSON.parse(localStorage.getItem("ecmOrders")||"[]");
+  admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders")||"[]");
   admin.cust = JSON.parse(localStorage.getItem("ecmCust")||"[]");
 }
 function saveProducts() { localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
 function saveCats() { localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
-function saveOrders() { localStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
+function saveOrders() { sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
 function saveCust() { localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
 /** SPA navigation **/
 function showApp(app){
