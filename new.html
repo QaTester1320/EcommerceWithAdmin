@@ -1,22 +1,21 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>SPA E-commerce & Admin Demo (Updated Design)</title>
+  <title>SPA E-commerce & Admin Demo (Modern Dark Design - Final)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
-    /* 🎨 **New Design/Color Palette (Monochromatic Dark Blue/Teal Accent)** */
+    /* 🎨 **MODERN DARK DESIGN & COLOR PALETTE (Blue/Teal Accent)** */
     :root {
-      --color-background: #12121e; /* Deep dark blue-black */
+      --color-background: #14141c; /* Very deep dark gray/blue */
       --color-surface: #1e1e2d; /* Slightly lighter surface for cards/panels */
       --color-text-primary: #e0e0f0; /* Light, cool white */
       --color-text-secondary: #a0a0c0; /* Muted text */
-      --color-accent-main: #00bcd4; /* Vibrant Teal/Cyan for primary action */
-      --color-accent-secondary: #0097a7; /* Darker teal */
+      --color-accent-main: #00bcd4; /* Vibrant Teal/Cyan for primary action/highlights */
+      --color-accent-secondary: #0097a7; /* Darker teal/borders */
       --color-success: #4caf50;
-      --color-error: #f44336;
-      --color-warning: #ffb300;
-      --color-star: #ffc107;
+      --color-error: #ff5252; /* Brighter red for error/delete */
+      --color-warning: #ffc107;
       --border-radius: 8px;
       --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
@@ -24,7 +23,7 @@
     body {
       background: var(--color-background);
       color: var(--color-text-primary);
-      font-family: 'Inter', sans-serif; /* Using a cleaner modern font */
+      font-family: 'Inter', sans-serif;
       margin: 0;
       line-height: 1.6;
     }
@@ -35,7 +34,7 @@
       gap: 12px;
       justify-content: center;
       align-items: center;
-      min-height: 56px; /* Taller nav bar */
+      min-height: 56px;
       background: var(--color-surface);
       border-bottom: 2px solid var(--color-accent-secondary);
       padding: 0 16px;
@@ -43,7 +42,7 @@
     }
     .nav button {
       padding: 8px 20px;
-      background: var(--color-accent-secondary);
+      background: #3e4a68; /* Neutral/Muted color */
       color: var(--color-text-primary);
       border: none;
       border-radius: var(--border-radius);
@@ -53,7 +52,7 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
     .nav button:hover:not(.selected) {
-      background: #008394;
+      background: #2d364a;
     }
     .nav .selected {
       background: var(--color-accent-main);
@@ -97,7 +96,7 @@
 
     /* --- Product Cards --- */
     .product, .product-admin {
-      background: #252538; /* Darker than surface, distinct */
+      background: #252538;
       border-radius: var(--border-radius);
       padding: 15px;
       flex: 1 1 240px;
@@ -107,12 +106,12 @@
       cursor: pointer;
     }
     .product:hover {
-      box-shadow: 0 0 15px rgba(0, 187, 212, 0.5); /* Accent glow on hover */
+      box-shadow: 0 0 15px rgba(0, 187, 212, 0.5);
       transform: translateY(-3px);
     }
     .product img, .product-admin img {
       width: 100%;
-      height: 160px; /* Taller image */
+      height: 160px;
       object-fit: cover;
       border-radius: 6px;
       margin-bottom: 10px;
@@ -133,7 +132,7 @@
     }
     .product button:nth-of-type(2), .product button:nth-of-type(3),
     .product-admin button:nth-of-type(2), .product-admin button:nth-of-type(3) {
-      background: #3e4a68; /* Muted secondary action */
+      background: #3e4a68;
       color: var(--color-text-primary);
     }
     .mini-icons {
@@ -142,13 +141,13 @@
       margin-left: 10px;
     }
     .star {
-      color: var(--color-star);
+      color: var(--color-warning);
       font-size: 1.2em;
     }
     .flex {
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Better spacing for flex items */
+      justify-content: space-between;
       margin-bottom: 5px;
     }
     .pname {
@@ -176,7 +175,7 @@
       font-weight: bold;
     }
     .hidden {
-      display: none;
+      display: none !important; /* Force hide with important */
     }
 
     /* --- Forms & Inputs --- */
@@ -220,14 +219,14 @@
     
     /* --- Admin Sidebar --- */
     .sidebar {
-      width: 220px; /* Slightly wider */
-      min-height: calc(100vh - 56px); /* Full height minus nav */
+      width: 220px;
+      min-height: calc(100vh - 56px);
       background: #1e1e2d;
       padding: 16px;
-      position: fixed; /* Fixed position for admin panel */
+      position: fixed;
       top: 56px;
       left: 0;
-      border-radius: 0; /* Remove rounded corner for better flow */
+      border-radius: 0;
       box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
     }
     .sidebar button {
@@ -253,7 +252,7 @@
       font-weight: bold;
     }
     .admin-main {
-      margin-left: 250px; /* Space for the fixed sidebar + padding */
+      margin-left: 250px;
       padding: 20px 16px;
     }
 
@@ -316,7 +315,33 @@
       margin-right: 8px;
     }
     
-    /* --- Simple modal --- */
+    /* --- Shop Header Icons (Cart/Wishlist/Compare) --- */
+    .shop-header-icons button {
+        background: #3e4a68; /* Neutral color, not distracting */
+        color: var(--color-text-primary);
+        font-size: 1.2em; /* Larger icons */
+        padding: 10px;
+        border-radius: 50%; /* Circle shape for icon buttons */
+        width: 45px;
+        height: 45px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background 0.2s;
+        position: relative;
+    }
+    .shop-header-icons button:hover {
+        background: var(--color-accent-secondary);
+    }
+    .shop-header-icons .badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: -5px -5px 0 0;
+        line-height: 1;
+        padding: 4px 7px;
+        font-size: 0.7em;
+    }
+
+    /* --- Custom Modal --- */
     .modal {
       position: fixed;
       left: 0;
@@ -326,9 +351,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 999; /* Higher z-index */
+      z-index: 999;
       background: rgba(18, 18, 30, 0.75);
-      backdrop-filter: blur(3px); /* Subtle blur effect */
+      backdrop-filter: blur(3px);
     }
     .modal-content {
       background: var(--color-surface);
@@ -339,7 +364,16 @@
       box-shadow: var(--shadow-elevation-2);
       border-top: 5px solid var(--color-accent-main);
     }
-    .modal button {
+    .modal-content h3 {
+        color: var(--color-accent-main);
+        margin-top: 0;
+    }
+    #modal-message {
+        margin: 15px 0;
+        font-size: 1.1em;
+        color: var(--color-text-primary);
+    }
+    #modal-actions button {
       margin: 15px 8px 0 8px;
     }
 
@@ -438,6 +472,90 @@
         margin-top: 10px;
       }
     }
+    
+    /* --- Shop Layout & Filters --- */
+    .shop-content-layout {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .shop-filter-sidebar {
+        flex: 0 0 220px;
+        padding: 15px;
+        background: var(--color-surface);
+        border-radius: var(--border-radius);
+        height: fit-content;
+        box-shadow: var(--shadow-elevation-2);
+    }
+    .shop-product-list {
+        flex-grow: 1;
+    }
+    .filter-group {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #2d2d42;
+    }
+    .filter-group label {
+        font-weight: bold;
+        color: var(--color-accent-main);
+        margin-bottom: 8px;
+        display: block;
+    }
+    .range-display {
+        color: var(--color-text-secondary);
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+    
+    /* --- Shop Home Sections --- */
+    .banner-slider {
+        background: #191928;
+        padding: 40px 20px;
+        text-align: center;
+        margin-bottom: 30px;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--color-accent-secondary);
+    }
+    .featured-products-section {
+        margin-bottom: 30px;
+        padding: 20px 0;
+        border-top: 1px solid #2d2d42;
+        border-bottom: 1px solid #2d2d42;
+    }
+    .featured-products-section h2 {
+        text-align: center;
+    }
+    .shop-footer {
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 30px;
+        border-top: 1px solid var(--color-accent-secondary);
+        color: var(--color-text-secondary);
+    }
+    .dashboard-card {
+        background: #252538;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        flex: 1 1 200px;
+        min-width: 150px;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 187, 212, 0.2);
+    }
+    .dashboard-card i {
+        font-size: 3em;
+        color: var(--color-accent-main);
+        margin-bottom: 10px;
+    }
+    .dashboard-card p {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 0;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -450,18 +568,44 @@
     <div id="shop" class="app-section active"></div>
     <div id="admin" class="app-section"></div>
   </div>
+
+  <div id="custom-modal" class="modal hidden">
+      <div class="modal-content">
+          <h3 id="modal-title"></h3>
+          <p id="modal-message"></p>
+          <div id="modal-actions">
+              </div>
+      </div>
+  </div>
+
 <script>
 /** Data & storage **/
-const DEMO_PRODUCTS = [
-  {sku:"SKU11",name:"Gaming Keyboard",cat:"Electronics",price:1999,img:"https://placehold.co/697x547?text=Gaming+Keyboard",desc:"RGB Wired Gaming Keyboard. Smooth keys.",reviews:[{by:"user123",star:5,text:"Cool!"}]},
-  {sku:"SKU22",name:"Artisan Mug",cat:"Kitchen",price:499,img:"https://placehold.co/697x547?text=Artisan+Mug",desc:"Hand-painted ceramic mug.",reviews:[]},
-  {sku:"SKU33",name:"Wireless Earbuds",cat:"Electronics",price:2599,img:"https://placehold.co/300x200?text=Electronics",desc:"Longest battery wireless Bluetooth buds.",reviews:[{by:"user123",star:4,text:"Good but not loud."}]},
-  {sku:"SKU44",name:"Yoga Mat",cat:"Fitness",price:799,img:"https://placehold.co/300x200?text=Fitness+Gear",desc:"Eco material, non-slip mat.",reviews:[]},
-  {sku:"SKU55",name:"Classic Novel",cat:"Books",price:299,img:"https://m.media-amazon.com/images/I/81iqZ2HHD-L.jpg",desc:"Paperback edition of timeless read.",reviews:[]}
+// Array of distinct colors for dummy image placeholders
+const DUMMY_COLORS = [
+    {bg: '4CAF50', text: 'White'}, // Green
+    {bg: '2196F3', text: 'White'}, // Blue
+    {bg: 'FF9800', text: 'White'}, // Orange
+    {bg: '9C27B0', text: 'White'}, // Purple
+    {bg: '795548', text: 'White'}, // Brown
+    {bg: '607D8B', text: 'White'}, // Slate
+    {bg: 'F44336', text: 'White'}  // Red
 ];
-const DEMO_CATS = ["Electronics","Kitchen","Fitness","Books"];
+const DEMO_PRODUCTS = [
+  {sku:"SKU11",name:"Gaming Keyboard Pro",cat:"Electronics",price:1999,img:"https://placehold.co/697x547/4CAF50/FFFFFF?text=Keyboard+Pro",desc:"RGB Wired Gaming Keyboard. Smooth keys.",reviews:[{by:"user123",star:5,text:"Cool!"}]},
+  {sku:"SKU22",name:"Handmade Artisan Mug",cat:"Kitchen",price:499,img:"https://placehold.co/697x547/2196F3/FFFFFF?text=Ceramic+Mug",desc:"Hand-painted ceramic mug.",reviews:[]},
+  {sku:"SKU33",name:"Acoustic Earbuds Max",cat:"Electronics",price:2599,img:"https://placehold.co/300x200/FF9800/FFFFFF?text=Wireless+Earbuds",desc:"Longest battery wireless Bluetooth buds.",reviews:[{by:"user123",star:4,text:"Good but not loud."}]},
+  {sku:"SKU44",name:"Premium Yoga Mat",cat:"Fitness",price:799,img:"https://placehold.co/300x200/9C27B0/FFFFFF?text=Yoga+Mat",desc:"Eco material, non-slip mat.",reviews:[]},
+  {sku:"SKU55",name:"The Lost Classic Novel",cat:"Books",price:299,img:"https://placehold.co/300x200/795548/FFFFFF?text=Classic+Novel",desc:"Paperback edition of timeless read.",reviews:[]}
+];
+const DEMO_CATS = ["Electronics","Kitchen","Fitness","Books","Apparel"];
 const COUNTRIES = ["US", "INDIA", "RUSSIA", "JAPAN", "SOUTH KOREA", "BRAZIL", "DUBAI", "MEXICO", "CHINA", "SRI LANKA", "NEPAL", "UK", "FRANCE", "DENMARK", "ITALY", "ISERAL"];
-let state = { user: null, page: "home", cart: [], wishlist: [], compare: [], alert: null, search: "", detailsSku: null, show: "home" };
+let state = { user: null, page: "home", cart: [], wishlist: [], compare: [], alert: null, search: "", detailsSku: null, show: "home", 
+    shopFilters: { // NEW: Shop Filters State
+        minPrice: 0,
+        maxPrice: 5000,
+        selectedCategory: "All"
+    }
+};
 let admin = {
   mode: "dashboard",
   logged: false,
@@ -474,28 +618,33 @@ let admin = {
   curCat: null,
   curOrder: null,
   paging: { products: {page:1}, orders: {page:1}, cust: {page:1}, reviews: {page:1} },
-  pageSize: 10
+  pageSize: 10,
+  productFilterCat: "All", // Admin product category filter state
+  custFilter: "", // NEW: Admin customer filter
+  orderFilter: "" // NEW: Admin order filter
 };
 
 /** Demo DB creation & load **/
 function buildDummyDataIfMissing(){
   // If no products/customers/orders exist yet, create deterministic dummy sets (80 items each)
   if(!localStorage.getItem("ecmProducts") || !localStorage.getItem("ecmCust") || !sessionStorage.getItem("ecmOrders")){
-    // Start with base small products then append generated products to reach 80
     const want = 80;
     let products = DEMO_PRODUCTS.slice();
     const categories = DEMO_CATS.slice();
-    let idx = 1;
+    let idx = products.length;
     while(products.length < want){
+      const color = DUMMY_COLORS[products.length % DUMMY_COLORS.length];
       const sku = "DP" + String(1000 + products.length);
       const cat = categories[(products.length) % categories.length];
+      const price = Math.floor(199 + (products.length * 13) % 5000);
+      const name = `Generic Product ${products.length+1}`;
       products.push({
         sku,
-        name: `Demo Product ${products.length+1}`,
+        name,
         cat,
-        price: Math.floor(199 + (products.length * 13) % 5000),
-        img: `https://placehold.co/300x200?text=Prod+${products.length+1}`,
-        desc: `Auto-generated product #${products.length+1} in ${cat}`,
+        price,
+        img: `https://placehold.co/300x200/${color.bg}/${color.text}?text=Prod+${products.length+1}+in+${cat}`,
+        desc: `Auto-generated product #${products.length+1} in ${cat} with price ${price}`,
         reviews: []
       });
       idx++;
@@ -523,7 +672,7 @@ function buildDummyDataIfMissing(){
       }
       const total = items.reduce((s,sku)=>s + (products.find(p=>p.sku==sku)?.price||0),0);
       const id = (Date.now().toString().slice(-4)) + String(i).padStart(3,"0");
-      orders.push({id, user: cust, items, total});
+      orders.push({id, user: cust, items, total, date: new Date().toISOString().substring(0, 10)});
       customers[i % customers.length].orders.push(id);
     }
     localStorage.setItem("ecmProducts", JSON.stringify(products));
@@ -541,11 +690,55 @@ function loadState() {
   admin.cats = JSON.parse(localStorage.getItem("ecmCats")||"[]");
   admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders")||"[]");
   admin.cust = JSON.parse(localStorage.getItem("ecmCust")||"[]");
+  
+  // Set initial max price for filter based on products
+  const maxPrice = admin.products.reduce((max, p) => Math.max(max, p.price || 0), 0) || 5000;
+  state.shopFilters.maxPrice = maxPrice;
 }
 function saveProducts() { localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
 function saveCats() { localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
 function saveOrders() { sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
 function saveCust() { localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
+
+/** Custom Modal Handlers (New) **/
+function showCustomModal(title, message, type, confirmCallback, data) {
+    const modal = document.getElementById('custom-modal');
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-message').innerHTML = message;
+    const actions = document.getElementById('modal-actions');
+    actions.innerHTML = '';
+    
+    modal.classList.remove('hidden');
+
+    if (type === 'confirm') {
+        const confirmBtn = document.createElement('button');
+        confirmBtn.textContent = 'Confirm';
+        confirmBtn.className = 'btn-main';
+        confirmBtn.onclick = () => { 
+            confirmCallback(data); 
+            hideCustomModal(); 
+        };
+        actions.appendChild(confirmBtn);
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.className = 'btn-main';
+        cancelBtn.style.cssText = 'background: var(--color-text-secondary);';
+        cancelBtn.onclick = hideCustomModal;
+        actions.appendChild(cancelBtn);
+    } else if (type === 'alert') {
+        const okBtn = document.createElement('button');
+        okBtn.textContent = 'OK';
+        okBtn.className = 'btn-main';
+        okBtn.onclick = hideCustomModal;
+        actions.appendChild(okBtn);
+    }
+}
+
+function hideCustomModal() {
+    document.getElementById('custom-modal').classList.add('hidden');
+}
+
 
 /** SPA navigation **/
 function showApp(app){
@@ -559,7 +752,26 @@ function showApp(app){
 }
 initDemoDB(); loadState(); renderShop(); renderAdmin();
 
-/** --- FRONTEND SECTION (mostly unchanged) --- */
+/** --- SHOP FILTERS & HANDLERS --- **/
+function updateShopFilters(){
+    const minPrice = document.getElementById('priceRangeMin').value;
+    const maxPrice = document.getElementById('priceRangeMax').value;
+    const selectedCat = document.getElementById('catFilterSelect').value;
+    
+    // Update state
+    state.shopFilters.minPrice = Number(minPrice);
+    state.shopFilters.maxPrice = Number(maxPrice);
+    state.shopFilters.selectedCategory = selectedCat;
+    
+    // Reset to home page view when filters change
+    state.page = 'home';
+    state.detailsSku = null;
+    
+    renderShop();
+}
+
+
+/** --- FRONTEND SECTION --- */
 function renderShop(){
   loadState();
   let html = '';
@@ -576,6 +788,26 @@ function renderShop(){
     document.getElementById("shop").innerHTML=html;
     return;
   }
+  
+  // RENDER HEADER (common to all shop views)
+  html += `
+  <div style="display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px solid var(--color-surface);">
+    <div class="shop-header-icons">
+      <button onclick="shopTo('account')" ${state.user?'':'disabled'} title="My Account"><i class="fa fa-user"></i></button>
+      <button onclick="shopTo('cart')" title="Cart"><i class="fa fa-shopping-cart"></i><span class="badge" style="background:var(--color-accent-main);">${state.cart.length}</span></button>
+      <button onclick="shopTo('wishlist')" title="Wishlist"><i class="fa fa-heart"></i><span class="badge" style="background:var(--color-accent-main);">${state.wishlist.length}</span></button>
+      <button onclick="shopTo('compare')" title="Compare"><i class="fa fa-list"></i><span class="badge" style="background:var(--color-accent-main);">${state.compare.length}</span></button>
+    </div>
+    <div class="search-bar">
+      <input id="searchinp" placeholder="Search product or SKU" value="${state.search||""}"/>
+      <button onclick="shopTo('search',document.getElementById('searchinp').value)" class="btn-main">Search</button>
+    </div>
+    <div>
+      ${state.user?`<span style="font-weight:bold;">Hello, ${state.user}! <a href="#" style="color:var(--color-error);" onclick="logoutShop()">Logout</a></span>`
+      :`<button onclick="shopTo('login')" class="btn-main">Login</button>`}
+    </div>
+  </div>`;
+  
   // MY ACCOUNT PAGE
   if (state.page=="account" && state.user) {
     let orders = admin.orders.filter(o=>o.user===state.user);
@@ -589,7 +821,7 @@ function renderShop(){
   // PRODUCT DETAILS?
   if (state.page=="details" && state.detailsSku){
     let p = admin.products.find(p=>p.sku==state.detailsSku);
-    if(!p) { html = 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
+    if(!p) { html += 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
     html += `<div class="row">
       <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px"><br>
         <span class="pname">${p.name}</span>
@@ -619,7 +851,7 @@ function renderShop(){
   }
   // CHECKOUT
   if(state.page=="checkout"){
-    html = `<div class="card" style="max-width:500px; margin:auto;"><h2>Checkout</h2>
+    html += `<div class="card" style="max-width:500px; margin:auto;"><h2>Checkout</h2>
      <form onsubmit="event.preventDefault();saveOrder()">
       ${['Name','Email','Address','Phone'].map(f=>`<div class="input"><label>${f}</label><input id="co${f}" required></div>`).join('')}
       <div class="input"><label>Country</label>
@@ -642,46 +874,24 @@ function renderShop(){
   }
   // CART/MINICART
   if(state.page=="cart"){
-    if(state.cart.length==0){document.getElementById("shop").innerHTML=`<h2>Cart</h2><div class="alert">Cart is empty.</div>
-      <button onclick="shopTo('home')" class="btn-main">Back to shop</button>`;return;}
+    if(state.cart.length==0){html += `<h2>Cart</h2><div class="alert">Cart is empty.</div>
+      <button onclick="shopTo('home')" class="btn-main">Back to shop</button>`; document.getElementById("shop").innerHTML=html; return;}
     let s=0;
     let items = state.cart.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku); s+=p.price;
-      return `<div class="flex" style="border-bottom:1px dashed #2d2d42; padding:10px 0;"><b>${p.name}</b> - <span style="color:var(--color-accent-main);">₹${p.price}</span><span class="right"><button onclick="cartRemove('${sku}')" style="background:var(--color-error);color:#fff;">Remove</button></span></div>`;
+      return `<div class="flex" style="border-bottom:1px dashed #2d2d42; padding:10px 0;"><b>${p.name}</b> - <span style="color:var(--color-accent-main);">₹${p.price}</span><span class="right"><button onclick="cartRemove('${sku}')" style="background:var(--color-error);color:#fff;"><i class="fa fa-trash"></i> Remove</button></span></div>`;
     }).join('');
-    document.getElementById("shop").innerHTML=
-    `<div class="card"><h2>Cart</h2>${items}<hr style="border-color:#2d2d42;">Total: <b style="color:var(--color-accent-main);">₹${s}</b><br>
+    html += `<div class="card"><h2>Cart</h2>${items}<hr style="border-color:#2d2d42;">Total: <b style="color:var(--color-accent-main);">₹${s}</b><br>
     <div style="margin-top:20px;">
       <button onclick="shopTo('checkout')" class="btn-main">Checkout</button>
       <button onclick="shopTo('home')" class="btn-main" style="background:var(--color-text-secondary);">Continue Shopping</button>
     </div></div>`;
+    document.getElementById("shop").innerHTML=html;
     return;
   }
-  // ALL PRODUCTS PAGE, CATEGORY, SEARCH, MINICART, WISHLIST/COMPARE, HEADER/FOOTER
-  html += `
-  <div style="display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px solid var(--color-surface);">
-    <div>
-      <button onclick="shopTo('account')" ${state.user?'':'disabled'} title="My Account" style="background:#3e4a68;"><i class="fa fa-user"></i></button>
-      <button onclick="shopTo('cart')" title="Cart" style="background:var(--color-success);"><i class="fa fa-shopping-cart"></i><span class="badge">${state.cart.length}</span></button>
-      <button onclick="shopTo('wishlist')" title="Wishlist" style="background:var(--color-error);"><i class="fa fa-heart"></i><span class="badge">${state.wishlist.length}</span></button>
-      <button onclick="shopTo('compare')" title="Compare" style="background:var(--color-warning);"><i class="fa fa-list"></i><span class="badge">${state.compare.length}</span></button>
-    </div>
-    <div class="search-bar">
-      <input id="searchinp" placeholder="Search product or SKU" value="${state.search||""}"/>
-      <button onclick="shopTo('search',document.getElementById('searchinp').value)" class="btn-main">Search</button>
-    </div>
-    <div>
-      ${state.user?`<span style="font-weight:bold;">Hello, ${state.user}! <a href="#" style="color:var(--color-error);" onclick="logoutShop()">Logout</a></span>`
-      :`<button onclick="shopTo('login')" class="btn-main">Login</button>`}
-    </div>
-  </div>
-  <div style="margin-top:20px; margin-bottom:10px; font-size:1.1em; color:var(--color-text-secondary); font-weight:500;">
-    <i class="fa fa-tags"></i> Categories: 
-    <button onclick="shopTo('home')" style="background:#3e4a68; color:#e0e0f0; border:none; border-radius:15px; padding:5px 12px; margin-left:5px;">All</button>
-    `+admin.cats.map(c=>`<button onclick="shopTo('cat','${c}')" style="background:#3e4a68; color:#e0e0f0; border:none; border-radius:15px; padding:5px 12px; margin-left:5px;">${c}</button>`).join(' ')
-    +`</div><hr style="border-color:#2d2d42;">`;
   // WISHLIST
   if(state.page=="wishlist"){
+    if(state.wishlist.length==0){html += `<h2>Wishlist</h2><div class='alert' style="background:var(--color-accent-secondary);">Wishlist is empty.</div><button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html; return;}
     let items = state.wishlist.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
@@ -691,10 +901,11 @@ function renderShop(){
         </div>
       </div>`;
     }).join('');
-    document.getElementById("shop").innerHTML = `<h2>Wishlist</h2>${items||"<div class='alert'>Wishlist is empty.</div>"}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
+    html += `<h2>Wishlist</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html;return;
   }
   // COMPARE
   if(state.page=="compare"){
+    if(state.compare.length==0){html += `<h2>Compare List</h2><div class='alert' style="background:var(--color-accent-secondary);">Compare list is empty.</div><button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html; return;}
     let items = state.compare.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
@@ -704,19 +915,67 @@ function renderShop(){
         </div>
       </div>`;
     }).join('');
-    document.getElementById("shop").innerHTML = `<h2>Compare List</h2>${items||"<div class='alert'>Compare list is empty.</div>"}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
+    html += `<h2>Compare List</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html;return;
   }
-  // PRODUCT LIST
+  
+  // --- HOME PAGE SPECIFIC ENHANCEMENTS (Banner, Featured, Footer) ---
+  if(state.page === "home"){
+    // 1. Banner Slider (Static for this demo)
+    html += `<div class="banner-slider">
+        <h1 style="color:var(--color-accent-main);">Fall into Savings!</h1>
+        <p style="font-size:1.2em; color:var(--color-text-secondary);">Up to 50% off select products for a limited time.</p>
+        <button class="btn-main" onclick="shopTo('search','sale')" style="padding:12px 25px; font-size:1.1em; margin-top:10px;">Shop Now</button>
+    </div>`;
+  }
+  
+  // --- Shop Filter Sidebar ---
+  const shopFilterSidebar = `
+    <div class="shop-filter-sidebar">
+      <h2><i class="fa fa-sliders-h"></i> Filters</h2>
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="catFilterSelect" onchange="updateShopFilters()" style="width:100%;">
+          <option value="All">All Categories</option>
+          ${admin.cats.map(c => `<option value="${c}" ${state.shopFilters.selectedCategory === c ? 'selected' : ''}>${c}</option>`).join('')}
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="priceRangeMin">Price Range (₹0 to ₹${state.shopFilters.maxPrice})</label>
+        <input type="range" id="priceRangeMin" min="0" max="${state.shopFilters.maxPrice}" value="${state.shopFilters.minPrice}" 
+               oninput="document.getElementById('priceRangeDisp').textContent = '₹'+this.value+' - ₹'+document.getElementById('priceRangeMax').value" 
+               onchange="updateShopFilters()" style="padding:0; height:auto;">
+        <input type="range" id="priceRangeMax" min="0" max="${state.shopFilters.maxPrice}" value="${state.shopFilters.maxPrice}" 
+               oninput="document.getElementById('priceRangeDisp').textContent = '₹'+document.getElementById('priceRangeMin').value+' - ₹'+this.value" 
+               onchange="updateShopFilters()" style="padding:0; height:auto;">
+        <div class="range-display">Current: <span id="priceRangeDisp">₹${state.shopFilters.minPrice} - ₹${state.shopFilters.maxPrice}</span></div>
+      </div>
+    </div>`;
+
+  // --- Product List Logic (Filtered) ---
   let products = admin.products.slice();
-  if(state.page=="cat" && state.detailsSku) products = products.filter(p=>p.cat==state.detailsSku);
+  
+  // Apply Category Filter
+  if(state.shopFilters.selectedCategory !== "All"){
+    products = products.filter(p=>p.cat==state.shopFilters.selectedCategory);
+  }
+  
+  // Apply Price Filter
+  products = products.filter(p=>p.price>=state.shopFilters.minPrice && p.price<=state.shopFilters.maxPrice);
+
+  // Apply Search Filter (only for 'home'/'search' pages)
   if(state.page=="search" && state.detailsSku) {
     let q = state.detailsSku.toLowerCase();
     products = products.filter(p=>p.name.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q));
     html += `<div style="margin-bottom:15px; color:var(--color-text-secondary);">Search for <b style="color:var(--color-text-primary);">${state.detailsSku}</b>: ${products.length} found.</div>`;
   }
-  html += '<div class="row">';
+  
+  // Render Product Listing
+  let productListHTML = `
+    <div class="shop-product-list">
+      <h2>${state.shopFilters.selectedCategory !== "All" ? state.shopFilters.selectedCategory : 'All Products'} (${products.length} Items)</h2>
+      <div class="row">`;
   products.forEach(p=>{
-    html+=`<div class="product">
+    productListHTML+=`<div class="product">
       <img src="${p.img}" onclick="shopTo('details','${p.sku}')" alt="${p.name}" style="cursor:pointer;"/>
       <div style="min-height:48px;"><span class="pname">${p.name}</span><span class="cat-label">${p.cat}</span></div>
       <div style="margin-bottom:10px; font-size:1.2em; color:var(--color-accent-main); font-weight:bold;">₹${p.price} <span class="right" style="font-size:0.8em; color:var(--color-text-secondary);">SKU: <b>${p.sku}</b></span></div>
@@ -727,14 +986,68 @@ function renderShop(){
       </div>
     </div>`;
   });
-  html += '</div>';
+  productListHTML += `</div></div>`;
+  
+  // Combine sidebar and product list for main product display pages
+  if(state.page === "home" || state.page === "search"){
+      html += `<div class="shop-content-layout">${shopFilterSidebar}${productListHTML}</div>`;
+  }
+  
+  // --- HOME PAGE EXTRA SECTIONS ---
+  if(state.page === "home"){
+    // 2. Featured Products (Slider - simulated with a scrollable row)
+    const featuredProds = admin.products.filter(p=>p.price>2000).slice(0, 6);
+    html += `<div class="featured-products-section">
+      <h2>Featured Products</h2>
+      <div class="row" style="overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px;">` + 
+      featuredProds.map(p=>`<div class="product" onclick="shopTo('details','${p.sku}')" style="flex: 0 0 170px; padding:10px;">
+        <img src="${p.img}" style="height:120px;">
+        <div class="pname" style="margin-bottom:0; font-size:1em;">${p.name.substring(0,25)}</div>
+        <div style="color:var(--color-accent-main); font-weight:bold;">₹${p.price}</div>
+      </div>`).join('') +
+      `</div>
+    </div>`;
+    
+    // 3. Review Section (Simulated)
+    const allReviews = admin.products.flatMap(p=>p.reviews.map(r=>({...r, prod: p.name, sku: p.sku})));
+    html += `<div class="featured-products-section" style="border-top:none;">
+      <h2>What Customers Say</h2>
+      <div class="row">` + 
+      allReviews.slice(0, 3).map(r=>`<div class="card" style="flex:1; background:#191928; border-left: 5px solid var(--color-accent-main);">
+        <span class="star">${"★".repeat(r.star)}</span><br>
+        <p style="font-style:italic;">"${r.text}"</p>
+        <small>- <b>${r.by}</b> on ${r.prod}</small>
+      </div>`).join('') +
+      `</div>
+    </div>`;
+    
+    // 4. Suggest Product Section (Existing logic, now a dedicated section)
+    html += `<div class="suggest-slider">
+        <h2>Recommended for You</h2>
+        <div class="row" style="overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px;">`+
+        admin.products.slice(6, 12)
+          .map(q=>`<div class="product" onclick="shopTo('details','${q.sku}')" style="flex: 0 0 140px; padding:10px;">
+          <img src="${q.img}" style="height:100px;">
+          <div class="pname" style="margin-bottom:0; font-size:0.9em;">${q.name.substring(0,20)}</div><div style="color:var(--color-accent-main); font-weight:bold;">₹${q.price}</div></div>`).join('')+
+      `</div></div>`;
+    
+    // 5. Footer
+    html += `<div class="shop-footer">
+        &copy; ${new Date().getFullYear()} Modern E-commerce Demo. All rights reserved. | <a href="#" style="color:var(--color-accent-main);">Privacy Policy</a>
+    </div>`;
+  }
+
   document.getElementById("shop").innerHTML=html;
 }
+
 function shopTo(page, val){
   if(page=='wishlist'||page=='compare')
     if(!state.user){state.page='login';renderShop();return;}
   state.page = page;
   state.detailsSku = val||null;
+  if(page=='home'){
+    // Reset filters on navigation to home, but maintain selected filters if already applied
+  }
   renderShop();
 }
 function loginShop(){
@@ -749,27 +1062,51 @@ function addToCart(sku){
   if(!state.cart.includes(sku)){state.cart.push(sku);}
   renderShop();
 }
+// Cart Remove with Modal
 function cartRemove(sku){
-  if(confirm("Remove item from cart?")){state.cart=state.cart.filter(x=>x!=sku);}
+    showCustomModal('Remove Item', 'Are you sure you want to remove this item from your cart?', 'confirm', cartRemoveConfirm, sku);
+}
+function cartRemoveConfirm(sku){
+  state.cart=state.cart.filter(x=>x!=sku);
   renderShop();
 }
 function toggleWish(sku){
   if(!state.user){state.page='login';renderShop();return;}
-  if(state.wishlist.includes(sku))state.wishlist=state.wishlist.filter(x=>x!=sku);
-  else state.wishlist.push(sku);
-  renderShop();
+  if(state.wishlist.includes(sku)){
+    wishlistRemove(sku);
+  } else {
+    state.wishlist.push(sku);
+    renderShop();
+  }
 }
-function wishlistRemove(sku){state.wishlist=state.wishlist.filter(x=>x!=sku);renderShop();}
+// Wishlist Remove with Modal
+function wishlistRemove(sku){
+    showCustomModal('Remove from Wishlist', 'Remove this product from your wishlist?', 'confirm', wishlistRemoveConfirm, sku);
+}
+function wishlistRemoveConfirm(sku){state.wishlist=state.wishlist.filter(x=>x!=sku);renderShop();}
+
 function toggleCompare(sku){
   if(!state.user){state.page='login';renderShop();return;}
-  if(state.compare.includes(sku))state.compare=state.compare.filter(x=>x!=sku);
-  else state.compare.push(sku);
-  renderShop();
+  if(state.compare.includes(sku)){
+    compareRemove(sku);
+  } else {
+    state.compare.push(sku);
+    renderShop();
+  }
 }
-function compareRemove(sku){state.compare=state.compare.filter(x=>x!=sku);renderShop();}
+// Compare Remove with Modal
+function compareRemove(sku){
+    showCustomModal('Remove from Compare', 'Remove this product from your compare list?', 'confirm', compareRemoveConfirm, sku);
+}
+function compareRemoveConfirm(sku){state.compare=state.compare.filter(x=>x!=sku);renderShop();}
+
 function addReview(sku){
   let s = Number(document.getElementById("revstar").value), t = document.getElementById("revtext").value.trim();
-  if(!s||!t)return;let p=admin.products.find(p=>p.sku==sku);
+  if(!s||!t){
+    showCustomModal('Validation Error', 'Please provide both a star rating and a review text.', 'alert');
+    return;
+  }
+  let p=admin.products.find(p=>p.sku==sku);
   if(p){p.reviews.push({by:state.user,star:s,text:t});saveProducts();renderShop();}
 }
 function saveOrder(){
@@ -779,12 +1116,17 @@ function saveOrder(){
   let phone = document.getElementById("coPhone").value.trim();
   let country = document.getElementById("coCountry").value;
   let pay = document.getElementById("coPay").value;
-  if(!name||!email||!addr||!phone||!country||!pay){alert('All fields required!');return;}
+  if(!name||!email||!addr||!phone||!country||!pay){
+    showCustomModal('Order Error', 'All fields in the checkout form are required.', 'alert');
+    return;
+  }
   let id = Date.now().toString().slice(-6);
   let total = state.cart.map(sku=>admin.products.find(p=>p.sku==sku).price).reduce((x,y)=>x+y,0);
-  admin.orders.push({id,user:state.user,items:[...state.cart],total});
+  admin.orders.push({id,user:state.user,items:[...state.cart],total, date: new Date().toISOString().substring(0, 10)});
   saveOrders();
-  state.cart=[];state.page="home";alert("Order placed. Thank you!");renderShop();
+  state.cart=[];state.page="home";
+  showCustomModal('Success', 'Order placed successfully! Order ID: #'+id, 'alert');
+  renderShop();
 }
 
 /** --- ADMIN SECTION --- */
@@ -808,26 +1150,52 @@ function renderAdmin(){
     <button onclick="adminLogout()" style="margin-top:20px; background:var(--color-error);"><i class="fa fa-sign-out"></i> Logout</button>
     </div>`;
   let main = '<div class="admin-main">';
-  // Dashboard
-  if(admin.mode=="dashboard") main+=`<div class="card"><h2>Dashboard</h2>
-    <p style="font-size:1.1em;">Products: <b style="color:var(--color-accent-main);">${admin.products.length}</b>, 
-    Orders: <b style="color:var(--color-accent-main);">${admin.orders.length}</b>, 
-    Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b></p>
-    <div style="margin-top:20px;"><b>Sales Trend:</b><br> <svg width="280" height="70"><polyline fill="none" stroke="var(--color-accent-main)" stroke-width="4" 
-        points="5,60 50,${Math.max(10,60-3*admin.orders.length%50)} 100,${Math.max(10,60-2*admin.products.length%50)} 150,45 200,30 250,60" stroke-linecap="round"/></svg>
-    </div></div>`;
-  // Products CRUD with pagination
+  
+  // Dashboard - ADD QUICK ACCESS BUTTONS
+  if(admin.mode=="dashboard"){
+    main+=`<div class="card"><h2>Dashboard Overview</h2>
+      <p style="font-size:1.1em;">Products: <b style="color:var(--color-accent-main);">${admin.products.length}</b>, 
+      Orders: <b style="color:var(--color-accent-main);">${admin.orders.length}</b>, 
+      Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b></p>
+      
+      <h3 style="margin-top:30px; border-bottom:1px solid #2d2d42; padding-bottom:5px;">Quick Access</h3>
+      <div class="row" style="gap:20px;">
+        <div class="dashboard-card" onclick="adminNav('products')"><i class="fa fa-cube"></i><p>Products</p></div>
+        <div class="dashboard-card" onclick="adminNav('orders')"><i class="fa fa-receipt"></i><p>Orders</p></div>
+        <div class="dashboard-card" onclick="adminNav('cust')"><i class="fa fa-user"></i><p>Customers</p></div>
+        <div class="dashboard-card" onclick="adminNav('cats')"><i class="fa fa-folder"></i><p>Categories</p></div>
+      </div>
+      
+      <div style="margin-top:30px;"><b>Sales Trend:</b><br> <svg width="280" height="70"><polyline fill="none" stroke="var(--color-accent-main)" stroke-width="4" 
+          points="5,60 50,${Math.max(10,60-3*admin.orders.length%50)} 100,${Math.max(10,60-2*admin.products.length%50)} 150,45 200,30 250,60" stroke-linecap="round"/></svg>
+      </div></div>`;
+  }
+  // Products CRUD with pagination and CATEGORY FILTER
   if(admin.mode=="products"){
-    // pagination helpers
+    // Filtering
+    let filteredProducts = admin.products.slice();
+    if(admin.productFilterCat !== "All"){
+        filteredProducts = filteredProducts.filter(p => p.cat === admin.productFilterCat);
+    }
+    
+    // Pagination helpers
     const pageSize = admin.pageSize;
     const pageState = admin.paging.products;
-    const total = admin.products.length;
+    const total = filteredProducts.length;
     const totalPages = Math.max(1, Math.ceil(total / pageSize));
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page - 1) * pageSize;
-    const pageItems = admin.products.slice(startIdx, startIdx + pageSize);
+    const pageItems = filteredProducts.slice(startIdx, startIdx + pageSize);
 
     main+=`<div class="card"><h2>Products <button onclick="addEditProd('__new__')" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
+      <div style="display:flex; justify-content:flex-start; align-items:center; gap:10px; margin-bottom:15px; border-bottom:1px solid #2d2d42; padding-bottom:10px;">
+        <label style="color:var(--color-accent-main); font-weight:bold;"><i class="fa fa-filter"></i> Filter by Category:</label>
+        <select id="prodFilterCat" onchange="filterAdminProducts(this.value)" style="width:200px; padding:8px;">
+          <option value="All">All Categories (${admin.products.length})</option>
+          ${admin.cats.map(c => `<option value="${c}" ${admin.productFilterCat === c ? 'selected' : ''}>${c} (${admin.products.filter(p=>p.cat===c).length})</option>`).join('')}
+        </select>
+        <div style="margin-left:auto; color:var(--color-text-secondary);">Showing ${total} products.</div>
+      </div>
       <div style="margin-top:15px;">${pageItems.map(p=>`<div class="product-admin flex" style="align-items:center; padding:10px; cursor:default;">
         <img src="${p.img}" style="max-width:60px; height:60px; margin-right:15px;">
         <div style="flex-grow:1;">
@@ -877,17 +1245,29 @@ function renderAdmin(){
         <button onclick="cancelCat()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
     }
   }
-  // Orders with pagination
+  // Orders with pagination and FILTER
   if(admin.mode=="orders"){
+    // Filtering
+    let filteredOrders = admin.orders.slice();
+    if(admin.orderFilter){
+      const q = admin.orderFilter.toLowerCase();
+      filteredOrders = filteredOrders.filter(o => o.id.toLowerCase().includes(q) || o.user.toLowerCase().includes(q));
+    }
+    
     const pageSize = admin.pageSize;
     const pageState = admin.paging.orders;
-    const total = admin.orders.length;
+    const total = filteredOrders.length;
     const totalPages = Math.max(1, Math.ceil(total/pageSize));
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page-1)*pageSize;
-    const pageItems = admin.orders.slice(startIdx, startIdx+pageSize);
+    const pageItems = filteredOrders.slice(startIdx, startIdx+pageSize);
 
     main+=`<div class="card"><h2>Orders</h2>
+      <div class="search-bar" style="max-width:100%;">
+        <input id="orderFilterInput" placeholder="Filter by ID or User" value="${admin.orderFilter}" oninput="adminFilter('order', this.value)"/>
+        <button onclick="adminFilter('order', '')" class="btn-main" style="background:#3e4a68;"><i class="fa fa-times"></i> Clear</button>
+      </div>
+      <div style="margin-top:10px; color:var(--color-text-secondary);">Showing ${total} matching orders.</div>
       <table>
         <thead><tr><th>ID</th><th>User</th><th>Total</th><th>Items Count</th></tr></thead>
         <tbody>
@@ -907,18 +1287,29 @@ function renderAdmin(){
       </div>
     </div>`;
   }
-  // Customers with pagination
- // --- CUSTOMERS TABLE ---
+  // Customers with pagination and FILTER
   if(admin.mode=="cust"){
+    // Filtering
+    let filteredCust = admin.cust.slice();
+    if(admin.custFilter){
+      const q = admin.custFilter.toLowerCase();
+      filteredCust = filteredCust.filter(u => u.user.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
+    }
+    
     const pageSize = admin.pageSize;
     const pageState = admin.paging.cust;
-    const total = admin.cust.length;
+    const total = filteredCust.length;
     const totalPages = Math.max(1, Math.ceil(total/pageSize));
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page-1)*pageSize;
-    const pageItems = admin.cust.slice(startIdx, startIdx+pageSize);
+    const pageItems = filteredCust.slice(startIdx, startIdx+pageSize);
 
     main+=`<div class="card"><h2>Customers</h2>
+      <div class="search-bar" style="max-width:100%;">
+        <input id="custFilterInput" placeholder="Filter by Username or Email" value="${admin.custFilter}" oninput="adminFilter('cust', this.value)"/>
+        <button onclick="adminFilter('cust', '')" class="btn-main" style="background:#3e4a68;"><i class="fa fa-times"></i> Clear</button>
+      </div>
+      <div style="margin-top:10px; color:var(--color-text-secondary);">Showing ${total} matching customers.</div>
       <table>
         <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Orders</th></tr></thead>
         <tbody>
@@ -980,13 +1371,59 @@ function renderAdmin(){
   document.getElementById("admin").innerHTML = sidebar+main;
 }
 
+// NEW: Admin Filter function for Orders/Customers
+function adminFilter(section, query){
+  if(section === 'cust'){
+    admin.custFilter = query;
+    admin.paging.cust.page = 1; // Reset to page 1
+  } else if(section === 'order'){
+    admin.orderFilter = query;
+    admin.paging.orders.page = 1; // Reset to page 1
+  }
+  renderAdmin();
+}
+
 function adminPageChange(section, pageNum){
   const pageSize = admin.pageSize;
   if(!admin.paging[section]) admin.paging[section] = {page:1};
-  const total = section==='cust'? admin.cust.length : section==='products'? admin.products.length : section==='orders'? admin.orders.length : section==='reviews'? admin.products.flatMap(p=>p.reviews).length : 0;
+  
+  let total = 0;
+  if(section==='products'){
+    let filteredProducts = admin.products.slice();
+    if(admin.productFilterCat !== "All"){
+        filteredProducts = filteredProducts.filter(p => p.cat === admin.productFilterCat);
+    }
+    total = filteredProducts.length;
+  } else if(section==='cust'){
+    let filteredCust = admin.cust.slice();
+    if(admin.custFilter){
+      const q = admin.custFilter.toLowerCase();
+      filteredCust = filteredCust.filter(u => u.user.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
+    }
+    total = filteredCust.length;
+  } else if(section==='orders'){
+    let filteredOrders = admin.orders.slice();
+    if(admin.orderFilter){
+      const q = admin.orderFilter.toLowerCase();
+      filteredOrders = filteredOrders.filter(o => o.id.toLowerCase().includes(q) || o.user.toLowerCase().includes(q));
+    }
+    total = filteredOrders.length;
+  } else if(section==='reviews'){
+    total = admin.products.flatMap(p=>p.reviews).length;
+  } else {
+    total = 0;
+  }
+  
   const totalPages = Math.max(1, Math.ceil(total/pageSize));
   admin.paging[section].page = Math.min(Math.max(1, pageNum), totalPages);
   renderAdmin();
+}
+
+// Admin product filter function
+function filterAdminProducts(cat) {
+    admin.productFilterCat = cat;
+    admin.paging.products.page = 1;
+    renderAdmin();
 }
 
 function adminNav(mode){admin.mode=mode;admin.curProd=null;admin.curCat=null;renderAdmin();}
@@ -995,9 +1432,8 @@ function adminLogout(){admin.logged=false;renderAdmin();}
 
 // Fix Add/Edit product behavior
 function addEditProd(skuOrNew){
-  // When called with "__new__" create a new product modal
   if(skuOrNew === "__new__"){
-    admin.curProd = "__new__"; // truthy marker
+    admin.curProd = "__new__";
   } else {
     admin.curProd = skuOrNew || null;
   }
@@ -1005,43 +1441,69 @@ function addEditProd(skuOrNew){
 }
 function cancelEditProd(){admin.curProd=null;renderAdmin();}
 function saveProd(oldSku){
-  // read inputs
   const name = document.getElementById("prName").value.trim();
   const sku = document.getElementById("prSKU").value.trim();
   const cat = document.getElementById("prCat").value.trim();
   const price = Number(document.getElementById("prPrice").value);
   const img = document.getElementById("prImg").value.trim();
   const desc = document.getElementById("prDesc").value.trim();
-  if(!name||!sku||!cat||!price||!img||!desc){alert("All fields required!");return;}
-  // If editing existing
+  
+  if(!name||!sku||!cat||!price||!img||!desc){
+      showCustomModal('Validation Error', 'All product fields are required.', 'alert');
+      return;
+  }
+  
   if(oldSku){
     let p = admin.products.find(p=>p.sku==oldSku);
     if(p){
       p.name=name; p.cat=cat; p.price=price; p.img=img; p.desc=desc;
     }
   } else {
-    // Adding new product; ensure unique SKU
-    if(admin.products.find(p=>p.sku==sku)){ alert("SKU already exists!"); return; }
+    if(admin.products.find(p=>p.sku==sku)){
+        showCustomModal('Validation Error', 'SKU already exists!', 'alert');
+        return;
+    }
     admin.products.push({sku,name,cat,price,img,desc,reviews:[]});
+  }
+  // Ensure new category is added to the list if it doesn't exist
+  if(!admin.cats.includes(cat)){
+      admin.cats.push(cat);
+      saveCats();
   }
   saveProducts(); admin.curProd=null; renderAdmin();
 }
+
+// Delete Product with Modal
 function delProd(sku){
-  if(confirm("Delete product?")){
-    admin.products=admin.products.filter(p=>p.sku!=sku);saveProducts();renderAdmin();
-  }
+    showCustomModal('Confirm Deletion', 'Are you sure you want to permanently delete product SKU: <b>'+sku+'</b>?', 'confirm', delProdConfirm, sku);
 }
+function delProdConfirm(sku){
+    admin.products=admin.products.filter(p=>p.sku!=sku);saveProducts();renderAdmin();
+}
+
 function addCat(){admin.curCat=true;renderAdmin();}
 function saveCat(){
   let v=document.getElementById("catval").value.trim();
-  if(v && !admin.cats.includes(v)){admin.cats.push(v);saveCats();}
+  if(!v){
+    showCustomModal('Validation Error', 'Category name cannot be empty.', 'alert');
+    return;
+  }
+  if(v && !admin.cats.includes(v)){
+    admin.cats.push(v);
+    saveCats();
+  }
   admin.curCat=false;renderAdmin();
 }
 function cancelCat(){admin.curCat=false;renderAdmin();}
+
+// Delete Category with Modal
 function delCat(c){
-  if(confirm("Delete category?")){
-    admin.cats=admin.cats.filter(x=>x!=c);saveCats();renderAdmin();
-  }
+    showCustomModal('Confirm Deletion', 'Are you sure you want to delete category: <b>'+c+'</b>? This will not remove products from the list.', 'confirm', delCatConfirm, c);
+}
+function delCatConfirm(c){
+    admin.cats=admin.cats.filter(x=>x!=c);
+    saveCats();
+    renderAdmin();
 }
 
 /** Utilities & small helpers **/
