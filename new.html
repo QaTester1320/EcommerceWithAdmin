@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>SPA E-commerce & Admin Demo (Updated Design)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    /* 🎨 **New Design/Color Palette (Monochromatic Dark Blue/Teal Accent)** */
+    :root {
+      --color-background: #12121e; /* Deep dark blue-black */
+      --color-surface: #1e1e2d; /* Slightly lighter surface for cards/panels */
+      --color-text-primary: #e0e0f0; /* Light, cool white */
+      --color-text-secondary: #a0a0c0; /* Muted text */
+      --color-accent-main: #00bcd4; /* Vibrant Teal/Cyan for primary action */
+      --color-accent-secondary: #0097a7; /* Darker teal */
+      --color-success: #4caf50;
+      --color-error: #f44336;
+      --color-warning: #ffb300;
+      --color-star: #ffc107;
+      --border-radius: 8px;
+      --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      font-family: 'Inter', sans-serif; /* Using a cleaner modern font */
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* --- Navigation --- */
+    .nav {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      min-height: 56px; /* Taller nav bar */
+      background: var(--color-surface);
+      border-bottom: 2px solid var(--color-accent-secondary);
+      padding: 0 16px;
+      box-shadow: var(--shadow-elevation-2);
+    }
+    .nav button {
+      padding: 8px 20px;
+      background: var(--color-accent-secondary);
+      color: var(--color-text-primary);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .nav button:hover:not(.selected) {
+      background: #008394;
+    }
+    .nav .selected {
+      background: var(--color-accent-main);
+      color: var(--color-background);
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 187, 212, 0.3);
+    }
+    
+    /* --- General Layout & Typography --- */
+    .app-section {
+      display: none;
+      padding: 20px 0;
+    }
+    .active {
+      display: block;
+    }
+    .container {
+      max-width: 1120px;
+      margin: auto;
+      padding: 0 16px;
+    }
+    h2 {
+      color: var(--color-accent-main);
+      border-bottom: 2px solid var(--color-surface);
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--border-radius);
+      padding: 20px 24px;
+      margin: 15px 0 25px 0;
+      box-shadow: var(--shadow-elevation-2);
+      transition: transform 0.2s;
+    }
+    .row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* --- Product Cards --- */
+    .product, .product-admin {
+      background: #252538; /* Darker than surface, distinct */
+      border-radius: var(--border-radius);
+      padding: 15px;
+      flex: 1 1 240px;
+      min-width: 220px;
+      margin: 10px 0;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .product:hover {
+      box-shadow: 0 0 15px rgba(0, 187, 212, 0.5); /* Accent glow on hover */
+      transform: translateY(-3px);
+    }
+    .product img, .product-admin img {
+      width: 100%;
+      height: 160px; /* Taller image */
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .product button, .product-admin button {
+      padding: 8px 12px;
+      margin: 4px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background 0.2s;
+    }
+    .product button:first-of-type, .product-admin button:first-of-type {
+      background: var(--color-accent-main);
+      color: var(--color-background);
+      font-weight: bold;
+    }
+    .product button:nth-of-type(2), .product button:nth-of-type(3),
+    .product-admin button:nth-of-type(2), .product-admin button:nth-of-type(3) {
+      background: #3e4a68; /* Muted secondary action */
+      color: var(--color-text-primary);
+    }
+    .mini-icons {
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .star {
+      color: var(--color-star);
+      font-size: 1.2em;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Better spacing for flex items */
+      margin-bottom: 5px;
+    }
+    .pname {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .cat-label {
+      font-size: .85em;
+      background: #3e4a68;
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-left: 7px;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+    .alert {
+      background: var(--color-error);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    .hidden {
+      display: none;
+    }
+
+    /* --- Forms & Inputs --- */
+    .input {
+      margin-bottom: 15px;
+    }
+    .input input, .input select {
+      padding: 10px 14px;
+      border-radius: 5px;
+      border: 1px solid #3e4a68;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    .input label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+    .error {
+      color: var(--color-error);
+      margin-top: 5px;
+      font-weight: bold;
+    }
+    .btn-main {
+      background: var(--color-accent-main);
+      color: var(--color-background);
+      font-weight: bold;
+      padding: 10px 18px;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .btn-main:hover {
+      background: #26e6ff;
+    }
+    
+    /* --- Admin Sidebar --- */
+    .sidebar {
+      width: 220px; /* Slightly wider */
+      min-height: calc(100vh - 56px); /* Full height minus nav */
+      background: #1e1e2d;
+      padding: 16px;
+      position: fixed; /* Fixed position for admin panel */
+      top: 56px;
+      left: 0;
+      border-radius: 0; /* Remove rounded corner for better flow */
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
+    }
+    .sidebar button {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      background: #252538;
+      border: none;
+      border-radius: 6px;
+      color: var(--color-text-primary);
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sidebar button:hover:not(.selected) {
+      background: #2d2d42;
+    }
+    .sidebar .selected {
+      background: var(--color-accent-main);
+      color: var(--color-background);
+      font-weight: bold;
+    }
+    .admin-main {
+      margin-left: 250px; /* Space for the fixed sidebar + padding */
+      padding: 20px 16px;
+    }
+
+    /* --- Detail & Review --- */
+    .review {
+      margin: 10px 0 15px 0;
+      padding-left: 10px;
+      border-left: 3px solid var(--color-accent-secondary);
+      background: #191928;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .review input[type="text"] {
+      width: 68%;
+    }
+    .account-box {
+      background: #1e1e2d;
+      padding: 25px;
+      border-radius: 12px;
+    }
+    .suggest-slider {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px dashed var(--color-surface);
+      border-radius: var(--border-radius);
+    }
+    .suggest-slider .product {
+      min-width: 140px;
+      max-width: 170px;
+      padding: 10px;
+    }
+    .right {
+      float: right
+    }
+    .badge {
+      background: var(--color-error);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 6px;
+      font-size: 0.75em;
+      font-weight: bold;
+      vertical-align: top;
+      display: inline-block;
+    }
+    .search-bar {
+      max-width: 400px;
+      display: flex;
+      gap: 10px;
+    }
+    .search-bar input {
+      flex-grow: 1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #3e4a68;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+    }
+    .fa {
+      margin-right: 8px;
+    }
+    
+    /* --- Simple modal --- */
+    .modal {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999; /* Higher z-index */
+      background: rgba(18, 18, 30, 0.75);
+      backdrop-filter: blur(3px); /* Subtle blur effect */
+    }
+    .modal-content {
+      background: var(--color-surface);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: var(--shadow-elevation-2);
+      border-top: 5px solid var(--color-accent-main);
+    }
+    .modal button {
+      margin: 15px 8px 0 8px;
+    }
+
+    /* --- Pagination --- */
+    .pagination {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #2d2d42;
+    }
+    .page-btn {
+      background: #252538;
+      color: var(--color-text-primary);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .page-btn:hover:not([disabled]) {
+      background: #3e4a68;
+    }
+    .page-btn[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .page-num {
+      background: #1e1e2d;
+      color: var(--color-text-secondary);
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .page-num.active {
+      background: var(--color-accent-main);
+      color: var(--color-background);
+      font-weight: bold;
+    }
+    
+    /* --- Tables --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.95em;
+    }
+    table th, table td {
+      border: 1px solid #2d2d42;
+      padding: 12px;
+      text-align: left;
+    }
+    table th {
+      background: #252538;
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+    table td {
+      color: var(--color-text-secondary);
+    }
+    table tr:nth-child(even) {
+      background: #191928;
+    }
+    table tr:hover {
+      background: #2d2d42;
+    }
+    
+    /* scrollbar tweaks for dark */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3e4a68;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #12121e;
+    }
+
+    /* --- Media Queries --- */
+    @media (max-width: 800px) {
+      .row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .sidebar {
+        display: none;
+      }
+      .admin-main {
+        margin-left: 0;
+      }
+      .search-bar {
+        max-width: 100%;
+        margin-top: 10px;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="nav">
+    <button onclick="showApp('shop')" id="nav-shop" class="selected"><i class="fa fa-store"></i>Shop</button>
+    <button onclick="showApp('admin')" id="nav-admin"><i class="fa fa-user-shield"></i>Admin</button>
+  </div>
+  <div class="container">
+    <div id="shop" class="app-section active"></div>
+    <div id="admin" class="app-section"></div>
+  </div>
+<script>
+/** Data & storage **/
+const DEMO_PRODUCTS = [
+  {sku:"SKU11",name:"Gaming Keyboard",cat:"Electronics",price:1999,img:"https://placehold.co/697x547?text=Gaming+Keyboard",desc:"RGB Wired Gaming Keyboard. Smooth keys.",reviews:[{by:"user123",star:5,text:"Cool!"}]},
+  {sku:"SKU22",name:"Artisan Mug",cat:"Kitchen",price:499,img:"https://placehold.co/697x547?text=Artisan+Mug",desc:"Hand-painted ceramic mug.",reviews:[]},
+  {sku:"SKU33",name:"Wireless Earbuds",cat:"Electronics",price:2599,img:"https://placehold.co/300x200?text=Electronics",desc:"Longest battery wireless Bluetooth buds.",reviews:[{by:"user123",star:4,text:"Good but not loud."}]},
+  {sku:"SKU44",name:"Yoga Mat",cat:"Fitness",price:799,img:"https://placehold.co/300x200?text=Fitness+Gear",desc:"Eco material, non-slip mat.",reviews:[]},
+  {sku:"SKU55",name:"Classic Novel",cat:"Books",price:299,img:"https://m.media-amazon.com/images/I/81iqZ2HHD-L.jpg",desc:"Paperback edition of timeless read.",reviews:[]}
+];
+const DEMO_CATS = ["Electronics","Kitchen","Fitness","Books"];
+const COUNTRIES = ["US", "INDIA", "RUSSIA", "JAPAN", "SOUTH KOREA", "BRAZIL", "DUBAI", "MEXICO", "CHINA", "SRI LANKA", "NEPAL", "UK", "FRANCE", "DENMARK", "ITALY", "ISERAL"];
+let state = { user: null, page: "home", cart: [], wishlist: [], compare: [], alert: null, search: "", detailsSku: null, show: "home" };
+let admin = {
+  mode: "dashboard",
+  logged: false,
+  products: [],
+  cats: [],
+  orders: [],
+  cust: [],
+  reviews: [],
+  curProd: null,
+  curCat: null,
+  curOrder: null,
+  paging: { products: {page:1}, orders: {page:1}, cust: {page:1}, reviews: {page:1} },
+  pageSize: 10
+};
+
+/** Demo DB creation & load **/
+function buildDummyDataIfMissing(){
+  // If no products/customers/orders exist yet, create deterministic dummy sets (80 items each)
+  if(!localStorage.getItem("ecmProducts") || !localStorage.getItem("ecmCust") || !sessionStorage.getItem("ecmOrders")){
+    // Start with base small products then append generated products to reach 80
+    const want = 80;
+    let products = DEMO_PRODUCTS.slice();
+    const categories = DEMO_CATS.slice();
+    let idx = 1;
+    while(products.length < want){
+      const sku = "DP" + String(1000 + products.length);
+      const cat = categories[(products.length) % categories.length];
+      products.push({
+        sku,
+        name: `Demo Product ${products.length+1}`,
+        cat,
+        price: Math.floor(199 + (products.length * 13) % 5000),
+        img: `https://placehold.co/300x200?text=Prod+${products.length+1}`,
+        desc: `Auto-generated product #${products.length+1} in ${cat}`,
+        reviews: []
+      });
+      idx++;
+    }
+    // Customers
+    let customers = [];
+    for(let i=0;i<want;i++){
+      customers.push({
+        user: `demo_user_${1000+i}`,
+        email: `demo${i}@example.com`,
+        phone: `+91-9${String(100000000 + i).slice(-9)}`,
+        orders: []
+      });
+    }
+    // Orders: create orders linking to customers and random product subsets
+    let orders = [];
+    for(let i=0;i<want;i++){
+      const cust = customers[i % customers.length].user;
+      // pick 1-4 items
+      const cnt = 1 + (i % 4);
+      const items = [];
+      for(let j=0;j<cnt;j++){
+        const pick = products[(i*3 + j) % products.length].sku;
+        items.push(pick);
+      }
+      const total = items.reduce((s,sku)=>s + (products.find(p=>p.sku==sku)?.price||0),0);
+      const id = (Date.now().toString().slice(-4)) + String(i).padStart(3,"0");
+      orders.push({id, user: cust, items, total});
+      customers[i % customers.length].orders.push(id);
+    }
+    localStorage.setItem("ecmProducts", JSON.stringify(products));
+    localStorage.setItem("ecmCats", JSON.stringify(categories));
+    localStorage.setItem("ecmCust", JSON.stringify(customers));
+    sessionStorage.setItem("ecmOrders", JSON.stringify(orders));
+  }
+}
+
+function initDemoDB(){
+  buildDummyDataIfMissing();
+}
+function loadState() {
+  admin.products = JSON.parse(localStorage.getItem("ecmProducts")||"[]");
+  admin.cats = JSON.parse(localStorage.getItem("ecmCats")||"[]");
+  admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders")||"[]");
+  admin.cust = JSON.parse(localStorage.getItem("ecmCust")||"[]");
+}
+function saveProducts() { localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
+function saveCats() { localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
+function saveOrders() { sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
+function saveCust() { localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
+
+/** SPA navigation **/
+function showApp(app){
+  document.getElementById("shop").classList.remove('active');
+  document.getElementById("admin").classList.remove('active');
+  document.getElementById("nav-shop").classList.remove('selected');
+  document.getElementById("nav-admin").classList.remove('selected');
+  document.getElementById(app).classList.add('active');
+  document.getElementById(app=='shop'?'nav-shop':'nav-admin').classList.add('selected');
+  if(app=="admin"){renderAdmin();} else {renderShop();}
+}
+initDemoDB(); loadState(); renderShop(); renderAdmin();
+
+/** --- FRONTEND SECTION (mostly unchanged) --- */
+function renderShop(){
+  loadState();
+  let html = '';
+  // NOT LOGGED IN: Show Login
+  if (!state.user && state.page=="login") {
+    html += `<div class="card" style="max-width:420px;margin:auto;">
+      <h2>Login</h2>
+      <div class="input"><label>Username:</label><input id="userLog" type="text" autofocus/></div>
+      <div class="input"><label>Password:</label><input id="passLog" type="password"/></div>
+      <button onclick="loginShop()" class="btn-main">Log In</button>
+      <div style="font-size:.97em;color:var(--color-text-secondary);margin-top:20px;">Demo login: <b>user123/user123</b> (only these work)</div>
+      <div id="elog" class="error"></div>
+    </div>`;
+    document.getElementById("shop").innerHTML=html;
+    return;
+  }
+  // MY ACCOUNT PAGE
+  if (state.page=="account" && state.user) {
+    let orders = admin.orders.filter(o=>o.user===state.user);
+    html += `<div class="card account-box"><h2>My Account</h2>
+       <div>Username: <b>${state.user}</b></div>
+       <div><b>Order History</b> (${orders.length}):${orders.map((o,i)=>`<br> #${o.id}, ${o.items.length} items, ₹${o.total}`)}</div>
+     <button onclick="shopTo('home')" class="btn-main">Back</button>
+    </div>`;
+    document.getElementById("shop").innerHTML=html; return;
+  }
+  // PRODUCT DETAILS?
+  if (state.page=="details" && state.detailsSku){
+    let p = admin.products.find(p=>p.sku==state.detailsSku);
+    if(!p) { html = 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
+    html += `<div class="row">
+      <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px"><br>
+        <span class="pname">${p.name}</span>
+        <span class="cat-label">${p.cat}</span><br>
+        <b>₹${p.price}</b> <span style="float:right">SKU: <b>${p.sku}</b></span>
+        <br><small style="color:var(--color-text-secondary);">${p.desc}</small><br><br>
+        <button onclick="addToCart('${p.sku}')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+        <button onclick="toggleWish('${p.sku}')"><i class="fa fa-heart"></i></button>
+        <button onclick="toggleCompare('${p.sku}')"><i class="fa fa-list"></i></button>
+        <br><b>Reviews (${p.reviews.length}):</b>
+        ${p.reviews.map(r=>`<div class="review"><span class="star">${"★".repeat(r.star)}</span> <b>${r.by}</b>: ${r.text}</div>`).join("")}
+        ${state.user?`
+        <form onsubmit="event.preventDefault();addReview('${p.sku}')">
+         <input type="number" min="1" max="5" id="revstar" placeholder="Stars" required style="width:50px;"/>
+         <input type="text" id="revtext" maxlength="100" placeholder="Your review..." required/>
+         <button type="submit" class="btn-main">Post Review</button></form>`:"<div style='color:var(--color-error);margin-top:10px;'>Login to post review.</div>"}
+      </div>
+      <div class="suggest-slider" style="flex:1;">
+        <b>Product Suggestions</b>:<div class="row" style="margin-top:10px; flex-direction:column; gap:10px;">`+
+        admin.products.filter(q=>q.sku!=p.sku).slice(0,3)
+          .map(q=>`<div class="product" onclick="shopTo('details','${q.sku}')" style="min-width: unset; flex:none;">
+          <img src="${q.img}"><div class="pname" style="margin-bottom:0;">${q.name}</div><div style="color:var(--color-accent-main); font-weight:bold;">₹${q.price}</div></div>`).join('')+
+      `</div></div>
+    </div>
+    <button onclick="shopTo('home')" class="btn-main" style="margin-top:15px;">Back to Shop</button>`;
+    document.getElementById("shop").innerHTML=html; return;
+  }
+  // CHECKOUT
+  if(state.page=="checkout"){
+    html = `<div class="card" style="max-width:500px; margin:auto;"><h2>Checkout</h2>
+     <form onsubmit="event.preventDefault();saveOrder()">
+      ${['Name','Email','Address','Phone'].map(f=>`<div class="input"><label>${f}</label><input id="co${f}" required></div>`).join('')}
+      <div class="input"><label>Country</label>
+        <select id="coCountry" required>
+        ${COUNTRIES.map(c=>`<option>${c}</option>`).join('')}
+        </select>
+      </div>
+      <div class="input"><label>Payment</label>
+        <select id="coPay" required>
+          <option>Visa</option><option>Master Card</option><option>Credit Card</option>
+        </select>
+      </div>
+      <div style="margin-top:20px;">
+        <button type="submit" class="btn-main">Submit Order</button>
+        <button type="button" onclick="shopTo('cart')" class="btn-main" style="background:var(--color-text-secondary);">Back to Cart</button>
+      </div>
+     </form>
+    </div>`;
+    document.getElementById("shop").innerHTML=html; return;
+  }
+  // CART/MINICART
+  if(state.page=="cart"){
+    if(state.cart.length==0){document.getElementById("shop").innerHTML=`<h2>Cart</h2><div class="alert">Cart is empty.</div>
+      <button onclick="shopTo('home')" class="btn-main">Back to shop</button>`;return;}
+    let s=0;
+    let items = state.cart.map(sku=>{
+      let p=admin.products.find(p=>p.sku==sku); s+=p.price;
+      return `<div class="flex" style="border-bottom:1px dashed #2d2d42; padding:10px 0;"><b>${p.name}</b> - <span style="color:var(--color-accent-main);">₹${p.price}</span><span class="right"><button onclick="cartRemove('${sku}')" style="background:var(--color-error);color:#fff;">Remove</button></span></div>`;
+    }).join('');
+    document.getElementById("shop").innerHTML=
+    `<div class="card"><h2>Cart</h2>${items}<hr style="border-color:#2d2d42;">Total: <b style="color:var(--color-accent-main);">₹${s}</b><br>
+    <div style="margin-top:20px;">
+      <button onclick="shopTo('checkout')" class="btn-main">Checkout</button>
+      <button onclick="shopTo('home')" class="btn-main" style="background:var(--color-text-secondary);">Continue Shopping</button>
+    </div></div>`;
+    return;
+  }
+  // ALL PRODUCTS PAGE, CATEGORY, SEARCH, MINICART, WISHLIST/COMPARE, HEADER/FOOTER
+  html += `
+  <div style="display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px solid var(--color-surface);">
+    <div>
+      <button onclick="shopTo('account')" ${state.user?'':'disabled'} title="My Account" style="background:#3e4a68;"><i class="fa fa-user"></i></button>
+      <button onclick="shopTo('cart')" title="Cart" style="background:var(--color-success);"><i class="fa fa-shopping-cart"></i><span class="badge">${state.cart.length}</span></button>
+      <button onclick="shopTo('wishlist')" title="Wishlist" style="background:var(--color-error);"><i class="fa fa-heart"></i><span class="badge">${state.wishlist.length}</span></button>
+      <button onclick="shopTo('compare')" title="Compare" style="background:var(--color-warning);"><i class="fa fa-list"></i><span class="badge">${state.compare.length}</span></button>
+    </div>
+    <div class="search-bar">
+      <input id="searchinp" placeholder="Search product or SKU" value="${state.search||""}"/>
+      <button onclick="shopTo('search',document.getElementById('searchinp').value)" class="btn-main">Search</button>
+    </div>
+    <div>
+      ${state.user?`<span style="font-weight:bold;">Hello, ${state.user}! <a href="#" style="color:var(--color-error);" onclick="logoutShop()">Logout</a></span>`
+      :`<button onclick="shopTo('login')" class="btn-main">Login</button>`}
+    </div>
+  </div>
+  <div style="margin-top:20px; margin-bottom:10px; font-size:1.1em; color:var(--color-text-secondary); font-weight:500;">
+    <i class="fa fa-tags"></i> Categories: 
+    <button onclick="shopTo('home')" style="background:#3e4a68; color:#e0e0f0; border:none; border-radius:15px; padding:5px 12px; margin-left:5px;">All</button>
+    `+admin.cats.map(c=>`<button onclick="shopTo('cat','${c}')" style="background:#3e4a68; color:#e0e0f0; border:none; border-radius:15px; padding:5px 12px; margin-left:5px;">${c}</button>`).join(' ')
+    +`</div><hr style="border-color:#2d2d42;">`;
+  // WISHLIST
+  if(state.page=="wishlist"){
+    let items = state.wishlist.map(sku=>{
+      let p=admin.products.find(p=>p.sku==sku);
+      return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
+        <div style="display:flex; gap:10px;">
+          <button onclick="shopTo('details','${p.sku}')" style="background:#3e4a68;"><i class="fa fa-eye"></i></button>
+          <button onclick="wishlistRemove('${p.sku}')" style="background:var(--color-error);"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>`;
+    }).join('');
+    document.getElementById("shop").innerHTML = `<h2>Wishlist</h2>${items||"<div class='alert'>Wishlist is empty.</div>"}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
+  }
+  // COMPARE
+  if(state.page=="compare"){
+    let items = state.compare.map(sku=>{
+      let p=admin.products.find(p=>p.sku==sku);
+      return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
+        <div style="display:flex; gap:10px;">
+          <button onclick="shopTo('details','${p.sku}')" style="background:#3e4a68;"><i class="fa fa-eye"></i></button>
+          <button onclick="compareRemove('${p.sku}')" style="background:var(--color-error);"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>`;
+    }).join('');
+    document.getElementById("shop").innerHTML = `<h2>Compare List</h2>${items||"<div class='alert'>Compare list is empty.</div>"}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
+  }
+  // PRODUCT LIST
+  let products = admin.products.slice();
+  if(state.page=="cat" && state.detailsSku) products = products.filter(p=>p.cat==state.detailsSku);
+  if(state.page=="search" && state.detailsSku) {
+    let q = state.detailsSku.toLowerCase();
+    products = products.filter(p=>p.name.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q));
+    html += `<div style="margin-bottom:15px; color:var(--color-text-secondary);">Search for <b style="color:var(--color-text-primary);">${state.detailsSku}</b>: ${products.length} found.</div>`;
+  }
+  html += '<div class="row">';
+  products.forEach(p=>{
+    html+=`<div class="product">
+      <img src="${p.img}" onclick="shopTo('details','${p.sku}')" alt="${p.name}" style="cursor:pointer;"/>
+      <div style="min-height:48px;"><span class="pname">${p.name}</span><span class="cat-label">${p.cat}</span></div>
+      <div style="margin-bottom:10px; font-size:1.2em; color:var(--color-accent-main); font-weight:bold;">₹${p.price} <span class="right" style="font-size:0.8em; color:var(--color-text-secondary);">SKU: <b>${p.sku}</b></span></div>
+      <div style="display:flex; justify-content:space-between; gap:5px;">
+        <button onclick="addToCart('${p.sku}')" style="flex-grow:1;"><i class="fa fa-cart-plus"></i> Add</button>
+        <button onclick="toggleWish('${p.sku}')" style="width:40px; background:#3e4a68;"><i class="fa fa-heart"></i></button>
+        <button onclick="toggleCompare('${p.sku}')" style="width:40px; background:#3e4a68;"><i class="fa fa-list"></i></button>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById("shop").innerHTML=html;
+}
+function shopTo(page, val){
+  if(page=='wishlist'||page=='compare')
+    if(!state.user){state.page='login';renderShop();return;}
+  state.page = page;
+  state.detailsSku = val||null;
+  renderShop();
+}
+function loginShop(){
+  let u = document.getElementById("userLog").value;
+  let p = document.getElementById("passLog").value;
+  if(u=="user123"&&p=="user123"){state.user=u;state.page='home';renderShop();return;}
+  document.getElementById("elog").textContent = "Invalid credentials.";
+}
+function logoutShop(){state.user=null;state.page='login';renderShop();}
+function addToCart(sku){
+  if(!state.user){state.page='login';renderShop();return;}
+  if(!state.cart.includes(sku)){state.cart.push(sku);}
+  renderShop();
+}
+function cartRemove(sku){
+  if(confirm("Remove item from cart?")){state.cart=state.cart.filter(x=>x!=sku);}
+  renderShop();
+}
+function toggleWish(sku){
+  if(!state.user){state.page='login';renderShop();return;}
+  if(state.wishlist.includes(sku))state.wishlist=state.wishlist.filter(x=>x!=sku);
+  else state.wishlist.push(sku);
+  renderShop();
+}
+function wishlistRemove(sku){state.wishlist=state.wishlist.filter(x=>x!=sku);renderShop();}
+function toggleCompare(sku){
+  if(!state.user){state.page='login';renderShop();return;}
+  if(state.compare.includes(sku))state.compare=state.compare.filter(x=>x!=sku);
+  else state.compare.push(sku);
+  renderShop();
+}
+function compareRemove(sku){state.compare=state.compare.filter(x=>x!=sku);renderShop();}
+function addReview(sku){
+  let s = Number(document.getElementById("revstar").value), t = document.getElementById("revtext").value.trim();
+  if(!s||!t)return;let p=admin.products.find(p=>p.sku==sku);
+  if(p){p.reviews.push({by:state.user,star:s,text:t});saveProducts();renderShop();}
+}
+function saveOrder(){
+  let name = document.getElementById("coName").value.trim();
+  let email = document.getElementById("coEmail").value.trim();
+  let addr = document.getElementById("coAddress").value.trim();
+  let phone = document.getElementById("coPhone").value.trim();
+  let country = document.getElementById("coCountry").value;
+  let pay = document.getElementById("coPay").value;
+  if(!name||!email||!addr||!phone||!country||!pay){alert('All fields required!');return;}
+  let id = Date.now().toString().slice(-6);
+  let total = state.cart.map(sku=>admin.products.find(p=>p.sku==sku).price).reduce((x,y)=>x+y,0);
+  admin.orders.push({id,user:state.user,items:[...state.cart],total});
+  saveOrders();
+  state.cart=[];state.page="home";alert("Order placed. Thank you!");renderShop();
+}
+
+/** --- ADMIN SECTION --- */
+function renderAdmin(){
+  loadState();
+  if(!admin.logged){document.getElementById("admin").innerHTML=`<div class="card" style="max-width:340px;margin:auto;">
+    <h2>Admin Login</h2><div class="input"><label>User</label><input id="aduser"></div>
+    <div class="input"><label>Password</label><input id="adpass" type="password"></div>
+    <button onclick="loginAdmin()" class="btn-main">Login</button><br>
+    <small style="color:var(--color-text-secondary); margin-top:10px; display:block;">Try: <b>admin/admin</b></small><div id="aderr" class="error"></div>
+    </div>`;return;}
+  let sidebar = `<div class="sidebar">
+    <button onclick="adminNav('dashboard')" class="${admin.mode=='dashboard'?'selected':''}"><i class="fa fa-table"></i> Dashboard</button>
+    <button onclick="adminNav('products')" class="${admin.mode=='products'?'selected':''}"><i class="fa fa-cube"></i> Products</button>
+    <button onclick="adminNav('cats')" class="${admin.mode=='cats'?'selected':''}"><i class="fa fa-folder"></i> Categories</button>
+    <button onclick="adminNav('orders')" class="${admin.mode=='orders'?'selected':''}"><i class="fa fa-receipt"></i> Orders</button>
+    <button onclick="adminNav('cust')" class="${admin.mode=='cust'?'selected':''}"><i class="fa fa-user"></i> Customers</button>
+    <button onclick="adminNav('reviews')" class="${admin.mode=='reviews'?'selected':''}"><i class="fa fa-star"></i> Reviews</button>
+    <button onclick="adminNav('settings')" class="${admin.mode=='settings'?'selected':''}"><i class="fa fa-cogs"></i> Settings</button>
+    <button onclick="adminNav('profile')" class="${admin.mode=='profile'?'selected':''}"><i class="fa fa-user"></i> My Account</button>
+    <button onclick="adminLogout()" style="margin-top:20px; background:var(--color-error);"><i class="fa fa-sign-out"></i> Logout</button>
+    </div>`;
+  let main = '<div class="admin-main">';
+  // Dashboard
+  if(admin.mode=="dashboard") main+=`<div class="card"><h2>Dashboard</h2>
+    <p style="font-size:1.1em;">Products: <b style="color:var(--color-accent-main);">${admin.products.length}</b>, 
+    Orders: <b style="color:var(--color-accent-main);">${admin.orders.length}</b>, 
+    Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b></p>
+    <div style="margin-top:20px;"><b>Sales Trend:</b><br> <svg width="280" height="70"><polyline fill="none" stroke="var(--color-accent-main)" stroke-width="4" 
+        points="5,60 50,${Math.max(10,60-3*admin.orders.length%50)} 100,${Math.max(10,60-2*admin.products.length%50)} 150,45 200,30 250,60" stroke-linecap="round"/></svg>
+    </div></div>`;
+  // Products CRUD with pagination
+  if(admin.mode=="products"){
+    // pagination helpers
+    const pageSize = admin.pageSize;
+    const pageState = admin.paging.products;
+    const total = admin.products.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
+    const startIdx = (pageState.page - 1) * pageSize;
+    const pageItems = admin.products.slice(startIdx, startIdx + pageSize);
+
+    main+=`<div class="card"><h2>Products <button onclick="addEditProd('__new__')" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
+      <div style="margin-top:15px;">${pageItems.map(p=>`<div class="product-admin flex" style="align-items:center; padding:10px; cursor:default;">
+        <img src="${p.img}" style="max-width:60px; height:60px; margin-right:15px;">
+        <div style="flex-grow:1;">
+          <b style="font-size:1.1em;">${p.name}</b> <span class="cat-label">${p.cat}</span><br> 
+          <span style="color:var(--color-accent-main); font-weight:bold;">₹${p.price}</span>, SKU: ${p.sku}
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button onclick="addEditProd('${p.sku}')" style="background:#3e4a68;"><i class="fa fa-edit"></i> Edit</button>
+          <button onclick="delProd('${p.sku}')" style="background:var(--color-error);"><i class="fa fa-trash"></i> Del</button>
+        </div>
+      </div>`).join("")}</div>
+      
+      <div class="pagination" style="margin-top:20px;">
+        <button class="page-btn" onclick="adminPageChange('products', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
+        ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('products', ${i+1})">${i+1}</button>`).join('')}
+        <button class="page-btn" onclick="adminPageChange('products', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+      </div>
+    </div>`;
+
+    // Add/edit form modal (if admin.curProd not null)
+    if(admin.curProd !== null){
+      let p = (typeof admin.curProd === 'string' && admin.curProd!=="__new__") ? admin.products.find(x=>x.sku==admin.curProd) : null;
+      if(admin.curProd === "__new__") p = {};
+      main+=`<div class="modal"><div class="modal-content">
+        <h3>${p && p.sku?'Edit':'Add'} Product</h3>
+        <div class="input"><label>Name</label><input id="prName" value="${p && p.name?escapeHtml(p.name):''}"></div>
+        <div class="input"><label>SKU</label><input id="prSKU" value="${p && p.sku?escapeHtml(p.sku):''}" ${p && p.sku?"readonly":""}></div>
+        <div class="input"><label>Category</label><input id="prCat" value="${p && p.cat?escapeHtml(p.cat):''}"></div>
+        <div class="input"><label>Price</label><input id="prPrice" type="number" value="${p && p.price?p.price:''}"></div>
+        <div class="input"><label>Image URL</label><input id="prImg" value="${p && p.img?escapeHtml(p.img):''}"></div>
+        <div class="input"><label>Description</label><input id="prDesc" value="${p && p.desc?escapeHtml(p.desc):''}"></div>
+        <button onclick="saveProd('${p && p.sku ? p.sku : ''}')" class="btn-main">Save</button>
+        <button onclick="cancelEditProd()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
+    }
+  }
+  // Categories CRUD
+  if(admin.mode=='cats'){
+    main+=`<div class="card"><h2>Categories  <button onclick="addCat()" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
+      <div style="margin-top:15px;">${admin.cats.map(c=>`<span class="cat-label" style="font-size:1.1em; display:inline-flex; align-items:center; margin:5px;">${c} 
+        <button onclick="delCat('${c}')" style="background:var(--color-error); padding:3px 7px; border-radius:50%; margin-left:7px;"><i class="fa fa-times"></i></button></span>`
+      ).join("")}</div></div>`;
+    if(admin.curCat){
+      main+=`<div class="modal"><div class="modal-content">
+        <h3>Add Category</h3>
+        <input id="catval" placeholder="Category Name" style="width:70%;"><button onclick="saveCat()" class="btn-main">Save</button>
+        <button onclick="cancelCat()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
+    }
+  }
+  // Orders with pagination
+  if(admin.mode=="orders"){
+    const pageSize = admin.pageSize;
+    const pageState = admin.paging.orders;
+    const total = admin.orders.length;
+    const totalPages = Math.max(1, Math.ceil(total/pageSize));
+    pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
+    const startIdx = (pageState.page-1)*pageSize;
+    const pageItems = admin.orders.slice(startIdx, startIdx+pageSize);
+
+    main+=`<div class="card"><h2>Orders</h2>
+      <table>
+        <thead><tr><th>ID</th><th>User</th><th>Total</th><th>Items Count</th></tr></thead>
+        <tbody>
+        ${pageItems.map(o=>`<tr>
+          <td style="font-weight:bold;">#${o.id}</td>
+          <td>${o.user}</td>
+          <td style="color:var(--color-accent-main); font-weight:bold;">₹${o.total}</td>
+          <td>${o.items.length}</td>
+        </tr>`).join('')||'<tr><td colspan="4">No orders.</td></tr>'}
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button class="page-btn" onclick="adminPageChange('orders', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
+        ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('orders', ${i+1})">${i+1}</button>`).join('')}
+        <button class="page-btn" onclick="adminPageChange('orders', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+      </div>
+    </div>`;
+  }
+  // Customers with pagination
+ // --- CUSTOMERS TABLE ---
+  if(admin.mode=="cust"){
+    const pageSize = admin.pageSize;
+    const pageState = admin.paging.cust;
+    const total = admin.cust.length;
+    const totalPages = Math.max(1, Math.ceil(total/pageSize));
+    pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
+    const startIdx = (pageState.page-1)*pageSize;
+    const pageItems = admin.cust.slice(startIdx, startIdx+pageSize);
+
+    main+=`<div class="card"><h2>Customers</h2>
+      <table>
+        <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Orders</th></tr></thead>
+        <tbody>
+        ${pageItems.map(u=>`<tr>
+          <td style="font-weight:bold; color:var(--color-accent-main);">${u.user}</td>
+          <td>${u.email}</td>
+          <td>${u.phone}</td>
+          <td>${u.orders.join(', ')}</td>
+        </tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button class="page-btn" onclick="adminPageChange('cust', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
+        ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('cust', ${i+1})">${i+1}</button>`).join('')}
+        <button class="page-btn" onclick="adminPageChange('cust', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+      </div>
+    </div>`;
+  }
+  // Reviews read-only with pagination (aggregate product reviews)
+  if(admin.mode=="reviews"){
+    const reviewRows = admin.products.flatMap(p=>p.reviews.map(r=>({...r, prod: p.name, sku: p.sku})));
+    const pageSize = admin.pageSize;
+    const pageState = admin.paging.reviews;
+    const total = reviewRows.length;
+    const totalPages = Math.max(1, Math.ceil(total/pageSize));
+    pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
+    const startIdx = (pageState.page-1)*pageSize;
+    const pageItems = reviewRows.slice(startIdx, startIdx+pageSize);
+
+    main+=`<div class="card"><h2>Reviews</h2>
+      <div style="margin-top:15px;">${pageItems.map(r=>`<div class="review">
+        <b style="color:var(--color-accent-main);">${r.prod}</b> [${r.sku}]: <span class="star">${'★'.repeat(r.star)}</span>
+        <b>${r.by}</b> - ${r.text}</div>`).join('')||'No reviews.'}</div>
+      <div class="pagination">
+        <button class="page-btn" onclick="adminPageChange('reviews', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
+        ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('reviews', ${i+1})">${i+1}</button>`).join('')}
+        <button class="page-btn" onclick="adminPageChange('reviews', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+      </div>
+    </div>`;
+  }
+  // Settings/Marketing/Reports (demo simple forms)
+  if(admin.mode=="settings"){
+    main+=`<div class="card"><h2>Settings</h2>
+      <div class="input"><label>Store Name:</label> <input value="SPA Demo Store"></div>
+      <div class="input"><label>Enable Demo Marketing: <input type="checkbox" style="width:auto;"></label></div>
+      <button class="btn-main">Save Settings</button>
+    </div>`;
+  }
+  // Profile
+  if(admin.mode=="profile"){
+    main+=`<div class="card"><h2>My Profile</h2>
+      <div><b>Username:</b> admin</div>
+      <div>Last login: just now</div>
+    </div>`;
+  }
+  main+='</div>';
+  document.getElementById("admin").innerHTML = sidebar+main;
+}
+
+function adminPageChange(section, pageNum){
+  const pageSize = admin.pageSize;
+  if(!admin.paging[section]) admin.paging[section] = {page:1};
+  const total = section==='cust'? admin.cust.length : section==='products'? admin.products.length : section==='orders'? admin.orders.length : section==='reviews'? admin.products.flatMap(p=>p.reviews).length : 0;
+  const totalPages = Math.max(1, Math.ceil(total/pageSize));
+  admin.paging[section].page = Math.min(Math.max(1, pageNum), totalPages);
+  renderAdmin();
+}
+
+function adminNav(mode){admin.mode=mode;admin.curProd=null;admin.curCat=null;renderAdmin();}
+function loginAdmin(){if(document.getElementById("aduser").value=="admin" && document.getElementById("adpass").value=="admin"){admin.logged=true;renderAdmin();}else{document.getElementById("aderr").textContent='Wrong credentials.';}}
+function adminLogout(){admin.logged=false;renderAdmin();}
+
+// Fix Add/Edit product behavior
+function addEditProd(skuOrNew){
+  // When called with "__new__" create a new product modal
+  if(skuOrNew === "__new__"){
+    admin.curProd = "__new__"; // truthy marker
+  } else {
+    admin.curProd = skuOrNew || null;
+  }
+  renderAdmin();
+}
+function cancelEditProd(){admin.curProd=null;renderAdmin();}
+function saveProd(oldSku){
+  // read inputs
+  const name = document.getElementById("prName").value.trim();
+  const sku = document.getElementById("prSKU").value.trim();
+  const cat = document.getElementById("prCat").value.trim();
+  const price = Number(document.getElementById("prPrice").value);
+  const img = document.getElementById("prImg").value.trim();
+  const desc = document.getElementById("prDesc").value.trim();
+  if(!name||!sku||!cat||!price||!img||!desc){alert("All fields required!");return;}
+  // If editing existing
+  if(oldSku){
+    let p = admin.products.find(p=>p.sku==oldSku);
+    if(p){
+      p.name=name; p.cat=cat; p.price=price; p.img=img; p.desc=desc;
+    }
+  } else {
+    // Adding new product; ensure unique SKU
+    if(admin.products.find(p=>p.sku==sku)){ alert("SKU already exists!"); return; }
+    admin.products.push({sku,name,cat,price,img,desc,reviews:[]});
+  }
+  saveProducts(); admin.curProd=null; renderAdmin();
+}
+function delProd(sku){
+  if(confirm("Delete product?")){
+    admin.products=admin.products.filter(p=>p.sku!=sku);saveProducts();renderAdmin();
+  }
+}
+function addCat(){admin.curCat=true;renderAdmin();}
+function saveCat(){
+  let v=document.getElementById("catval").value.trim();
+  if(v && !admin.cats.includes(v)){admin.cats.push(v);saveCats();}
+  admin.curCat=false;renderAdmin();
+}
+function cancelCat(){admin.curCat=false;renderAdmin();}
+function delCat(c){
+  if(confirm("Delete category?")){
+    admin.cats=admin.cats.filter(x=>x!=c);saveCats();renderAdmin();
+  }
+}
+
+/** Utilities & small helpers **/
+function escapeHtml(s){
+  if(!s) return '';
+  return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];});
+}
+
+/** Initialize demo data if missing, plus small helper to keep UI responsive **/
+(function bootstrap(){
+  initDemoDB();
+  loadState();
+})();
+</script>
+</body>
+</html>
