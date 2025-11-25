@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>SPA E-commerce & Admin Demo (Colorful Images)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SPA E-commerce & Admin Demo (Updated)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
     body { background:#181a22; color:#ecf0fa; font-family:sans-serif; margin:0;}
@@ -16,10 +15,8 @@
     h2 {color:#37baee;}
     .card {background:#23273a;border-radius:12px;padding:13px 16px;margin:7px 0 15px 0;box-shadow:0 3px 13px #0002;}
     .row {display:flex;gap:22px;flex-wrap:wrap;}
-    .product, .product-admin {background:#262c3c;border-radius:9px;padding:10px 16px;flex:1 1 230px;min-width:210px;margin:10px;position:relative;overflow:hidden;}
-    /* Image container with colorful background behind the actual image */
-    .img-wrap {width:100%;height:134px;border-radius:5px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff;}
-    .product img,.product-admin img {width:100%;height:134px;object-fit:cover;border-radius:5px;display:block;}
+    .product, .product-admin {background:#262c3c;border-radius:9px;padding:10px 16px;flex:1 1 230px;min-width:210px;margin:10px;}
+    .product img,.product-admin img {width:100%;height:134px;object-fit:cover;border-radius:5px;}
     .product button,.product-admin button {padding:6px 10px;margin:3px;}
     .mini-icons {font-size:1.1em;cursor:pointer;margin-left:7px;}
     .star {color:#f2b622;}
@@ -51,12 +48,14 @@
     .modal{position:fixed;left:0;top:0;width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;z-index:900;background:rgba(20,20,30,0.45);}
     .modal-content{background:#23273a;padding:22px 27px;border-radius:19px;max-width:420px;text-align:center;}
     .modal button{margin:10px;}
-    .pagination {display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap;}
+    .pagination {display:flex;gap:8px;align-items:center;margin-top:12px;}
     .page-btn {background:#2b2f44;color:#fff;padding:6px 10px;border-radius:8px;border:none;cursor:pointer;}
     .page-btn[disabled]{opacity:0.4;cursor:not-allowed;}
     .page-num {background:#1f2330;color:#9fb0d6;padding:6px 8px;border-radius:6px;cursor:pointer;}
     .page-num.active {background:#37baee;color:#181a22;font-weight:bold;}
-    .small-muted {color:#9fb0d6;font-size:0.95em;margin-left:12px;}
+        table {width:100%;border-collapse:collapse;margin-top:10px;}
+    table th, table td {border:1px solid #323850;padding:8px;text-align:left;}
+    table th {background:#2e3c60;}
     /* scrollbar tweaks for dark */
     ::-webkit-scrollbar {width: 12px;}
     ::-webkit-scrollbar-thumb {background: #28324d;}
@@ -73,21 +72,8 @@
     <div id="shop" class="app-section active"></div>
     <div id="admin" class="app-section"></div>
   </div>
-
 <script>
-/* ---------------------
-   Helper: Colorful image generator (Unsplash seeded)
-   --------------------- */
-function getColorfulImage(seed){
-  // Use keywords to bias towards colorful / gradient / abstract images.
-  // 300x200 gives a good card aspect ratio in this layout.
-  // sig=seed helps keep images consistent per product.
-  return `https://source.unsplash.com/300x200/?gradient,mesh,abstract,colorful,texture&sig=${encodeURIComponent(seed)}`;
-}
-
-/* ---------------------
-   Data & storage (preserve original structure & keys)
-   --------------------- */
+/** Data & storage **/
 const DEMO_PRODUCTS = [
   {sku:"SKU11",name:"Gaming Keyboard",cat:"Electronics",price:1999,img:"https://placehold.co/697x547?text=Gaming+Keyboard",desc:"RGB Wired Gaming Keyboard. Smooth keys.",reviews:[{by:"user123",star:5,text:"Cool!"}]},
   {sku:"SKU22",name:"Artisan Mug",cat:"Kitchen",price:499,img:"https://placehold.co/697x547?text=Artisan+Mug",desc:"Hand-painted ceramic mug.",reviews:[]},
@@ -97,7 +83,6 @@ const DEMO_PRODUCTS = [
 ];
 const DEMO_CATS = ["Electronics","Kitchen","Fitness","Books"];
 const COUNTRIES = ["US", "INDIA", "RUSSIA", "JAPAN", "SOUTH KOREA", "BRAZIL", "DUBAI", "MEXICO", "CHINA", "SRI LANKA", "NEPAL", "UK", "FRANCE", "DENMARK", "ITALY", "ISERAL"];
-
 let state = { user: null, page: "home", cart: [], wishlist: [], compare: [], alert: null, search: "", detailsSku: null, show: "home" };
 let admin = {
   mode: "dashboard",
@@ -114,39 +99,30 @@ let admin = {
   pageSize: 10
 };
 
-/* ---------------------
-   Build deterministic dummy data (80 items) if missing
-   - ensures every product gets a colorful image using getColorfulImage(seed)
-   --------------------- */
+/** Demo DB creation & load **/
 function buildDummyDataIfMissing(){
+  // If no products/customers/orders exist yet, create deterministic dummy sets (80 items each)
   if(!localStorage.getItem("ecmProducts") || !localStorage.getItem("ecmCust") || !sessionStorage.getItem("ecmOrders")){
+    // Start with base small products then append generated products to reach 80
     const want = 80;
-    let products = DEMO_PRODUCTS.slice(); // shallow copy existing ones
+    let products = DEMO_PRODUCTS.slice();
     const categories = DEMO_CATS.slice();
+    let idx = 1;
     while(products.length < want){
-      const idx = products.length + 1;
       const sku = "DP" + String(1000 + products.length);
-      const cat = categories[products.length % categories.length];
-      // use getColorfulImage with deterministic seed based on sku
+      const cat = categories[(products.length) % categories.length];
       products.push({
         sku,
-        name: `Demo Product ${idx}`,
+        name: `Demo Product ${products.length+1}`,
         cat,
         price: Math.floor(199 + (products.length * 13) % 5000),
-        img: getColorfulImage(sku), // colorful image
-        desc: `Auto-generated product #${idx} in ${cat}`,
+        img: `https://placehold.co/300x200?text=Prod+${products.length+1}`,
+        desc: `Auto-generated product #${products.length+1} in ${cat}`,
         reviews: []
       });
+      idx++;
     }
-    // Ensure even the base DEMO_PRODUCTS get colorful images (override their img)
-    products = products.map((p, i) => {
-      // Seed by sku if present, otherwise by index
-      const seed = p.sku || ('seed' + i);
-      // override to colorful image to ensure consistent colorful background for all products
-      return Object.assign({}, p, { img: getColorfulImage(seed) });
-    });
-
-    // customers
+    // Customers
     let customers = [];
     for(let i=0;i<want;i++){
       customers.push({
@@ -156,22 +132,22 @@ function buildDummyDataIfMissing(){
         orders: []
       });
     }
-    // orders
+    // Orders: create orders linking to customers and random product subsets
     let orders = [];
     for(let i=0;i<want;i++){
       const cust = customers[i % customers.length].user;
+      // pick 1-4 items
       const cnt = 1 + (i % 4);
       const items = [];
       for(let j=0;j<cnt;j++){
         const pick = products[(i*3 + j) % products.length].sku;
         items.push(pick);
       }
-      const total = items.reduce((s,sku)=> s + (products.find(p=>p.sku==sku)?.price || 0), 0);
+      const total = items.reduce((s,sku)=>s + (products.find(p=>p.sku==sku)?.price||0),0);
       const id = (Date.now().toString().slice(-4)) + String(i).padStart(3,"0");
       orders.push({id, user: cust, items, total});
       customers[i % customers.length].orders.push(id);
     }
-
     localStorage.setItem("ecmProducts", JSON.stringify(products));
     localStorage.setItem("ecmCats", JSON.stringify(categories));
     localStorage.setItem("ecmCust", JSON.stringify(customers));
@@ -179,39 +155,21 @@ function buildDummyDataIfMissing(){
   }
 }
 
-/* ---------------------
-   Load / Save helpers
-   --------------------- */
-function initDemoDB(){ buildDummyDataIfMissing(); }
-function loadState(){
-  admin.products = JSON.parse(localStorage.getItem("ecmProducts") || "[]");
-  admin.cats = JSON.parse(localStorage.getItem("ecmCats") || "[]");
-  admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders") || "[]");
-  admin.cust = JSON.parse(localStorage.getItem("ecmCust") || "[]");
-
-  // Ensure every product image uses colorful image (in case older entries had non-colorful URLs)
-  admin.products = admin.products.map((p, i) => {
-    // if p.img looks like a placehold or empty or amazon default, override to colorful seeded by sku
-    const needsOverride = !p.img || /placehold|placeholder|static|amazon|m\.media/i.test(p.img);
-    if(needsOverride){
-      return Object.assign({}, p, { img: getColorfulImage(p.sku || i) });
-    }
-    // If it already is an unsplash colored URL we leave it; but to ensure uniformity, set to Unsplash seeded URL:
-    // (optional) -- we'll standardize all images to seeded Unsplash for consistent colorful look
-    return Object.assign({}, p, { img: getColorfulImage(p.sku || i) });
-  });
-
-  // persist back normalized images
-  saveProducts();
+function initDemoDB(){
+  buildDummyDataIfMissing();
 }
-function saveProducts(){ localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
-function saveCats(){ localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
-function saveOrders(){ sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
-function saveCust(){ localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
+function loadState() {
+  admin.products = JSON.parse(localStorage.getItem("ecmProducts")||"[]");
+  admin.cats = JSON.parse(localStorage.getItem("ecmCats")||"[]");
+  admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders")||"[]");
+  admin.cust = JSON.parse(localStorage.getItem("ecmCust")||"[]");
+}
+function saveProducts() { localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
+function saveCats() { localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
+function saveOrders() { sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
+function saveCust() { localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
 
-/* ---------------------
-   SPA navigation & bootstrap
-   --------------------- */
+/** SPA navigation **/
 function showApp(app){
   document.getElementById("shop").classList.remove('active');
   document.getElementById("admin").classList.remove('active');
@@ -219,16 +177,15 @@ function showApp(app){
   document.getElementById("nav-admin").classList.remove('selected');
   document.getElementById(app).classList.add('active');
   document.getElementById(app=='shop'?'nav-shop':'nav-admin').classList.add('selected');
-  if(app=="admin"){ renderAdmin(); } else { renderShop(); }
+  if(app=="admin"){renderAdmin();} else {renderShop();}
 }
 initDemoDB(); loadState(); renderShop(); renderAdmin();
 
-/* ---------------------
-   Shop render / behavior (unchanged logic, updated image usage)
-   --------------------- */
+/** --- FRONTEND SECTION (mostly unchanged) --- */
 function renderShop(){
   loadState();
   let html = '';
+  // NOT LOGGED IN: Show Login
   if (!state.user && state.page=="login") {
     html += `<div class="card" style="max-width:420px;margin:auto;">
       <h2>Login</h2>
@@ -241,7 +198,7 @@ function renderShop(){
     document.getElementById("shop").innerHTML=html;
     return;
   }
-
+  // MY ACCOUNT PAGE
   if (state.page=="account" && state.user) {
     let orders = admin.orders.filter(o=>o.user===state.user);
     html += `<div class="card account-box"><h2>My Account</h2>
@@ -251,41 +208,38 @@ function renderShop(){
     </div>`;
     document.getElementById("shop").innerHTML=html; return;
   }
-
+  // PRODUCT DETAILS?
   if (state.page=="details" && state.detailsSku){
     let p = admin.products.find(p=>p.sku==state.detailsSku);
     if(!p) { html = 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
     html += `<div class="row">
-      <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px;border-radius:8px"><br>
+      <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px"><br>
         <span class="pname">${p.name}</span>
         <span class="cat-label">${p.cat}</span><br>
         <b>₹${p.price}</b> <span style="float:right">SKU: <b>${p.sku}</b></span>
         <br><small>${p.desc}</small><br>
-        <button onclick="addToCart('${p.sku}')" class="btn-main"><i class="fa fa-cart-plus"></i> Add to Cart</button>
-        <button onclick="toggleWish('${p.sku}')" class="btn-main"><i class="fa fa-heart"></i></button>
-        <button onclick="toggleCompare('${p.sku}')" class="btn-main"><i class="fa fa-list"></i></button>
+        <button onclick="addToCart('${p.sku}')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+        <button onclick="toggleWish('${p.sku}')"><i class="fa fa-heart"></i></button>
+        <button onclick="toggleCompare('${p.sku}')"><i class="fa fa-list"></i></button>
         <br><b>Reviews (${p.reviews.length}):</b>
         ${p.reviews.map(r=>`<div class="review"><span class="star">${"★".repeat(r.star)}</span> <b>${r.by}</b>: ${r.text}</div>`).join("")}
         ${state.user?`
         <form onsubmit="event.preventDefault();addReview('${p.sku}')">
          <input type="number" min="1" max="5" id="revstar" placeholder="Stars" required style="width:30px;"/>
          <input type="text" id="revtext" maxlength="100" required/>
-         <button type="submit" class="btn-main">Post Review</button></form>`:"<div style='color:#b77'>Login to post review.</div>"}
+         <button type="submit">Post Review</button></form>`:"<div style='color:#b77'>Login to post review.</div>"}
       </div>
       <div class="suggest-slider">
         <b>Product Suggest</b>:<div class="row">`+
         admin.products.filter(q=>q.sku!=p.sku).slice(0,3)
           .map(q=>`<div class="product" onclick="shopTo('details','${q.sku}')">
-            <div class="img-wrap" style="background-image:url('${q.img}');background-size:cover;background-position:center;">
-              <img src="${q.img}" alt="${q.name}">
-            </div>
-            <div class="pname">${q.name}</div></div>`).join('')+
+          <img src="${q.img}"><div class="pname">${q.name}</div></div>`).join('')+
       `</div></div>
     </div>
     <button onclick="shopTo('home')" class="btn-main">Back</button>`;
     document.getElementById("shop").innerHTML=html; return;
   }
-
+  // CHECKOUT
   if(state.page=="checkout"){
     html = `<div class="card"><h2>Checkout</h2>
      <form onsubmit="event.preventDefault();saveOrder()">
@@ -306,14 +260,14 @@ function renderShop(){
     </div>`;
     document.getElementById("shop").innerHTML=html; return;
   }
-
+  // CART/MINICART
   if(state.page=="cart"){
     if(state.cart.length==0){document.getElementById("shop").innerHTML=`<h2>Cart</h2><div class="alert">Cart is empty.</div>
       <button onclick="shopTo('home')" class="btn-main">Back to shop</button>`;return;}
     let s=0;
     let items = state.cart.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku); s+=p.price;
-      return `<div class="flex"><b>${p.name}</b> - ₹${p.price}<span class="right"><button onclick="cartRemove('${sku}')" class="btn-main">Remove</button></span></div>`;
+      return `<div class="flex"><b>${p.name}</b> - ₹${p.price}<span class="right"><button onclick="cartRemove('${sku}')">Remove</button></span></div>`;
     }).join('');
     document.getElementById("shop").innerHTML=
     `<h2>Cart</h2>${items}<hr>Total: <b>₹${s}</b><br>
@@ -321,127 +275,113 @@ function renderShop(){
     <button onclick="shopTo('home')" class="btn-main">Continue Shopping</button>`;
     return;
   }
-
-  // Header area
+  // ALL PRODUCTS PAGE, CATEGORY, SEARCH, MINICART, WISHLIST/COMPARE, HEADER/FOOTER
   html += `
   <div style="display:flex;justify-content:space-between;align-items:center;">
     <div>
       <button onclick="shopTo('account')" ${state.user?'':'disabled'} title="My Account"><i class="fa fa-user"></i></button>
-      <button onclick="shopTo('cart')" title="Cart" class="btn-main"><i class="fa fa-cart-plus"></i></button>
-      <span class="badge">${state.cart.length}</span>
-      <button onclick="shopTo('wishlist')" title="Wishlist" class="btn-main"><i class="fa fa-heart"></i></button>
-      <span class="badge">${state.wishlist.length}</span>
-      <button onclick="shopTo('compare')" title="Compare" class="btn-main"><i class="fa fa-list"></i></button>
-      <span class="badge">${state.compare.length}</span>
+      <button onclick="shopTo('cart')" title="Cart"><i class="fa fa-cart-plus"></i><span class="badge">${state.cart.length}</span></button>
+      <button onclick="shopTo('wishlist')" title="Wishlist"><i class="fa fa-heart"></i><span class="badge">${state.wishlist.length}</span></button>
+      <button onclick="shopTo('compare')" title="Compare"><i class="fa fa-list"></i><span class="badge">${state.compare.length}</span></button>
     </div>
     <div class="search-bar">
       <input id="searchinp" placeholder="Search product or SKU" value="${state.search||""}"/>
-      <button onclick="shopTo('search',document.getElementById('searchinp').value)" class="btn-main">Search</button>
+      <button onclick="shopTo('search',document.getElementById('searchinp').value)">Search</button>
     </div>
     <div>
       ${state.user?`<span style="font-weight:bold;">Hello, ${state.user}! <a href="#" style="color:#e62" onclick="logoutShop()">Logout</a></span>`
       :`<button onclick="shopTo('login')" class="btn-main">Login</button>`}
     </div>
   </div><hr>`;
-
-  // categories
+  // Categories
   html+=`<div style="margin-bottom:6px;">Categories: `
     +admin.cats.map(c=>`<button onclick="shopTo('cat','${c}')">${c}</button>`).join(' ')
     +`</div>`;
-
-  // wishlist / compare pages
+  // WISHLIST
   if(state.page=="wishlist"){
     let items = state.wishlist.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex"><b>${p.name}</b> ₹${p.price}
-        <button onclick="shopTo('details','${p.sku}')" class="btn-main"><i class="fa fa-eye"></i></button>
-        <button onclick="wishlistRemove('${p.sku}')" class="btn-main"><i class="fa fa-trash"></i></button>
+        <button onclick="shopTo('details','${p.sku}')"><i class="fa fa-eye"></i></button>
+        <button onclick="wishlistRemove('${p.sku}')"><i class="fa fa-trash"></i></button>
       </div>`;
     }).join('');
     document.getElementById("shop").innerHTML = `<h2>Wishlist</h2>${items||"<div class='alert'>Wishlist is empty.</div>"}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
   }
-
+  // COMPARE
   if(state.page=="compare"){
     let items = state.compare.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex"><b>${p.name}</b> ₹${p.price}
-        <button onclick="shopTo('details','${p.sku}')" class="btn-main"><i class="fa fa-eye"></i></button>
-        <button onclick="compareRemove('${p.sku}')" class="btn-main"><i class="fa fa-trash"></i></button>
+        <button onclick="shopTo('details','${p.sku}')"><i class="fa fa-eye"></i></button>
+        <button onclick="compareRemove('${p.sku}')"><i class="fa fa-trash"></i></button>
       </div>`;
     }).join('');
     document.getElementById("shop").innerHTML = `<h2>Compare List</h2>${items||"<div class='alert'>Compare list is empty.</div>"}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
   }
-
-  // product listing & search/cat filter
+  // PRODUCT LIST
   let products = admin.products.slice();
   if(state.page=="cat" && state.detailsSku) products = products.filter(p=>p.cat==state.detailsSku);
-  if(state.page=="search" && state.detailsSku){
+  if(state.page=="search" && state.detailsSku) {
     let q = state.detailsSku.toLowerCase();
-    products = products.filter(p=>p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q));
+    products = products.filter(p=>p.name.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q));
     html += `<div>Search for <b>${state.detailsSku}</b>: ${products.length} found.</div>`;
   }
-
-  // product cards
   html += '<div class="row">';
   products.forEach(p=>{
-    // product image container uses background-image CSS for colorful backdrop; actual <img> sits above for crispness
     html+=`<div class="product">
-      <div class="img-wrap" style="background-image:url('${p.img}');background-size:cover;background-position:center;">
-        <img src="${p.img}" onclick="shopTo('details','${p.sku}')" alt="${p.name}" />
-      </div>
+      <img src="${p.img}" onclick="shopTo('details','${p.sku}')" alt="${p.name}"/>
       <div><span class="pname">${p.name}</span><span class="cat-label">${p.cat}</span></div>
       <div>₹${p.price} <span class="right">SKU: <b>${p.sku}</b></span></div>
-      <button onclick="addToCart('${p.sku}')" class="btn-main"><i class="fa fa-cart-plus"></i></button>
-      <button onclick="toggleWish('${p.sku}')" class="btn-main"><i class="fa fa-heart"></i></button>
-      <button onclick="toggleCompare('${p.sku}')" class="btn-main"><i class="fa fa-list"></i></button>
+      <button onclick="addToCart('${p.sku}')"><i class="fa fa-cart-plus"></i></button>
+      <button onclick="toggleWish('${p.sku}')"><i class="fa fa-heart"></i></button>
+      <button onclick="toggleCompare('${p.sku}')"><i class="fa fa-list"></i></button>
     </div>`;
   });
   html += '</div>';
-  document.getElementById("shop").innerHTML = html;
+  document.getElementById("shop").innerHTML=html;
 }
-
-/* ---------------------
-   Shop helper functions
-   --------------------- */
 function shopTo(page, val){
-  if((page=='wishlist'||page=='compare') && !state.user){ state.page='login'; renderShop(); return; }
+  if(page=='wishlist'||page=='compare')
+    if(!state.user){state.page='login';renderShop();return;}
   state.page = page;
-  state.detailsSku = val || null;
+  state.detailsSku = val||null;
   renderShop();
 }
 function loginShop(){
-  let u = document.getElementById("userLog")?.value || '';
-  let p = document.getElementById("passLog")?.value || '';
-  if(u=="user123" && p=="user123"){ state.user=u; state.page='home'; renderShop(); return; }
+  let u = document.getElementById("userLog").value;
+  let p = document.getElementById("passLog").value;
+  if(u=="user123"&&p=="user123"){state.user=u;state.page='home';renderShop();return;}
   document.getElementById("elog").textContent = "Invalid credentials.";
 }
-function logoutShop(){ state.user=null; state.page='login'; renderShop(); }
+function logoutShop(){state.user=null;state.page='login';renderShop();}
 function addToCart(sku){
-  if(!state.user){ state.page='login'; renderShop(); return; }
-  if(!state.cart.includes(sku)) state.cart.push(sku);
+  if(!state.user){state.page='login';renderShop();return;}
+  if(!state.cart.includes(sku)){state.cart.push(sku);}
   renderShop();
 }
 function cartRemove(sku){
-  if(confirm("Remove item from cart?")){ state.cart = state.cart.filter(x=>x!=sku); }
+  if(confirm("Remove item from cart?")){state.cart=state.cart.filter(x=>x!=sku);}
   renderShop();
 }
 function toggleWish(sku){
-  if(!state.user){ state.page='login'; renderShop(); return; }
-  if(state.wishlist.includes(sku)) state.wishlist = state.wishlist.filter(x=>x!=sku); else state.wishlist.push(sku);
+  if(!state.user){state.page='login';renderShop();return;}
+  if(state.wishlist.includes(sku))state.wishlist=state.wishlist.filter(x=>x!=sku);
+  else state.wishlist.push(sku);
   renderShop();
 }
-function wishlistRemove(sku){ state.wishlist = state.wishlist.filter(x=>x!=sku); renderShop(); }
+function wishlistRemove(sku){state.wishlist=state.wishlist.filter(x=>x!=sku);renderShop();}
 function toggleCompare(sku){
-  if(!state.user){ state.page='login'; renderShop(); return; }
-  if(state.compare.includes(sku)) state.compare = state.compare.filter(x=>x!=sku); else state.compare.push(sku);
+  if(!state.user){state.page='login';renderShop();return;}
+  if(state.compare.includes(sku))state.compare=state.compare.filter(x=>x!=sku);
+  else state.compare.push(sku);
   renderShop();
 }
-function compareRemove(sku){ state.compare = state.compare.filter(x=>x!=sku); renderShop(); }
+function compareRemove(sku){state.compare=state.compare.filter(x=>x!=sku);renderShop();}
 function addReview(sku){
   let s = Number(document.getElementById("revstar").value), t = document.getElementById("revtext").value.trim();
-  if(!s || !t) return;
-  let p = admin.products.find(p=>p.sku==sku);
-  if(p){ p.reviews.push({by:state.user,star:s,text:t}); saveProducts(); renderShop(); }
+  if(!s||!t)return;let p=admin.products.find(p=>p.sku==sku);
+  if(p){p.reviews.push({by:state.user,star:s,text:t});saveProducts();renderShop();}
 }
 function saveOrder(){
   let name = document.getElementById("coName").value.trim();
@@ -450,29 +390,23 @@ function saveOrder(){
   let phone = document.getElementById("coPhone").value.trim();
   let country = document.getElementById("coCountry").value;
   let pay = document.getElementById("coPay").value;
-  if(!name||!email||!addr||!phone||!country||!pay){ alert('All fields required!'); return; }
+  if(!name||!email||!addr||!phone||!country||!pay){alert('All fields required!');return;}
   let id = Date.now().toString().slice(-6);
   let total = state.cart.map(sku=>admin.products.find(p=>p.sku==sku).price).reduce((x,y)=>x+y,0);
   admin.orders.push({id,user:state.user,items:[...state.cart],total});
   saveOrders();
-  state.cart=[]; state.page="home"; alert("Order placed. Thank you!"); renderShop();
+  state.cart=[];state.page="home";alert("Order placed. Thank you!");renderShop();
 }
 
-/* ---------------------
-   ADMIN SECTION (kept functionality, added image handling)
-   --------------------- */
+/** --- ADMIN SECTION --- */
 function renderAdmin(){
   loadState();
-  if(!admin.logged){
-    document.getElementById("admin").innerHTML = `<div class="card" style="max-width:290px;margin:auto;">
-      <h2>Admin Login</h2><div class="input"><label>User</label><input id="aduser"></div>
-      <div class="input"><label>Password</label><input id="adpass" type="password"></div>
-      <button onclick="loginAdmin()" class="btn-main">Login</button><br>
-      <small>Try: <b>admin/admin</b></small><div id="aderr" class="error"></div>
-      </div>`;
-    return;
-  }
-
+  if(!admin.logged){document.getElementById("admin").innerHTML=`<div class="card" style="max-width:290px;margin:auto;">
+    <h2>Admin Login</h2><div class="input"><label>User</label><input id="aduser"></div>
+    <div class="input"><label>Password</label><input id="adpass" type="password"></div>
+    <button onclick="loginAdmin()" class="btn-main">Login</button><br>
+    <small>Try: <b>admin/admin</b></small><div id="aderr" class="error"></div>
+    </div>`;return;}
   let sidebar = `<div class="sidebar">
     <button onclick="adminNav('dashboard')" class="${admin.mode=='dashboard'?'selected':''}"><i class="fa fa-table"></i> Dashboard</button>
     <button onclick="adminNav('products')" class="${admin.mode=='products'?'selected':''}"><i class="fa fa-cube"></i> Products</button>
@@ -484,17 +418,17 @@ function renderAdmin(){
     <button onclick="adminNav('profile')" class="${admin.mode=='profile'?'selected':''}"><i class="fa fa-user"></i> My Account</button>
     <button onclick="adminLogout()"><i class="fa fa-sign-out"></i> Logout</button>
     </div>`;
-
   let main = '<div class="admin-main">';
+  // Dashboard
   if(admin.mode=="dashboard") main+=`<div class="card"><h2>Dashboard</h2>
     Products: <b>${admin.products.length}</b>, Orders: <b>${admin.orders.length}</b>, Customers: <b>${admin.cust.length}</b>
-    <div style="margin-top:16px;"><b>Charts:</b><br>
-      <svg width="220" height="50"><polyline fill="none" stroke="#37baee" stroke-width="4"
+    <div style="margin-top:16px;"><b>Charts:</b><br> <!-- Mini chart --> 
+      <svg width="220" height="50"><polyline fill="none" stroke="#37baee" stroke-width="4" 
         points="5,40 30,${Math.max(6,40-3*admin.orders.length%30)} 60,${Math.max(6,40-2*admin.products.length%30)} 90,32 130,20 170,41"/></svg>
     </div></div>`;
-
-  // PRODUCTS with pagination + colorful thumbnails
+  // Products CRUD with pagination
   if(admin.mode=="products"){
+    // pagination helpers
     const pageSize = admin.pageSize;
     const pageState = admin.paging.products;
     const total = admin.products.length;
@@ -504,42 +438,40 @@ function renderAdmin(){
     const pageItems = admin.products.slice(startIdx, startIdx + pageSize);
 
     main+=`<div class="card"><h2>Products <button onclick="addEditProd('__new__')" class="btn-main">Add</button></h2>
-      <div>${pageItems.map(p=>`<div class="product-admin">
-        <div style="display:inline-block;vertical-align:middle;width:66px;height:44px;border-radius:6px;overflow:hidden;margin-right:8px;background-image:url('${p.img}');background-size:cover;background-position:center;">
-          <img src="${p.img}" style="width:66px;height:44px;object-fit:cover;display:block;">
-        </div>
+      <div>${pageItems.map(p=>`<div class="product-admin"><img src="${p.img}" style="max-width:66px;">
         <b>${p.name}</b> <span class="cat-label">${p.cat}</span> ₹${p.price}, SKU: ${p.sku}
-        <button onclick="addEditProd('${p.sku}')" class="btn-main"><i class="fa fa-edit"></i> Edit</button>
-        <button onclick="delProd('${p.sku}')" class="btn-main"><i class="fa fa-trash"></i> Del</button></div>`).join("")}</div>
-
+        <button onclick="addEditProd('${p.sku}')"><i class="fa fa-edit"></i> Edit</button>
+        <button onclick="delProd('${p.sku}')"><i class="fa fa-trash"></i> Del</button></div>`).join("")}</div>
+      
       <div class="pagination" style="margin-top:12px;">
         <button class="page-btn" onclick="adminPageChange('products', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('products', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('products', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div class="small-muted"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
+        <div style="margin-left:12px;color:#9fb0d6"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
       </div>
     </div>`;
 
+    // Add/edit form modal (if admin.curProd not null)
     if(admin.curProd !== null){
-      let p = (typeof admin.curProd === 'string' && admin.curProd!=="__new__") ? admin.products.find(x=>x.sku==admin.curProd) : {};
+      let p = (typeof admin.curProd === 'string' && admin.curProd!=="__new__") ? admin.products.find(x=>x.sku==admin.curProd) : null;
+      if(admin.curProd === "__new__") p = {};
       main+=`<div class="modal"><div class="modal-content">
-        <h3>${p && p.sku ? 'Edit' : 'Add'} Product</h3>
+        <h3>${p && p.sku?'Edit':'Add'} Product</h3>
         <div class="input"><label>Name</label><input id="prName" value="${p && p.name?escapeHtml(p.name):''}"></div>
         <div class="input"><label>SKU</label><input id="prSKU" value="${p && p.sku?escapeHtml(p.sku):''}" ${p && p.sku?"readonly":""}></div>
         <div class="input"><label>Category</label><input id="prCat" value="${p && p.cat?escapeHtml(p.cat):''}"></div>
         <div class="input"><label>Price</label><input id="prPrice" type="number" value="${p && p.price?p.price:''}"></div>
-        <div class="input"><label>Image URL (optional)</label><input id="prImg" value="${p && p.img?escapeHtml(p.img):''}"></div>
+        <div class="input"><label>Image URL</label><input id="prImg" value="${p && p.img?escapeHtml(p.img):''}"></div>
         <div class="input"><label>Description</label><input id="prDesc" value="${p && p.desc?escapeHtml(p.desc):''}"></div>
         <button onclick="saveProd('${p && p.sku ? p.sku : ''}')" class="btn-main">Save</button>
         <button onclick="cancelEditProd()" class="btn-main">Cancel</button></div></div>`;
     }
   }
-
-  // categories
+  // Categories CRUD
   if(admin.mode=='cats'){
     main+=`<div class="card"><h2>Categories  <button onclick="addCat()" class="btn-main">Add</button></h2>
       <div>${admin.cats.map(c=>`<span class="cat-label">${c} 
-        <button onclick="delCat('${c}')" class="btn-main"><i class="fa fa-trash"></i></button></span>`
+        <button onclick="delCat('${c}')"><i class="fa fa-trash"></i></button></span>`
       ).join("")}</div></div>`;
     if(admin.curCat){
       main+=`<div class="modal"><div class="modal-content">
@@ -548,8 +480,7 @@ function renderAdmin(){
         <button onclick="cancelCat()" class="btn-main">Cancel</button></div></div>`;
     }
   }
-
-  // orders with pagination
+  // Orders with pagination
   if(admin.mode=="orders"){
     const pageSize = admin.pageSize;
     const pageState = admin.paging.orders;
@@ -567,12 +498,12 @@ function renderAdmin(){
         <button class="page-btn" onclick="adminPageChange('orders', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('orders', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('orders', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div class="small-muted"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
+        <div style="margin-left:12px;color:#9fb0d6"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
       </div>
     </div>`;
   }
-
-  // customers with pagination
+  // Customers with pagination
+ // --- CUSTOMERS TABLE ---
   if(admin.mode=="cust"){
     const pageSize = admin.pageSize;
     const pageState = admin.paging.cust;
@@ -583,17 +514,26 @@ function renderAdmin(){
     const pageItems = admin.cust.slice(startIdx, startIdx+pageSize);
 
     main+=`<div class="card"><h2>Customers</h2>
-      <div>${pageItems.map(u=>`<div>${u.user} &mdash; ${u.email}</div>`).join('')}</div>
+      <table>
+        <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Orders</th></tr></thead>
+        <tbody>
+        ${pageItems.map(u=>`<tr>
+          <td>${u.user}</td>
+          <td>${u.email}</td>
+          <td>${u.phone}</td>
+          <td>${u.orders.join(', ')}</td>
+        </tr>`).join('')}
+        </tbody>
+      </table>
       <div class="pagination">
         <button class="page-btn" onclick="adminPageChange('cust', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('cust', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('cust', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div class="small-muted"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
+        <div style="margin-left:12px;color:#9fb0d6"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
       </div>
     </div>`;
   }
-
-  // reviews pagination
+  // Reviews read-only with pagination (aggregate product reviews)
   if(admin.mode=="reviews"){
     const reviewRows = admin.products.flatMap(p=>p.reviews.map(r=>({...r, prod: p.name, sku: p.sku})));
     const pageSize = admin.pageSize;
@@ -611,64 +551,69 @@ function renderAdmin(){
         <button class="page-btn" onclick="adminPageChange('reviews', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('reviews', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('reviews', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div class="small-muted"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
+        <div style="margin-left:12px;color:#9fb0d6"> ${pageState.page} of ${totalPages} pages (${total} records)</div>
       </div>
     </div>`;
   }
-
-  // settings & profile
+  // Settings/Marketing/Reports (demo simple forms)
   if(admin.mode=="settings"){
     main+=`<div class="card"><h2>Settings</h2>
       <label>Store Name: <input value="SPA Demo Store"></label><br>
       <label>Enable Demo Marketing: <input type="checkbox"></label>
     </div>`;
   }
+  // Profile
   if(admin.mode=="profile"){
     main+=`<div class="card"><h2>My Profile</h2>
       <div><b>Username:</b> admin</div>
       <div>Last login: just now</div>
     </div>`;
   }
-
   main+='</div>';
-  document.getElementById("admin").innerHTML = sidebar + main;
+  document.getElementById("admin").innerHTML = sidebar+main;
 }
 
-/* ---------------------
-   Admin helpers
-   --------------------- */
 function adminPageChange(section, pageNum){
   const pageSize = admin.pageSize;
   if(!admin.paging[section]) admin.paging[section] = {page:1};
-  const total = (section==='products'? admin.products.length : section==='orders'? admin.orders.length : section==='cust'? admin.cust.length : section==='reviews'? admin.products.flatMap(p=>p.reviews).length : 0);
+  const total = section==='cust'? admin.cust.length : section==='products'? admin.products.length : section==='orders'? admin.orders.length : section==='reviews'? admin.products.flatMap(p=>p.reviews).length : 0;
   const totalPages = Math.max(1, Math.ceil(total/pageSize));
   admin.paging[section].page = Math.min(Math.max(1, pageNum), totalPages);
   renderAdmin();
 }
-function adminNav(mode){ admin.mode=mode; admin.curProd=null; admin.curCat=null; renderAdmin(); }
-function loginAdmin(){ if(document.getElementById("aduser").value=="admin" && document.getElementById("adpass").value=="admin"){ admin.logged=true; renderAdmin(); } else { document.getElementById("aderr").textContent='Wrong credentials.'; } }
-function adminLogout(){ admin.logged=false; renderAdmin(); }
 
-/* Fix Add/Edit product behavior */
+function adminNav(mode){admin.mode=mode;admin.curProd=null;admin.curCat=null;renderAdmin();}
+function loginAdmin(){if(document.getElementById("aduser").value=="admin" && document.getElementById("adpass").value=="admin"){admin.logged=true;renderAdmin();}else{document.getElementById("aderr").textContent='Wrong credentials.';}}
+function adminLogout(){admin.logged=false;renderAdmin();}
+
+// Fix Add/Edit product behavior
 function addEditProd(skuOrNew){
-  if(skuOrNew === "__new__"){ admin.curProd = "__new__"; } else { admin.curProd = skuOrNew || null; }
+  // When called with "__new__" create a new product modal
+  if(skuOrNew === "__new__"){
+    admin.curProd = "__new__"; // truthy marker
+  } else {
+    admin.curProd = skuOrNew || null;
+  }
   renderAdmin();
 }
-function cancelEditProd(){ admin.curProd = null; renderAdmin(); }
+function cancelEditProd(){admin.curProd=null;renderAdmin();}
 function saveProd(oldSku){
+  // read inputs
   const name = document.getElementById("prName").value.trim();
   const sku = document.getElementById("prSKU").value.trim();
   const cat = document.getElementById("prCat").value.trim();
   const price = Number(document.getElementById("prPrice").value);
-  let img = document.getElementById("prImg").value.trim();
+  const img = document.getElementById("prImg").value.trim();
   const desc = document.getElementById("prDesc").value.trim();
-  if(!name||!sku||!cat||!price||!desc){ alert("Name, SKU, Category, Price and Description are required!"); return; }
-  // If img empty, set a colorful seeded one
-  if(!img) img = getColorfulImage(sku);
+  if(!name||!sku||!cat||!price||!img||!desc){alert("All fields required!");return;}
+  // If editing existing
   if(oldSku){
     let p = admin.products.find(p=>p.sku==oldSku);
-    if(p){ p.name=name; p.cat=cat; p.price=price; p.img=img; p.desc=desc; }
+    if(p){
+      p.name=name; p.cat=cat; p.price=price; p.img=img; p.desc=desc;
+    }
   } else {
+    // Adding new product; ensure unique SKU
     if(admin.products.find(p=>p.sku==sku)){ alert("SKU already exists!"); return; }
     admin.products.push({sku,name,cat,price,img,desc,reviews:[]});
   }
@@ -676,23 +621,32 @@ function saveProd(oldSku){
 }
 function delProd(sku){
   if(confirm("Delete product?")){
-    admin.products = admin.products.filter(p=>p.sku!=sku); saveProducts(); renderAdmin();
+    admin.products=admin.products.filter(p=>p.sku!=sku);saveProducts();renderAdmin();
   }
 }
-function addCat(){ admin.curCat=true; renderAdmin(); }
-function saveCat(){ let v=document.getElementById("catval").value.trim(); if(v && !admin.cats.includes(v)){ admin.cats.push(v); saveCats(); } admin.curCat=false; renderAdmin(); }
-function cancelCat(){ admin.curCat=false; renderAdmin(); }
-function delCat(c){ if(confirm("Delete category?")){ admin.cats = admin.cats.filter(x=>x!=c); saveCats(); renderAdmin(); } }
+function addCat(){admin.curCat=true;renderAdmin();}
+function saveCat(){
+  let v=document.getElementById("catval").value.trim();
+  if(v && !admin.cats.includes(v)){admin.cats.push(v);saveCats();}
+  admin.curCat=false;renderAdmin();
+}
+function cancelCat(){admin.curCat=false;renderAdmin();}
+function delCat(c){
+  if(confirm("Delete category?")){
+    admin.cats=admin.cats.filter(x=>x!=c);saveCats();renderAdmin();
+  }
+}
 
-/* Utilities */
-function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; }); }
+/** Utilities & small helpers **/
+function escapeHtml(s){
+  if(!s) return '';
+  return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];});
+}
 
-/* Bootstrap */
+/** Initialize demo data if missing, plus small helper to keep UI responsive **/
 (function bootstrap(){
   initDemoDB();
   loadState();
-  // ensure starting view is shop
-  showApp('shop');
 })();
 </script>
 </body>
