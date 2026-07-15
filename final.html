@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>SPA E-commerce & Admin Demo (Modern Dark Design)</title>
+  <title>SPA E-commerce & Admin Demo (Modern Light/Dark Matte Design)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
-    /* 🎨 **MODERN DARK DESIGN & COLOR PALETTE (Blue/Teal Accent)** */
+    /* 🎨 **MODERN CUSTOM MATTE DESIGN & COLOR PALETTE** */
     :root {
       --color-background: #14141c; /* Very deep dark gray/blue */
       --color-surface: #1e1e2d; /* Slightly lighter surface for cards/panels */
@@ -21,12 +20,44 @@
       --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
+    /* ☀️ **LIGHT MATTE THEME OVERRIDES** */
+    body.light-theme {
+      --color-background: #f4f4f8;
+      --color-surface: #ffffff;
+      --color-text-primary: #1c1c28;
+      --color-text-secondary: #62627a;
+      --color-accent-main: #00acc1;
+      --color-accent-secondary: #007c8d;
+      --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
     body {
       background: var(--color-background);
       color: var(--color-text-primary);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       margin: 0;
       line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light-theme .product, body.light-theme .product-admin {
+      background: #e8e8f0;
+    }
+    body.light-theme .sidebar {
+      background: #ffffff;
+    }
+    body.light-theme .sidebar button {
+      background: #e8e8f0;
+      color: #1c1c28;
+    }
+    body.light-theme .review {
+      background: #f0f0f6;
+    }
+    body.light-theme table tr:nth-child(even) {
+      background: #e8e8f0;
+    }
+    body.light-theme table tr:hover {
+      background: #dfdfe8;
     }
 
     /* --- Navigation --- */
@@ -57,7 +88,7 @@
     }
     .nav .selected {
       background: var(--color-accent-main);
-      color: var(--color-background);
+      color: #14141c;
       font-weight: bold;
       box-shadow: 0 4px 8px rgba(0, 187, 212, 0.3);
     }
@@ -128,7 +159,7 @@
     }
     .product button:first-of-type, .product-admin button:first-of-type {
       background: var(--color-accent-main);
-      color: var(--color-background);
+      color: #14141c;
       font-weight: bold;
     }
     .product button:nth-of-type(2), .product button:nth-of-type(3),
@@ -142,7 +173,7 @@
       margin-left: 10px;
     }
     .star {
-      color: var(--color-star);
+      color: var(--color-warning);
       font-size: 1.2em;
     }
     .flex {
@@ -206,7 +237,7 @@
     }
     .btn-main {
       background: var(--color-accent-main);
-      color: var(--color-background);
+      color: #14141c;
       font-weight: bold;
       padding: 10px 18px;
       border: none;
@@ -249,7 +280,7 @@
     }
     .sidebar .selected {
       background: var(--color-accent-main);
-      color: var(--color-background);
+      color: #14141c;
       font-weight: bold;
     }
     .admin-main {
@@ -413,7 +444,7 @@
     }
     .page-num.active {
       background: var(--color-accent-main);
-      color: var(--color-background);
+      color: #14141c;
       font-weight: bold;
     }
     
@@ -473,13 +504,103 @@
         margin-top: 10px;
       }
     }
+    
+    /* --- Shop Layout & Filters --- */
+    .shop-content-layout {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .shop-filter-sidebar {
+        flex: 0 0 220px;
+        padding: 15px;
+        background: var(--color-surface);
+        border-radius: var(--border-radius);
+        height: fit-content;
+        box-shadow: var(--shadow-elevation-2);
+    }
+    .shop-product-list {
+        flex-grow: 1;
+    }
+    .filter-group {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #2d2d42;
+    }
+    .filter-group label {
+        font-weight: bold;
+        color: var(--color-accent-main);
+        margin-bottom: 8px;
+        display: block;
+    }
+    .range-display {
+        color: var(--color-text-secondary);
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+    
+    /* --- Shop Home Sections --- */
+    .banner-slider {
+        padding: 60px 20px;
+        text-align: center;
+        margin-bottom: 30px;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--color-accent-secondary);
+        transition: all 0.3s ease;
+    }
+    .featured-products-section {
+        margin-bottom: 30px;
+        padding: 20px 0;
+        border-top: 1px solid #2d2d42;
+        border-bottom: 1px solid #2d2d42;
+    }
+    .featured-products-section h2 {
+        text-align: center;
+    }
+    .shop-footer {
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 30px;
+        border-top: 1px solid var(--color-accent-secondary);
+        color: var(--color-text-secondary);
+    }
+    .dashboard-card {
+        background: #252538;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        flex: 1 1 200px;
+        min-width: 150px;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 187, 212, 0.2);
+    }
+    .dashboard-card i {
+        font-size: 3em;
+        color: var(--color-accent-main);
+        margin-bottom: 10px;
+    }
+    .dashboard-card p {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 0;
+    }
+    .shop-sub-nav a {
+      transition: color 0.2s ease;
+    }
+    .shop-sub-nav a:hover {
+      color: var(--color-accent-main) !important;
+    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="nav">
     <button onclick="showApp('shop')" id="nav-shop" class="selected"><i class="fa fa-store"></i>Shop</button>
     <button onclick="showApp('admin')" id="nav-admin"><i class="fa fa-user-shield"></i>Admin</button>
+    <button onclick="toggleThemeMode()" style="margin-left:auto; background:#3e4a68;"><i id="theme-icon" class="fa fa-moon"></i> Theme</button>
   </div>
   <div class="container">
     <div id="shop" class="app-section active"></div>
@@ -497,16 +618,35 @@
 
 <script>
 /** Data & storage **/
-const DEMO_PRODUCTS = [
-  {sku:"SKU11",name:"Gaming Keyboard",cat:"Electronics",price:1999,img:"https://placehold.co/697x547?text=Gaming+Keyboard",desc:"RGB Wired Gaming Keyboard. Smooth keys.",reviews:[{by:"user123",star:5,text:"Cool!"}]},
-  {sku:"SKU22",name:"Artisan Mug",cat:"Kitchen",price:499,img:"https://placehold.co/697x547?text=Artisan+Mug",desc:"Hand-painted ceramic mug.",reviews:[]},
-  {sku:"SKU33",name:"Wireless Earbuds",cat:"Electronics",price:2599,img:"https://placehold.co/300x200?text=Electronics",desc:"Longest battery wireless Bluetooth buds.",reviews:[{by:"user123",star:4,text:"Good but not loud."}]},
-  {sku:"SKU44",name:"Yoga Mat",cat:"Fitness",price:799,img:"https://placehold.co/300x200?text=Fitness+Gear",desc:"Eco material, non-slip mat.",reviews:[]},
-  {sku:"SKU55",name:"Classic Novel",cat:"Books",price:299,img:"https://m.media-amazon.com/images/I/81iqZ2HHD-L.jpg",desc:"Paperback edition of timeless read.",reviews:[]}
+const REAL_IMAGES = [
+  "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
 ];
-const DEMO_CATS = ["Electronics","Kitchen","Fitness","Books"];
+
+const DEMO_PRODUCTS = [
+  {sku:"SKU11",name:"Gaming Keyboard Pro",cat:"Electronics",price:1999,img:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",desc:"RGB Wired Gaming Keyboard. Smooth keys.",reviews:[{by:"user123",star:5,text:"Cool!"}]},
+  {sku:"SKU22",name:"Handmade Artisan Mug",cat:"Kitchen",price:499,img:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80",desc:"Hand-painted ceramic mug.",reviews:[]},
+  {sku:"SKU33",name:"Acoustic Earbuds Max",cat:"Electronics",price:2599,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",desc:"Longest battery wireless Bluetooth buds.",reviews:[{by:"user123",star:4,text:"Good but not loud."}]},
+  {sku:"SKU44",name:"Premium Yoga Mat",cat:"Fitness",price:799,img:"https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=600&q=80",desc:"Eco material, non-slip mat.",reviews:[]},
+  {sku:"SKU55",name:"The Lost Classic Novel",cat:"Books",price:299,img:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",desc:"Paperback edition of timeless read.",reviews:[]}
+];
+const DEMO_CATS = ["Electronics","Kitchen","Fitness","Books","Apparel"];
 const COUNTRIES = ["US", "INDIA", "RUSSIA", "JAPAN", "SOUTH KOREA", "BRAZIL", "DUBAI", "MEXICO", "CHINA", "SRI LANKA", "NEPAL", "UK", "FRANCE", "DENMARK", "ITALY", "ISERAL"];
-let state = { user: null, page: "home", cart: [], wishlist: [], compare: [], alert: null, search: "", detailsSku: null, show: "home" };
+
+let state = { user: null, page: "home", subPage: "home", cart: [], wishlist: [], compare: [], alert: null, search: "", detailsSku: null, show: "home", 
+    shopFilters: {
+        minPrice: 0,
+        maxPrice: 5000,
+        selectedCategory: "All"
+    }
+};
+
 let admin = {
   mode: "dashboard",
   logged: false,
@@ -520,28 +660,44 @@ let admin = {
   curOrder: null,
   paging: { products: {page:1}, orders: {page:1}, cust: {page:1}, reviews: {page:1} },
   pageSize: 10,
-  productFilterCat: "All" // NEW: Admin product category filter state
+  productFilterCat: "All",
+  custFilter: "",
+  orderFilter: ""
+};
+
+let dynamicContent = JSON.parse(localStorage.getItem("ecmDynamicContent")) || {
+  aboutText: "<h2>About Our Store</h2><p>Welcome to our single-page sandbox deployment application. We focus on providing highly fluid, fully responsive manual and automated QA script verification capabilities.</p>",
+  contactText: "<h2>Contact Operational Team</h2><p>Need support or looking to review software evaluation processes? Reach us at team@qasandbox.io or via telephone terminal paths.</p>",
+  categoriesTitle: "Explore Diverse Dynamic Layouts",
+  menuHomeLabel: "Home",
+  menuCatsLabel: "Categories",
+  menuAboutLabel: "About Us",
+  menuContactLabel: "Contact Us",
+  bannerTitle: "Fall into Savings!",
+  bannerSub: "Up to 50% off select products for a limited time.",
+  bannerImg: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80"
 };
 
 /** Demo DB creation & load **/
 function buildDummyDataIfMissing(){
-  // If no products/customers/orders exist yet, create deterministic dummy sets (80 items each)
   if(!localStorage.getItem("ecmProducts") || !localStorage.getItem("ecmCust") || !sessionStorage.getItem("ecmOrders")){
-    // Start with base small products then append generated products to reach 80
     const want = 80;
     let products = DEMO_PRODUCTS.slice();
     const categories = DEMO_CATS.slice();
-    let idx = 1;
+    let idx = products.length;
     while(products.length < want){
+      const imgPoolUrl = REAL_IMAGES[products.length % REAL_IMAGES.length];
       const sku = "DP" + String(1000 + products.length);
       const cat = categories[(products.length) % categories.length];
+      const price = Math.floor(199 + (products.length * 13) % 5000);
+      const name = `Generic Product ${products.length+1}`;
       products.push({
         sku,
-        name: `Demo Product ${products.length+1}`,
+        name,
         cat,
-        price: Math.floor(199 + (products.length * 13) % 5000),
-        img: `https://placehold.co/300x200?text=Prod+${products.length+1}`,
-        desc: `Auto-generated product #${products.length+1} in ${cat}`,
+        price,
+        img: imgPoolUrl,
+        desc: `Auto-generated product #${products.length+1} in ${cat} with price ${price}`,
         reviews: []
       });
       idx++;
@@ -556,11 +712,10 @@ function buildDummyDataIfMissing(){
         orders: []
       });
     }
-    // Orders: create orders linking to customers and random product subsets
+    // Orders
     let orders = [];
     for(let i=0;i<want;i++){
       const cust = customers[i % customers.length].user;
-      // pick 1-4 items
       const cnt = 1 + (i % 4);
       const items = [];
       for(let j=0;j<cnt;j++){
@@ -569,7 +724,7 @@ function buildDummyDataIfMissing(){
       }
       const total = items.reduce((s,sku)=>s + (products.find(p=>p.sku==sku)?.price||0),0);
       const id = (Date.now().toString().slice(-4)) + String(i).padStart(3,"0");
-      orders.push({id, user: cust, items, total});
+      orders.push({id, user: cust, items, total, date: new Date().toISOString().substring(0, 10)});
       customers[i % customers.length].orders.push(id);
     }
     localStorage.setItem("ecmProducts", JSON.stringify(products));
@@ -587,13 +742,16 @@ function loadState() {
   admin.cats = JSON.parse(localStorage.getItem("ecmCats")||"[]");
   admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders")||"[]");
   admin.cust = JSON.parse(localStorage.getItem("ecmCust")||"[]");
+  
+  const maxPrice = admin.products.reduce((max, p) => Math.max(max, p.price || 0), 0) || 5000;
+  state.shopFilters.maxPrice = maxPrice;
 }
 function saveProducts() { localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
 function saveCats() { localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
 function saveOrders() { sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
 function saveCust() { localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
 
-/** Custom Modal Handlers (New) **/
+/** Custom Modal Handlers **/
 function showCustomModal(title, message, type, confirmCallback, data) {
     const modal = document.getElementById('custom-modal');
     document.getElementById('modal-title').textContent = title;
@@ -632,6 +790,14 @@ function hideCustomModal() {
     document.getElementById('custom-modal').classList.add('hidden');
 }
 
+/** Theme Mode Switcher Layouts **/
+function toggleThemeMode() {
+  document.body.classList.toggle('light-theme');
+  const isLight = document.body.classList.contains('light-theme');
+  localStorage.setItem('ecmThemeMode', isLight ? 'light' : 'dark');
+  document.getElementById('theme-icon').className = isLight ? 'fa fa-sun' : 'fa fa-moon';
+  renderShop();
+}
 
 /** SPA navigation **/
 function showApp(app){
@@ -643,9 +809,37 @@ function showApp(app){
   document.getElementById(app=='shop'?'nav-shop':'nav-admin').classList.add('selected');
   if(app=="admin"){renderAdmin();} else {renderShop();}
 }
-initDemoDB(); loadState(); renderShop(); renderAdmin();
 
-/** --- FRONTEND SECTION (mostly unchanged) --- */
+/** --- SHOP FILTERS & HANDLERS --- **/
+function updateShopFilters(){
+    const minPrice = document.getElementById('priceRangeMin').value;
+    const maxPrice = document.getElementById('priceRangeMax').value;
+    const selectedCat = document.getElementById('catFilterSelect').value;
+    
+    state.shopFilters.minPrice = Number(minPrice);
+    state.shopFilters.maxPrice = Number(maxPrice);
+    state.shopFilters.selectedCategory = selectedCat;
+    
+    state.page = 'home';
+    state.subPage = 'home';
+    state.detailsSku = null;
+    
+    renderShop();
+}
+
+function setSubPage(sub) {
+  state.subPage = sub;
+  state.page = 'home';
+  state.detailsSku = null;
+  renderShop();
+}
+
+function selectCategoryFromPage(cat) {
+  state.shopFilters.selectedCategory = cat;
+  setSubPage('home');
+}
+
+/** --- FRONTEND SECTION --- */
 function renderShop(){
   loadState();
   let html = '';
@@ -662,6 +856,34 @@ function renderShop(){
     document.getElementById("shop").innerHTML=html;
     return;
   }
+  
+  // RENDER HEADER (common to all shop views)
+  html += `
+  <div style="display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px solid var(--color-surface);">
+    <div class="shop-header-icons">
+      <button onclick="shopTo('account')" ${state.user?'':'disabled'} title="My Account"><i class="fa fa-user"></i></button>
+      <button onclick="shopTo('cart')" title="Cart"><i class="fa fa-shopping-cart"></i><span class="badge" style="background:var(--color-accent-main);">${state.cart.length}</span></button>
+      <button onclick="shopTo('wishlist')" title="Wishlist"><i class="fa fa-heart"></i><span class="badge" style="background:var(--color-accent-main);">${state.wishlist.length}</span></button>
+      <button onclick="shopTo('compare')" title="Compare"><i class="fa fa-list"></i><span class="badge" style="background:var(--color-accent-main);">${state.compare.length}</span></button>
+    </div>
+    <div class="search-bar">
+      <input id="searchinp" placeholder="Search product or SKU" value="${state.search||""}"/>
+      <button onclick="shopTo('search',document.getElementById('searchinp').value)" class="btn-main">Search</button>
+    </div>
+    <div>
+      ${state.user?`<span style="font-weight:bold;">Hello, ${state.user}! <a href="#" style="color:var(--color-error);" onclick="logoutShop()">Logout</a></span>`
+      :`<button onclick="shopTo('login')" class="btn-main">Login</button>`}
+    </div>
+    
+    <!-- Dynamic Header Sub-Navbar Menu Layout -->
+    <div class="shop-sub-nav" style="display:flex; gap:20px; width:100%; margin-top:12px; padding:10px 0; border-top:1px solid var(--color-surface);">
+      <a href="#" onclick="setSubPage('home')" style="color:${state.subPage==='home'?'var(--color-accent-main)':'var(--color-text-primary)'}; font-weight:bold; text-decoration:none;"><i class="fa fa-home"></i> ${dynamicContent.menuHomeLabel}</a>
+      <a href="#" onclick="setSubPage('categories')" style="color:${state.subPage==='categories'?'var(--color-accent-main)':'var(--color-text-primary)'}; font-weight:bold; text-decoration:none;"><i class="fa fa-tags"></i> ${dynamicContent.menuCatsLabel}</a>
+      <a href="#" onclick="setSubPage('about')" style="color:${state.subPage==='about'?'var(--color-accent-main)':'var(--color-text-primary)'}; font-weight:bold; text-decoration:none;"><i class="fa fa-info-circle"></i> ${dynamicContent.menuAboutLabel}</a>
+      <a href="#" onclick="setSubPage('contact')" style="color:${state.subPage==='contact'?'var(--color-accent-main)':'var(--color-text-primary)'}; font-weight:bold; text-decoration:none;"><i class="fa fa-envelope"></i> ${dynamicContent.menuContactLabel}</a>
+    </div>
+  </div>`;
+  
   // MY ACCOUNT PAGE
   if (state.page=="account" && state.user) {
     let orders = admin.orders.filter(o=>o.user===state.user);
@@ -675,7 +897,7 @@ function renderShop(){
   // PRODUCT DETAILS?
   if (state.page=="details" && state.detailsSku){
     let p = admin.products.find(p=>p.sku==state.detailsSku);
-    if(!p) { html = 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
+    if(!p) { html += 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
     html += `<div class="row">
       <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px"><br>
         <span class="pname">${p.name}</span>
@@ -705,7 +927,7 @@ function renderShop(){
   }
   // CHECKOUT
   if(state.page=="checkout"){
-    html = `<div class="card" style="max-width:500px; margin:auto;"><h2>Checkout</h2>
+    html += `<div class="card" style="max-width:500px; margin:auto;"><h2>Checkout</h2>
      <form onsubmit="event.preventDefault();saveOrder()">
       ${['Name','Email','Address','Phone'].map(f=>`<div class="input"><label>${f}</label><input id="co${f}" required></div>`).join('')}
       <div class="input"><label>Country</label>
@@ -728,47 +950,24 @@ function renderShop(){
   }
   // CART/MINICART
   if(state.page=="cart"){
-    if(state.cart.length==0){document.getElementById("shop").innerHTML=`<h2>Cart</h2><div class="alert">Cart is empty.</div>
-      <button onclick="shopTo('home')" class="btn-main">Back to shop</button>`;return;}
+    if(state.cart.length==0){html += `<h2>Cart</h2><div class="alert">Cart is empty.</div>
+      <button onclick="shopTo('home')" class="btn-main">Back to shop</button>`; document.getElementById("shop").innerHTML=html; return;}
     let s=0;
     let items = state.cart.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku); s+=p.price;
       return `<div class="flex" style="border-bottom:1px dashed #2d2d42; padding:10px 0;"><b>${p.name}</b> - <span style="color:var(--color-accent-main);">₹${p.price}</span><span class="right"><button onclick="cartRemove('${sku}')" style="background:var(--color-error);color:#fff;"><i class="fa fa-trash"></i> Remove</button></span></div>`;
     }).join('');
-    document.getElementById("shop").innerHTML=
-    `<div class="card"><h2>Cart</h2>${items}<hr style="border-color:#2d2d42;">Total: <b style="color:var(--color-accent-main);">₹${s}</b><br>
+    html += `<div class="card"><h2>Cart</h2>${items}<hr style="border-color:#2d2d42;">Total: <b style="color:var(--color-accent-main);">₹${s}</b><br>
     <div style="margin-top:20px;">
       <button onclick="shopTo('checkout')" class="btn-main">Checkout</button>
       <button onclick="shopTo('home')" class="btn-main" style="background:var(--color-text-secondary);">Continue Shopping</button>
     </div></div>`;
+    document.getElementById("shop").innerHTML=html;
     return;
   }
-  // ALL PRODUCTS PAGE, CATEGORY, SEARCH, MINICART, WISHLIST/COMPARE, HEADER/FOOTER
-  html += `
-  <div style="display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px solid var(--color-surface);">
-    <div class="shop-header-icons">
-      <button onclick="shopTo('account')" ${state.user?'':'disabled'} title="My Account"><i class="fa fa-user"></i></button>
-      <button onclick="shopTo('cart')" title="Cart"><i class="fa fa-shopping-cart"></i><span class="badge" style="background:var(--color-accent-main);">${state.cart.length}</span></button>
-      <button onclick="shopTo('wishlist')" title="Wishlist"><i class="fa fa-heart"></i><span class="badge" style="background:var(--color-accent-main);">${state.wishlist.length}</span></button>
-      <button onclick="shopTo('compare')" title="Compare"><i class="fa fa-list"></i><span class="badge" style="background:var(--color-accent-main);">${state.compare.length}</span></button>
-    </div>
-    <div class="search-bar">
-      <input id="searchinp" placeholder="Search product or SKU" value="${state.search||""}"/>
-      <button onclick="shopTo('search',document.getElementById('searchinp').value)" class="btn-main">Search</button>
-    </div>
-    <div>
-      ${state.user?`<span style="font-weight:bold;">Hello, ${state.user}! <a href="#" style="color:var(--color-error);" onclick="logoutShop()">Logout</a></span>`
-      :`<button onclick="shopTo('login')" class="btn-main">Login</button>`}
-    </div>
-  </div>
-  <div style="margin-top:20px; margin-bottom:10px; font-size:1.1em; color:var(--color-text-secondary); font-weight:500;">
-    <i class="fa fa-tags"></i> Categories: 
-    <button onclick="shopTo('home')" style="background:#3e4a68; color:#e0e0f0; border:none; border-radius:15px; padding:5px 12px; margin-left:5px;">All</button>
-    `+admin.cats.map(c=>`<button onclick="shopTo('cat','${c}')" style="background:#3e4a68; color:#e0e0f0; border:none; border-radius:15px; padding:5px 12px; margin-left:5px;">${c}</button>`).join(' ')
-    +`</div><hr style="border-color:#2d2d42;">`;
   // WISHLIST
   if(state.page=="wishlist"){
-    if(state.wishlist.length==0){document.getElementById("shop").innerHTML = `<h2>Wishlist</h2><div class='alert' style="background:var(--color-accent-secondary);">Wishlist is empty.</div><button onclick="shopTo('home')" class="btn-main">Back</button>`; return;}
+    if(state.wishlist.length==0){html += `<h2>Wishlist</h2><div class='alert' style="background:var(--color-accent-secondary);">Wishlist is empty.</div><button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html; return;}
     let items = state.wishlist.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
@@ -778,11 +977,11 @@ function renderShop(){
         </div>
       </div>`;
     }).join('');
-    document.getElementById("shop").innerHTML = `<h2>Wishlist</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
+    html += `<h2>Wishlist</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html;return;
   }
   // COMPARE
   if(state.page=="compare"){
-    if(state.compare.length==0){document.getElementById("shop").innerHTML = `<h2>Compare List</h2><div class='alert' style="background:var(--color-accent-secondary);">Compare list is empty.</div><button onclick="shopTo('home')" class="btn-main">Back</button>`; return;}
+    if(state.compare.length==0){html += `<h2>Compare List</h2><div class='alert' style="background:var(--color-accent-secondary);">Compare list is empty.</div><button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html; return;}
     let items = state.compare.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
@@ -792,19 +991,95 @@ function renderShop(){
         </div>
       </div>`;
     }).join('');
-    document.getElementById("shop").innerHTML = `<h2>Compare List</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`;return;
+    html += `<h2>Compare List</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html;return;
   }
-  // PRODUCT LIST
+  
+  // --- SUB-PAGES COMPONENT ROUTER (About, Contact, Categories Pages) ---
+  if(state.page === "home" && state.subPage === "about"){
+    html += `<div class="card">${dynamicContent.aboutText}</div>`;
+    document.getElementById("shop").innerHTML=html;
+    return;
+  }
+  if(state.page === "home" && state.subPage === "contact"){
+    html += `<div class="card">${dynamicContent.contactText}</div>`;
+    document.getElementById("shop").innerHTML=html;
+    return;
+  }
+  if(state.page === "home" && state.subPage === "categories"){
+    html += `<div class="card">
+      <h2>${escapeHtml(dynamicContent.categoriesTitle)}</h2>
+      <div class="row" style="gap:20px; margin-top:20px;">
+        ${admin.cats.map(c => `
+          <div class="dashboard-card" onclick="selectCategoryFromPage('${c}')" style="flex: 1 1 200px;">
+            <i class="fa fa-folder-open"></i>
+            <p>${c}</p>
+            <small style="color:var(--color-text-secondary); display:block; margin-top:5px;">${admin.products.filter(p=>p.cat===c).length} Active Products</small>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+    document.getElementById("shop").innerHTML=html;
+    return;
+  }
+
+  // --- HOME PAGE SPECIFIC ENHANCEMENTS (Banner, Featured, Footer) ---
+  if(state.page === "home" && state.subPage === "home"){
+    let isL = document.body.classList.contains('light-theme');
+    let overlayGrad = isL ? 'rgba(255,255,255,0.8), rgba(255,255,255,0.8)' : 'rgba(20, 20, 28, 0.75), rgba(20, 20, 28, 0.75)';
+    let bannerTxtColor = isL ? '#1c1c28' : '#ffffff';
+
+    html += `<div class="banner-slider" style="background: linear-gradient(${overlayGrad}), url('${dynamicContent.bannerImg}') no-repeat center center; background-size: cover;">
+        <h1 style="color:var(--color-accent-main); font-size: 2.5em; margin-bottom: 10px;">${escapeHtml(dynamicContent.bannerTitle)}</h1>
+        <p style="font-size:1.3em; color:${bannerTxtColor}; margin-bottom: 20px;">${escapeHtml(dynamicContent.bannerSub)}</p>
+        <button class="btn-main" onclick="shopTo('search','sale')" style="padding:12px 25px; font-size:1.1em; margin-top:10px;">Shop Now</button>
+    </div>`;
+  }
+  
+  // --- Shop Filter Sidebar ---
+  const shopFilterSidebar = `
+    <div class="shop-filter-sidebar">
+      <h2><i class="fa fa-sliders-h"></i> Filters</h2>
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="catFilterSelect" onchange="updateShopFilters()" style="width:100%;">
+          <option value="All">All Categories</option>
+          ${admin.cats.map(c => `<option value="${c}" ${state.shopFilters.selectedCategory === c ? 'selected' : ''}>${c}</option>`).join('')}
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="priceRangeMin">Price Range (₹0 to ₹${state.shopFilters.maxPrice})</label>
+        <input type="range" id="priceRangeMin" min="0" max="${state.shopFilters.maxPrice}" value="${state.shopFilters.minPrice}" 
+               oninput="document.getElementById('priceRangeDisp').textContent = '₹'+this.value+' - ₹'+document.getElementById('priceRangeMax').value" 
+               onchange="updateShopFilters()" style="padding:0; height:auto;">
+        <input type="range" id="priceRangeMax" min="0" max="${state.shopFilters.maxPrice}" value="${state.shopFilters.maxPrice}" 
+               oninput="document.getElementById('priceRangeDisp').textContent = '₹'+document.getElementById('priceRangeMin').value+' - ₹'+this.value" 
+               onchange="updateShopFilters()" style="padding:0; height:auto;">
+        <div class="range-display">Current: <span id="priceRangeDisp">₹${state.shopFilters.minPrice} - ₹${state.shopFilters.maxPrice}</span></div>
+      </div>
+    </div>`;
+
+  // --- Product List Logic (Filtered) ---
   let products = admin.products.slice();
-  if(state.page=="cat" && state.detailsSku) products = products.filter(p=>p.cat==state.detailsSku);
+  
+  if(state.shopFilters.selectedCategory !== "All"){
+    products = products.filter(p=>p.cat==state.shopFilters.selectedCategory);
+  }
+  
+  products = products.filter(p=>p.price>=state.shopFilters.minPrice && p.price<=state.shopFilters.maxPrice);
+
   if(state.page=="search" && state.detailsSku) {
     let q = state.detailsSku.toLowerCase();
     products = products.filter(p=>p.name.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q));
     html += `<div style="margin-bottom:15px; color:var(--color-text-secondary);">Search for <b style="color:var(--color-text-primary);">${state.detailsSku}</b>: ${products.length} found.</div>`;
   }
-  html += '<div class="row">';
+  
+  // Render Product Listing
+  let productListHTML = `
+    <div class="shop-product-list">
+      <h2>${state.shopFilters.selectedCategory !== "All" ? state.shopFilters.selectedCategory : 'All Products'} (${products.length} Items)</h2>
+      <div class="row">`;
   products.forEach(p=>{
-    html+=`<div class="product">
+    productListHTML+=`<div class="product">
       <img src="${p.img}" onclick="shopTo('details','${p.sku}')" alt="${p.name}" style="cursor:pointer;"/>
       <div style="min-height:48px;"><span class="pname">${p.name}</span><span class="cat-label">${p.cat}</span></div>
       <div style="margin-bottom:10px; font-size:1.2em; color:var(--color-accent-main); font-weight:bold;">₹${p.price} <span class="right" style="font-size:0.8em; color:var(--color-text-secondary);">SKU: <b>${p.sku}</b></span></div>
@@ -815,29 +1090,77 @@ function renderShop(){
       </div>
     </div>`;
   });
-  html += '</div>';
+  productListHTML += `</div></div>`;
+  
+  if(state.page === "home" || state.page === "search"){
+      html += `<div class="shop-content-layout">${shopFilterSidebar}${productListHTML}</div>`;
+  }
+  
+  // --- HOME PAGE EXTRA SECTIONS ---
+  if(state.page === "home" && state.subPage === "home"){
+    const featuredProds = admin.products.filter(p=>p.price>2000).slice(0, 6);
+    html += `<div class="featured-products-section">
+      <h2>Featured Products</h2>
+      <div class="row" style="overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px;">` + 
+      featuredProds.map(p=>`<div class="product" onclick="shopTo('details','${p.sku}')" style="flex: 0 0 170px; padding:10px;">
+        <img src="${p.img}" style="height:120px;">
+        <div class="pname" style="margin-bottom:0; font-size:1em;">${p.name.substring(0,25)}</div>
+        <div style="color:var(--color-accent-main); font-weight:bold;">₹${p.price}</div>
+      </div>`).join('') +
+      `</div>
+    </div>`;
+    
+    const allReviews = admin.products.flatMap(p=>p.reviews.map(r=>({...r, prod: p.name, sku: p.sku})));
+    html += `<div class="featured-products-section" style="border-top:none;">
+      <h2>What Customers Say</h2>
+      <div class="row">` + 
+      allReviews.slice(0, 3).map(r=>`<div class="card" style="flex:1; background:#191928; border-left: 5px solid var(--color-accent-main);">
+        <span class="star">${"★".repeat(r.star)}</span><br>
+        <p style="font-style:italic;">"${r.text}"</p>
+        <small>- <b>${r.by}</b> on ${r.prod}</small>
+      </div>`).join('') +
+      `</div>
+    </div>`;
+    
+    html += `<div class="suggest-slider">
+        <h2>Recommended for You</h2>
+        <div class="row" style="overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px;">`+
+        admin.products.slice(6, 12)
+          .map(q=>`<div class="product" onclick="shopTo('details','${q.sku}')" style="flex: 0 0 140px; padding:10px;">
+          <img src="${q.img}" style="height:100px;">
+          <div class="pname" style="margin-bottom:0; font-size:0.9em;">${q.name.substring(0,20)}</div><div style="color:var(--color-accent-main); font-weight:bold;">₹${q.price}</div></div>`).join('')+
+      `</div></div>`;
+    
+    html += `<div class="shop-footer">
+        &copy; ${new Date().getFullYear()} Modern E-commerce Demo. All rights reserved. | <a href="#" style="color:var(--color-accent-main);">Privacy Policy</a>
+    </div>`;
+  }
+
   document.getElementById("shop").innerHTML=html;
 }
+
 function shopTo(page, val){
   if(page=='wishlist'||page=='compare')
     if(!state.user){state.page='login';renderShop();return;}
   state.page = page;
+  state.subPage = 'home';
   state.detailsSku = val||null;
   renderShop();
 }
+
 function loginShop(){
   let u = document.getElementById("userLog").value;
   let p = document.getElementById("passLog").value;
-  if(u=="user123"&&p=="user123"){state.user=u;state.page='home';renderShop();return;}
+  if(u=="user123"&&p=="user123"){state.user=u;state.page='home';state.subPage='home';renderShop();return;}
   document.getElementById("elog").textContent = "Invalid credentials.";
 }
+
 function logoutShop(){state.user=null;state.page='login';renderShop();}
 function addToCart(sku){
   if(!state.user){state.page='login';renderShop();return;}
   if(!state.cart.includes(sku)){state.cart.push(sku);}
   renderShop();
 }
-// NEW: Cart Remove with Modal
 function cartRemove(sku){
     showCustomModal('Remove Item', 'Are you sure you want to remove this item from your cart?', 'confirm', cartRemoveConfirm, sku);
 }
@@ -848,13 +1171,12 @@ function cartRemoveConfirm(sku){
 function toggleWish(sku){
   if(!state.user){state.page='login';renderShop();return;}
   if(state.wishlist.includes(sku)){
-    wishlistRemove(sku); // Re-use remove function with modal
+    wishlistRemove(sku);
   } else {
     state.wishlist.push(sku);
     renderShop();
   }
 }
-// NEW: Wishlist Remove with Modal
 function wishlistRemove(sku){
     showCustomModal('Remove from Wishlist', 'Remove this product from your wishlist?', 'confirm', wishlistRemoveConfirm, sku);
 }
@@ -863,13 +1185,12 @@ function wishlistRemoveConfirm(sku){state.wishlist=state.wishlist.filter(x=>x!=s
 function toggleCompare(sku){
   if(!state.user){state.page='login';renderShop();return;}
   if(state.compare.includes(sku)){
-    compareRemove(sku); // Re-use remove function with modal
+    compareRemove(sku);
   } else {
     state.compare.push(sku);
     renderShop();
   }
 }
-// NEW: Compare Remove with Modal
 function compareRemove(sku){
     showCustomModal('Remove from Compare', 'Remove this product from your compare list?', 'confirm', compareRemoveConfirm, sku);
 }
@@ -884,6 +1205,7 @@ function addReview(sku){
   let p=admin.products.find(p=>p.sku==sku);
   if(p){p.reviews.push({by:state.user,star:s,text:t});saveProducts();renderShop();}
 }
+
 function saveOrder(){
   let name = document.getElementById("coName").value.trim();
   let email = document.getElementById("coEmail").value.trim();
@@ -897,9 +1219,9 @@ function saveOrder(){
   }
   let id = Date.now().toString().slice(-6);
   let total = state.cart.map(sku=>admin.products.find(p=>p.sku==sku).price).reduce((x,y)=>x+y,0);
-  admin.orders.push({id,user:state.user,items:[...state.cart],total});
+  admin.orders.push({id,user:state.user,items:[...state.cart],total, date: new Date().toISOString().substring(0, 10)});
   saveOrders();
-  state.cart=[];state.page="home";
+  state.cart=[];state.page="home";state.subPage="home";
   showCustomModal('Success', 'Order placed successfully! Order ID: #'+id, 'alert');
   renderShop();
 }
@@ -925,23 +1247,31 @@ function renderAdmin(){
     <button onclick="adminLogout()" style="margin-top:20px; background:var(--color-error);"><i class="fa fa-sign-out"></i> Logout</button>
     </div>`;
   let main = '<div class="admin-main">';
-  // Dashboard
-  if(admin.mode=="dashboard") main+=`<div class="card"><h2>Dashboard</h2>
-    <p style="font-size:1.1em;">Products: <b style="color:var(--color-accent-main);">${admin.products.length}</b>, 
-    Orders: <b style="color:var(--color-accent-main);">${admin.orders.length}</b>, 
-    Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b></p>
-    <div style="margin-top:20px;"><b>Sales Trend:</b><br> <svg width="280" height="70"><polyline fill="none" stroke="var(--color-accent-main)" stroke-width="4" 
-        points="5,60 50,${Math.max(10,60-3*admin.orders.length%50)} 100,${Math.max(10,60-2*admin.products.length%50)} 150,45 200,30 250,60" stroke-linecap="round"/></svg>
-    </div></div>`;
-  // Products CRUD with pagination and **CATEGORY FILTER**
+  
+  if(admin.mode=="dashboard"){
+    main+=`<div class="card"><h2>Dashboard Overview</h2>
+      <p style="font-size:1.1em;">Products: <b style="color:var(--color-accent-main);">${admin.products.length}</b>, 
+      Orders: <b style="color:var(--color-accent-main);">${admin.orders.length}</b>, 
+      Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b></p>
+      
+      <h3 style="margin-top:30px; border-bottom:1px solid #2d2d42; padding-bottom:5px;">Quick Access</h3>
+      <div class="row" style="gap:20px;">
+        <div class="dashboard-card" onclick="adminNav('products')"><i class="fa fa-cube"></i><p>Products</p></div>
+        <div class="dashboard-card" onclick="adminNav('orders')"><i class="fa fa-receipt"></i><p>Orders</p></div>
+        <div class="dashboard-card" onclick="adminNav('cust')"><i class="fa fa-user"></i><p>Customers</p></div>
+        <div class="dashboard-card" onclick="adminNav('cats')"><i class="fa fa-folder"></i><p>Categories</p></div>
+      </div>
+      
+      <div style="margin-top:30px;"><b>Sales Trend:</b><br> <svg width="280" height="70"><polyline fill="none" stroke="var(--color-accent-main)" stroke-width="4" 
+          points="5,60 50,${Math.max(10,60-3*admin.orders.length%50)} 100,${Math.max(10,60-2*admin.products.length%50)} 150,45 200,30 250,60" stroke-linecap="round"/></svg>
+      </div></div>`;
+  }
   if(admin.mode=="products"){
-    // Filtering
     let filteredProducts = admin.products.slice();
     if(admin.productFilterCat !== "All"){
         filteredProducts = filteredProducts.filter(p => p.cat === admin.productFilterCat);
     }
     
-    // Pagination helpers
     const pageSize = admin.pageSize;
     const pageState = admin.paging.products;
     const total = filteredProducts.length;
@@ -979,7 +1309,6 @@ function renderAdmin(){
       </div>
     </div>`;
 
-    // Add/edit form modal (if admin.curProd not null)
     if(admin.curProd !== null){
       let p = (typeof admin.curProd === 'string' && admin.curProd!=="__new__") ? admin.products.find(x=>x.sku==admin.curProd) : null;
       if(admin.curProd === "__new__") p = {};
@@ -995,7 +1324,6 @@ function renderAdmin(){
         <button onclick="cancelEditProd()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
     }
   }
-  // Categories CRUD
   if(admin.mode=='cats'){
     main+=`<div class="card"><h2>Categories  <button onclick="addCat()" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
       <div style="margin-top:15px;">${admin.cats.map(c=>`<span class="cat-label" style="font-size:1.1em; display:inline-flex; align-items:center; margin:5px;">${c} 
@@ -1008,17 +1336,27 @@ function renderAdmin(){
         <button onclick="cancelCat()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
     }
   }
-  // Orders with pagination
   if(admin.mode=="orders"){
+    let filteredOrders = admin.orders.slice();
+    if(admin.orderFilter){
+      const q = admin.orderFilter.toLowerCase();
+      filteredOrders = filteredOrders.filter(o => o.id.toLowerCase().includes(q) || o.user.toLowerCase().includes(q));
+    }
+    
     const pageSize = admin.pageSize;
     const pageState = admin.paging.orders;
-    const total = admin.orders.length;
+    const total = filteredOrders.length;
     const totalPages = Math.max(1, Math.ceil(total/pageSize));
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page-1)*pageSize;
-    const pageItems = admin.orders.slice(startIdx, startIdx+pageSize);
+    const pageItems = filteredOrders.slice(startIdx, startIdx+pageSize);
 
     main+=`<div class="card"><h2>Orders</h2>
+      <div class="search-bar" style="max-width:100%;">
+        <input id="orderFilterInput" placeholder="Filter by ID or User" value="${admin.orderFilter}" oninput="adminFilter('order', this.value)"/>
+        <button onclick="adminFilter('order', '')" class="btn-main" style="background:#3e4a68;"><i class="fa fa-times"></i> Clear</button>
+      </div>
+      <div style="margin-top:10px; color:var(--color-text-secondary);">Showing ${total} matching orders.</div>
       <table>
         <thead><tr><th>ID</th><th>User</th><th>Total</th><th>Items Count</th></tr></thead>
         <tbody>
@@ -1038,17 +1376,27 @@ function renderAdmin(){
       </div>
     </div>`;
   }
-  // Customers with pagination
   if(admin.mode=="cust"){
+    let filteredCust = admin.cust.slice();
+    if(admin.custFilter){
+      const q = admin.custFilter.toLowerCase();
+      filteredCust = filteredCust.filter(u => u.user.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
+    }
+    
     const pageSize = admin.pageSize;
     const pageState = admin.paging.cust;
-    const total = admin.cust.length;
+    const total = filteredCust.length;
     const totalPages = Math.max(1, Math.ceil(total/pageSize));
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page-1)*pageSize;
-    const pageItems = admin.cust.slice(startIdx, startIdx+pageSize);
+    const pageItems = filteredCust.slice(startIdx, startIdx+pageSize);
 
     main+=`<div class="card"><h2>Customers</h2>
+      <div class="search-bar" style="max-width:100%;">
+        <input id="custFilterInput" placeholder="Filter by Username or Email" value="${admin.custFilter}" oninput="adminFilter('cust', this.value)"/>
+        <button onclick="adminFilter('cust', '')" class="btn-main" style="background:#3e4a68;"><i class="fa fa-times"></i> Clear</button>
+      </div>
+      <div style="margin-top:10px; color:var(--color-text-secondary);">Showing ${total} matching customers.</div>
       <table>
         <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Orders</th></tr></thead>
         <tbody>
@@ -1068,7 +1416,6 @@ function renderAdmin(){
       </div>
     </div>`;
   }
-  // Reviews read-only with pagination (aggregate product reviews)
   if(admin.mode=="reviews"){
     const reviewRows = admin.products.flatMap(p=>p.reviews.map(r=>({...r, prod: p.name, sku: p.sku})));
     const pageSize = admin.pageSize;
@@ -1091,15 +1438,36 @@ function renderAdmin(){
       </div>
     </div>`;
   }
-  // Settings/Marketing/Reports (demo simple forms)
+  
+  // Dynamic Admin Form Management Layout
   if(admin.mode=="settings"){
-    main+=`<div class="card"><h2>Settings</h2>
+    main+=`<div class="card"><h2>Settings & Dynamic Content Engine</h2>
       <div class="input"><label>Store Name:</label> <input value="SPA Demo Store"></div>
       <div class="input"><label>Enable Demo Marketing: <input type="checkbox" style="width:auto;"></label></div>
-      <button class="btn-main">Save Settings</button>
+      
+      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Dynamic Header Menu Links</h3>
+      <div class="input"><label>Home Label</label><input id="dynMenuHome" value="${escapeHtml(dynamicContent.menuHomeLabel)}"/></div>
+      <div class="input"><label>Categories Label</label><input id="dynMenuCats" value="${escapeHtml(dynamicContent.menuCatsLabel)}"/></div>
+      <div class="input"><label>About Us Label</label><input id="dynMenuAbout" value="${escapeHtml(dynamicContent.menuAboutLabel)}"/></div>
+      <div class="input"><label>Contact Us Label</label><input id="dynMenuContact" value="${escapeHtml(dynamicContent.menuContactLabel)}"/></div>
+
+      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Homepage Slider Options</h3>
+      <div class="input"><label>Slider Title</label><input id="dynBannerTitle" value="${escapeHtml(dynamicContent.bannerTitle)}"/></div>
+      <div class="input"><label>Slider Subtitle</label><input id="dynBannerSub" value="${escapeHtml(dynamicContent.bannerSub)}"/></div>
+      <div class="input"><label>Slider Cover Image URL</label><input id="dynBannerImg" value="${escapeHtml(dynamicContent.bannerImg)}"/></div>
+      
+      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Dynamic Content Pages (HTML Compatible)</h3>
+      <div class="input"><label>Categories Page Header Title</label><input id="dynCatsTitle" value="${escapeHtml(dynamicContent.categoriesTitle)}"/></div>
+      <div class="input"><label>About Us Page Body Layout</label>
+        <textarea id="dynAboutText" style="width:100%; height:110px; background:var(--color-background); color:var(--color-text-primary); border:1px solid #3e4a68; border-radius:5px; padding:10px; font-family:inherit;">${escapeHtml(dynamicContent.aboutText)}</textarea>
+      </div>
+      <div class="input"><label>Contact Us Page Body Layout</label>
+        <textarea id="dynContactText" style="width:100%; height:110px; background:var(--color-background); color:var(--color-text-primary); border:1px solid #3e4a68; border-radius:5px; padding:10px; font-family:inherit;">${escapeHtml(dynamicContent.contactText)}</textarea>
+      </div>
+      
+      <button onclick="saveDynamicSettings()" class="btn-main" style="margin-top:15px;">Save System Parameters</button>
     </div>`;
   }
-  // Profile
   if(admin.mode=="profile"){
     main+=`<div class="card"><h2>My Profile</h2>
       <div><b>Username:</b> admin</div>
@@ -1110,19 +1478,72 @@ function renderAdmin(){
   document.getElementById("admin").innerHTML = sidebar+main;
 }
 
+function saveDynamicSettings() {
+  dynamicContent.menuHomeLabel = document.getElementById("dynMenuHome").value;
+  dynamicContent.menuCatsLabel = document.getElementById("dynMenuCats").value;
+  dynamicContent.menuAboutLabel = document.getElementById("dynMenuAbout").value;
+  dynamicContent.menuContactLabel = document.getElementById("dynMenuContact").value;
+  dynamicContent.bannerTitle = document.getElementById("dynBannerTitle").value;
+  dynamicContent.bannerSub = document.getElementById("dynBannerSub").value;
+  dynamicContent.bannerImg = document.getElementById("dynBannerImg").value;
+  dynamicContent.categoriesTitle = document.getElementById("dynCatsTitle").value;
+  dynamicContent.aboutText = document.getElementById("dynAboutText").value;
+  dynamicContent.contactText = document.getElementById("dynContactText").value;
+  
+  localStorage.setItem("ecmDynamicContent", JSON.stringify(dynamicContent));
+  showCustomModal('Parameters Updated', 'The configuration settings and front page menu parameters have been applied successfully.', 'alert');
+  renderAdmin();
+}
+
+function adminFilter(section, query){
+  if(section === 'cust'){
+    admin.custFilter = query;
+    admin.paging.cust.page = 1;
+  } else if(section === 'order'){
+    admin.orderFilter = query;
+    admin.paging.orders.page = 1;
+  }
+  renderAdmin();
+}
+
 function adminPageChange(section, pageNum){
   const pageSize = admin.pageSize;
   if(!admin.paging[section]) admin.paging[section] = {page:1};
-  const total = section==='cust'? admin.cust.length : section==='products'? admin.products.length : section==='orders'? admin.orders.length : section==='reviews'? admin.products.flatMap(p=>p.reviews).length : 0;
+  
+  let total = 0;
+  if(section==='products'){
+    let filteredProducts = admin.products.slice();
+    if(admin.productFilterCat !== "All"){
+        filteredProducts = filteredProducts.filter(p => p.cat === admin.productFilterCat);
+    }
+    total = filteredProducts.length;
+  } else if(section==='cust'){
+    let filteredCust = admin.cust.slice();
+    if(admin.custFilter){
+      const q = admin.custFilter.toLowerCase();
+      filteredCust = filteredCust.filter(u => u.user.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
+    }
+    total = filteredCust.length;
+  } else if(section==='orders'){
+    let filteredOrders = admin.orders.slice();
+    if(admin.orderFilter){
+      const q = admin.orderFilter.toLowerCase();
+      filteredOrders = filteredOrders.filter(o => o.id.toLowerCase().includes(q) || o.user.toLowerCase().includes(q));
+    }
+    total = filteredOrders.length;
+  } else if(section==='reviews'){
+    total = admin.products.flatMap(p=>p.reviews).length;
+  } else {
+    total = 0;
+  }
+  
   const totalPages = Math.max(1, Math.ceil(total/pageSize));
   admin.paging[section].page = Math.min(Math.max(1, pageNum), totalPages);
   renderAdmin();
 }
 
-// NEW: Admin product filter function
 function filterAdminProducts(cat) {
     admin.productFilterCat = cat;
-    // Reset to page 1 upon changing filter
     admin.paging.products.page = 1;
     renderAdmin();
 }
@@ -1131,7 +1552,6 @@ function adminNav(mode){admin.mode=mode;admin.curProd=null;admin.curCat=null;ren
 function loginAdmin(){if(document.getElementById("aduser").value=="admin" && document.getElementById("adpass").value=="admin"){admin.logged=true;renderAdmin();}else{document.getElementById("aderr").textContent='Wrong credentials.';}}
 function adminLogout(){admin.logged=false;renderAdmin();}
 
-// Fix Add/Edit product behavior
 function addEditProd(skuOrNew){
   if(skuOrNew === "__new__"){
     admin.curProd = "__new__";
@@ -1166,10 +1586,13 @@ function saveProd(oldSku){
     }
     admin.products.push({sku,name,cat,price,img,desc,reviews:[]});
   }
+  if(!admin.cats.includes(cat)){
+      admin.cats.push(cat);
+      saveCats();
+  }
   saveProducts(); admin.curProd=null; renderAdmin();
 }
 
-// NEW: Delete Product with Modal
 function delProd(sku){
     showCustomModal('Confirm Deletion', 'Are you sure you want to permanently delete product SKU: <b>'+sku+'</b>?', 'confirm', delProdConfirm, sku);
 }
@@ -1192,7 +1615,6 @@ function saveCat(){
 }
 function cancelCat(){admin.curCat=false;renderAdmin();}
 
-// NEW: Delete Category with Modal
 function delCat(c){
     showCustomModal('Confirm Deletion', 'Are you sure you want to delete category: <b>'+c+'</b>? This will not remove products from the list.', 'confirm', delCatConfirm, c);
 }
@@ -1208,10 +1630,20 @@ function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];});
 }
 
-/** Initialize demo data if missing, plus small helper to keep UI responsive **/
+/** Bootstrap & Initialize application states **/
 (function bootstrap(){
   initDemoDB();
   loadState();
+  
+  const savedTheme = localStorage.getItem('ecmThemeMode');
+  if(savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+    const icon = document.getElementById('theme-icon');
+    if(icon) icon.className = 'fa fa-sun';
+  }
+  
+  renderShop();
+  renderAdmin();
 })();
 </script>
 </body>
