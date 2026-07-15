@@ -20,14 +20,14 @@
       --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
-    /* ☀️ **LIGHT MATTE THEME OVERRIDES** */
+    /* ☀️ **LIGHT MATTE THEME OVERRIDES WITH HIGH-CONTRAST LEGIBILITY** */
     body.light-theme {
       --color-background: #f4f4f8;
       --color-surface: #ffffff;
       --color-text-primary: #1c1c28;
-      --color-text-secondary: #62627a;
-      --color-accent-main: #00acc1;
-      --color-accent-secondary: #007c8d;
+      --color-text-secondary: #55556e;
+      --color-accent-main: #007c8d;
+      --color-accent-secondary: #004d56;
       --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
@@ -45,10 +45,15 @@
     }
     body.light-theme .sidebar {
       background: #ffffff;
+      border-right: 1px solid #dfdfe8;
     }
     body.light-theme .sidebar button {
       background: #e8e8f0;
       color: #1c1c28;
+    }
+    body.light-theme .sidebar button.selected {
+      background: var(--color-accent-main);
+      color: #ffffff !important;
     }
     body.light-theme .review {
       background: #f0f0f6;
@@ -58,6 +63,18 @@
     }
     body.light-theme table tr:hover {
       background: #dfdfe8;
+    }
+    body.light-theme table th {
+      background: #dfdfe8;
+      color: #1c1c28;
+    }
+    body.light-theme .shop-header-icons button {
+      background: #dfdfe8;
+      color: #1c1c28;
+    }
+    body.light-theme button:not(.btn-main):not(.page-num):not(.page-btn) {
+      background: #dfdfe8;
+      color: #1c1c28;
     }
 
     /* --- Navigation --- */
@@ -83,14 +100,24 @@
       transition: all 0.2s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
+    body.light-theme .nav button {
+      background: #dfdfe8;
+      color: #1c1c28;
+    }
     .nav button:hover:not(.selected) {
       background: #2d364a;
+    }
+    body.light-theme .nav button:hover:not(.selected) {
+      background: #d0d0da;
     }
     .nav .selected {
       background: var(--color-accent-main);
       color: #14141c;
       font-weight: bold;
       box-shadow: 0 4px 8px rgba(0, 187, 212, 0.3);
+    }
+    body.light-theme .nav .selected {
+      color: #ffffff;
     }
     
     /* --- General Layout & Typography --- */
@@ -111,6 +138,9 @@
       border-bottom: 2px solid var(--color-surface);
       padding-bottom: 8px;
       margin-top: 0;
+    }
+    body.light-theme h2 {
+      border-bottom: 2px solid #dfdfe8;
     }
     .card {
       background: var(--color-surface);
@@ -162,6 +192,9 @@
       color: #14141c;
       font-weight: bold;
     }
+    body.light-theme .product button:first-of-type, body.light-theme .product-admin button:first-of-type {
+      color: #ffffff;
+    }
     .product button:nth-of-type(2), .product button:nth-of-type(3),
     .product-admin button:nth-of-type(2), .product-admin button:nth-of-type(3) {
       background: #3e4a68;
@@ -197,6 +230,10 @@
       color: var(--color-text-secondary);
       font-weight: 500;
     }
+    body.light-theme .cat-label {
+      background: #dfdfe8;
+      color: #1c1c28;
+    }
     .alert {
       background: var(--color-error);
       color: #fff;
@@ -207,14 +244,14 @@
       font-weight: bold;
     }
     .hidden {
-      display: none !important; /* Force hide with important */
+      display: none !important;
     }
 
     /* --- Forms & Inputs --- */
     .input {
       margin-bottom: 15px;
     }
-    .input input, .input select {
+    .input input, .input select, .input textarea {
       padding: 10px 14px;
       border-radius: 5px;
       border: 1px solid #3e4a68;
@@ -223,6 +260,9 @@
       width: 100%;
       box-sizing: border-box;
       font-size: 1em;
+    }
+    body.light-theme .input input, body.light-theme .input select, body.light-theme .input textarea {
+      border: 1px solid #b0b0c5;
     }
     .input label {
       display: block;
@@ -247,6 +287,12 @@
     }
     .btn-main:hover {
       background: #26e6ff;
+    }
+    body.light-theme .btn-main {
+      color: #ffffff;
+    }
+    body.light-theme .btn-main:hover {
+      background: #005f6c;
     }
     
     /* --- Admin Sidebar --- */
@@ -277,6 +323,9 @@
     }
     .sidebar button:hover:not(.selected) {
       background: #2d2d42;
+    }
+    body.light-theme .sidebar button:hover:not(.selected) {
+      background: #d8d8e5;
     }
     .sidebar .selected {
       background: var(--color-accent-main);
@@ -310,6 +359,9 @@
       padding: 15px;
       border: 1px dashed var(--color-surface);
       border-radius: var(--border-radius);
+    }
+    body.light-theme .suggest-slider {
+      border: 1px dashed #dfdfe8;
     }
     .suggest-slider .product {
       min-width: 140px;
@@ -349,16 +401,18 @@
     
     /* --- Shop Header Icons (Cart/Wishlist/Compare) --- */
     .shop-header-icons button {
-        background: #3e4a68; /* Neutral color, not distracting */
+        background: #3e4a68;
         color: var(--color-text-primary);
-        font-size: 1.2em; /* Larger icons */
+        font-size: 1.2em;
         padding: 10px;
-        border-radius: 50%; /* Circle shape for icon buttons */
+        border-radius: 50%;
         width: 45px;
         height: 45px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         transition: background 0.2s;
         position: relative;
+        border: none;
+        cursor: pointer;
     }
     .shop-header-icons button:hover {
         background: var(--color-accent-secondary);
@@ -418,6 +472,9 @@
       padding-top: 10px;
       border-top: 1px solid #2d2d42;
     }
+    body.light-theme .pagination {
+      border-top: 1px solid #dfdfe8;
+    }
     .page-btn {
       background: #252538;
       color: var(--color-text-primary);
@@ -426,6 +483,10 @@
       border: none;
       cursor: pointer;
       transition: background 0.2s;
+    }
+    body.light-theme .page-btn {
+      background: #dfdfe8;
+      color: #1c1c28;
     }
     .page-btn:hover:not([disabled]) {
       background: #3e4a68;
@@ -441,11 +502,19 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background 0.2s, color 0.2s;
+      border: none;
+    }
+    body.light-theme .page-num {
+      background: #dfdfe8;
+      color: #1c1c28;
     }
     .page-num.active {
       background: var(--color-accent-main);
       color: #14141c;
       font-weight: bold;
+    }
+    body.light-theme .page-num.active {
+      color: #ffffff;
     }
     
     /* --- Tables --- */
@@ -459,6 +528,9 @@
       border: 1px solid #2d2d42;
       padding: 12px;
       text-align: left;
+    }
+    body.light-theme table th, body.light-theme table td {
+      border: 1px solid #dfdfe8;
     }
     table th {
       background: #252538;
@@ -527,6 +599,9 @@
         padding-bottom: 10px;
         border-bottom: 1px solid #2d2d42;
     }
+    body.light-theme .filter-group {
+      border-bottom: 1px solid #dfdfe8;
+    }
     .filter-group label {
         font-weight: bold;
         color: var(--color-accent-main);
@@ -546,13 +621,17 @@
         margin-bottom: 30px;
         border-radius: var(--border-radius);
         border: 2px solid var(--color-accent-secondary);
-        transition: all 0.3s ease;
+        position: relative;
     }
     .featured-products-section {
         margin-bottom: 30px;
         padding: 20px 0;
         border-top: 1px solid #2d2d42;
         border-bottom: 1px solid #2d2d42;
+    }
+    body.light-theme .featured-products-section {
+        border-top: 1px solid #dfdfe8;
+        border-bottom: 1px solid #dfdfe8;
     }
     .featured-products-section h2 {
         text-align: center;
@@ -574,6 +653,9 @@
         flex: 1 1 200px;
         min-width: 150px;
     }
+    body.light-theme .dashboard-card {
+      background: #e8e8f0;
+    }
     .dashboard-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 16px rgba(0, 187, 212, 0.2);
@@ -594,9 +676,87 @@
     .shop-sub-nav a:hover {
       color: var(--color-accent-main) !important;
     }
+
+    /* --- 🔔 TRANSIENT TOAST NOTIFICATIONS STYLE --- */
+    #toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .toast-box {
+      background: #1e1e2d;
+      color: #e0e0f0;
+      padding: 14px 20px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      border-left: 5px solid var(--color-accent-main);
+      font-weight: 500;
+      min-width: 260px;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+      opacity: 0;
+      pointer-events: auto;
+    }
+    body.light-theme .toast-box {
+      background: #ffffff;
+      color: #1c1c28;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    .toast-box.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    /* --- Interactive Sorting Headers Styling --- */
+    .sortable-header {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      padding-right: 20px !important;
+    }
+    .sortable-header:hover {
+      background: #32324d !important;
+      color: var(--color-accent-main);
+    }
+    body.light-theme .sortable-header:hover {
+      background: #d0d0da !important;
+    }
+    .sort-icon {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8em;
+      opacity: 0.6;
+    }
+
+    /* --- Admin Bulk Actions Toolbar --- */
+    .bulk-toolbar {
+      background: #252538;
+      padding: 10px 15px;
+      border-radius: var(--border-radius);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border: 1px solid var(--color-accent-secondary);
+    }
+    body.light-theme .bulk-toolbar {
+      background: #e8e8f0;
+      border: 1px solid #b0b0c5;
+    }
   </style>
 </head>
 <body>
+  
+  <!-- Transient Toast Notification Overlay Stack Hub -->
+  <div id="toast-container"></div>
+
   <div class="nav">
     <button onclick="showApp('shop')" id="nav-shop" class="selected"><i class="fa fa-store"></i>Shop</button>
     <button onclick="showApp('admin')" id="nav-admin"><i class="fa fa-user-shield"></i>Admin</button>
@@ -611,8 +771,7 @@
       <div class="modal-content">
           <h3 id="modal-title"></h3>
           <p id="modal-message"></p>
-          <div id="modal-actions">
-              </div>
+          <div id="modal-actions"></div>
       </div>
   </div>
 
@@ -644,7 +803,11 @@ let state = { user: null, page: "home", subPage: "home", cart: [], wishlist: [],
         minPrice: 0,
         maxPrice: 5000,
         selectedCategory: "All"
-    }
+    },
+    currentBannerIndex: 0,
+    appliedCoupon: "",
+    discountPercent: 0,
+    flatDiscount: 0
 };
 
 let admin = {
@@ -655,19 +818,31 @@ let admin = {
   orders: [],
   cust: [],
   reviews: [],
+  contactMessages: JSON.parse(localStorage.getItem("ecmContactMessages") || "[]"),
   curProd: null,
   curCat: null,
   curOrder: null,
-  paging: { products: {page:1}, orders: {page:1}, cust: {page:1}, reviews: {page:1} },
+  paging: { products: {page:1}, orders: {page:1}, cust: {page:1}, reviews: {page:1}, messages: {page:1} },
   pageSize: 10,
   productFilterCat: "All",
   custFilter: "",
-  orderFilter: ""
+  orderFilter: "",
+  // Sorting Engine Parameters
+  sorts: {
+    products: { field: "sku", direction: "asc" },
+    orders: { field: "id", direction: "asc" },
+    cust: { field: "user", direction: "asc" }
+  },
+  // Bulk Execution Repositories
+  checkedProducts: [],
+  checkedOrders: [],
+  checkedCust: []
 };
 
+// Expanded Multi-Image Pool Configuration
 let dynamicContent = JSON.parse(localStorage.getItem("ecmDynamicContent")) || {
   aboutText: "<h2>About Our Store</h2><p>Welcome to our single-page sandbox deployment application. We focus on providing highly fluid, fully responsive manual and automated QA script verification capabilities.</p>",
-  contactText: "<h2>Contact Operational Team</h2><p>Need support or looking to review software evaluation processes? Reach us at team@qasandbox.io or via telephone terminal paths.</p>",
+  contactText: "<h2>Contact Operational Team</h2><p>Need support or looking to review software evaluation processes? Fill out our system submission dashboard intake route below to pass logs straight into the administration portal matrix.</p>",
   categoriesTitle: "Explore Diverse Dynamic Layouts",
   menuHomeLabel: "Home",
   menuCatsLabel: "Categories",
@@ -675,8 +850,29 @@ let dynamicContent = JSON.parse(localStorage.getItem("ecmDynamicContent")) || {
   menuContactLabel: "Contact Us",
   bannerTitle: "Fall into Savings!",
   bannerSub: "Up to 50% off select products for a limited time.",
-  bannerImg: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80"
+  bannerImagesPool: [
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1200&q=80"
+  ]
 };
+
+/** Transient Toast Engine Implementation **/
+function spawnToastNotification(message) {
+  const container = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+  toast.className = "toast-box";
+  toast.innerHTML = `<i class="fa fa-info-circle" style="color:var(--color-accent-main); margin-right:8px;"></i> ${message}`;
+  container.appendChild(toast);
+  
+  // Reflow trigger
+  setTimeout(() => toast.classList.add("show"), 50);
+  
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
 
 /** Demo DB creation & load **/
 function buildDummyDataIfMissing(){
@@ -709,7 +905,8 @@ function buildDummyDataIfMissing(){
         user: `demo_user_${1000+i}`,
         email: `demo${i}@example.com`,
         phone: `+91-9${String(100000000 + i).slice(-9)}`,
-        orders: []
+        orders: [],
+        status: "Active"
       });
     }
     // Orders
@@ -724,7 +921,7 @@ function buildDummyDataIfMissing(){
       }
       const total = items.reduce((s,sku)=>s + (products.find(p=>p.sku==sku)?.price||0),0);
       const id = (Date.now().toString().slice(-4)) + String(i).padStart(3,"0");
-      orders.push({id, user: cust, items, total, date: new Date().toISOString().substring(0, 10)});
+      orders.push({id, user: cust, items, total, date: new Date(2026, 0, 1 + (i % 28)).toISOString().substring(0, 10), status: "Pending"});
       customers[i % customers.length].orders.push(id);
     }
     localStorage.setItem("ecmProducts", JSON.stringify(products));
@@ -742,14 +939,18 @@ function loadState() {
   admin.cats = JSON.parse(localStorage.getItem("ecmCats")||"[]");
   admin.orders = JSON.parse(sessionStorage.getItem("ecmOrders")||"[]");
   admin.cust = JSON.parse(localStorage.getItem("ecmCust")||"[]");
+  admin.contactMessages = JSON.parse(localStorage.getItem("ecmContactMessages") || "[]");
   
   const maxPrice = admin.products.reduce((max, p) => Math.max(max, p.price || 0), 0) || 5000;
-  state.shopFilters.maxPrice = maxPrice;
+  if (state.shopFilters.maxPrice === 5000) {
+     state.shopFilters.maxPrice = maxPrice;
+  }
 }
 function saveProducts() { localStorage.setItem("ecmProducts", JSON.stringify(admin.products)); }
 function saveCats() { localStorage.setItem("ecmCats", JSON.stringify(admin.cats)); }
 function saveOrders() { sessionStorage.setItem("ecmOrders", JSON.stringify(admin.orders)); }
 function saveCust() { localStorage.setItem("ecmCust", JSON.stringify(admin.cust)); }
+function saveMessages() { localStorage.setItem("ecmContactMessages", JSON.stringify(admin.contactMessages)); }
 
 /** Custom Modal Handlers **/
 function showCustomModal(title, message, type, confirmCallback, data) {
@@ -796,7 +997,7 @@ function toggleThemeMode() {
   const isLight = document.body.classList.contains('light-theme');
   localStorage.setItem('ecmThemeMode', isLight ? 'light' : 'dark');
   document.getElementById('theme-icon').className = isLight ? 'fa fa-sun' : 'fa fa-moon';
-  renderShop();
+  if(document.getElementById("admin").classList.contains('active')) { renderAdmin(); } else { renderShop(); }
 }
 
 /** SPA navigation **/
@@ -812,18 +1013,12 @@ function showApp(app){
 
 /** --- SHOP FILTERS & HANDLERS --- **/
 function updateShopFilters(){
-    const minPrice = document.getElementById('priceRangeMin').value;
-    const maxPrice = document.getElementById('priceRangeMax').value;
-    const selectedCat = document.getElementById('catFilterSelect').value;
-    
-    state.shopFilters.minPrice = Number(minPrice);
-    state.shopFilters.maxPrice = Number(maxPrice);
-    state.shopFilters.selectedCategory = selectedCat;
-    
+    state.shopFilters.minPrice = Number(document.getElementById('priceRangeMin').value);
+    state.shopFilters.maxPrice = Number(document.getElementById('priceRangeMax').value);
+    state.shopFilters.selectedCategory = document.getElementById('catFilterSelect').value;
     state.page = 'home';
     state.subPage = 'home';
     state.detailsSku = null;
-    
     renderShop();
 }
 
@@ -837,6 +1032,155 @@ function setSubPage(sub) {
 function selectCategoryFromPage(cat) {
   state.shopFilters.selectedCategory = cat;
   setSubPage('home');
+}
+
+/** Banner Carousel Controls **/
+function advanceBannerFrame(direction) {
+  const pool = dynamicContent.bannerImagesPool || [];
+  if(!pool.length) return;
+  state.currentBannerIndex = (state.currentBannerIndex + direction + pool.length) % pool.length;
+  renderShop();
+}
+
+/** Coupon Validation Engine **/
+function executeCouponValidation() {
+  const input = document.getElementById("couponInput").value.trim().toUpperCase();
+  if(!input) {
+    spawnToastNotification("Please input a code.");
+    return;
+  }
+  if(input === "DISCOUNT10") {
+    state.appliedCoupon = "DISCOUNT10";
+    state.discountPercent = 10;
+    state.flatDiscount = 0;
+    spawnToastNotification("Promo Code DISCOUNT10 applied! 10% Off.");
+  } else if(input === "FREESHIP") {
+    state.appliedCoupon = "FREESHIP";
+    state.discountPercent = 0;
+    state.flatDiscount = 200;
+    spawnToastNotification("Promo Code FREESHIP applied! Flat ₹200 off.");
+  } else {
+    spawnToastNotification("Invalid Promo Code parameter.");
+    return;
+  }
+  renderShop();
+}
+
+/** Contact Intake Handler **/
+function saveContactMessageData() {
+  const name = document.getElementById("cFormName").value.trim();
+  const email = document.getElementById("cFormEmail").value.trim();
+  const notes = document.getElementById("cFormMsg").value.trim();
+  if(!name || !email || !notes) {
+    showCustomModal('Input Error', 'Please complete all form fields correctly.', 'alert');
+    return;
+  }
+  
+  admin.contactMessages.push({
+    id: "MSG" + Date.now().toString().slice(-4),
+    name,
+    email,
+    message: notes,
+    date: new Date().toISOString().substring(0, 10)
+  });
+  saveMessages();
+  
+  document.getElementById("cFormName").value = "";
+  document.getElementById("cFormEmail").value = "";
+  document.getElementById("cFormMsg").value = "";
+  
+  showCustomModal('Inquiry Logged', 'Thank you! Your submission data has been pushed successfully to the Admin records table.', 'alert');
+  spawnToastNotification("New form submit entry compiled to storage log context.");
+}
+
+/** Generic Sorting Data Core Engine **/
+function invokeColumnSort(section, targetField) {
+  const settings = admin.sorts[section];
+  if(settings.field === targetField) {
+    settings.direction = settings.direction === "asc" ? "desc" : "asc";
+  } else {
+    settings.field = targetField;
+    settings.direction = "asc";
+  }
+  renderAdmin();
+}
+
+/** Bulk Selection Matrix Toggles **/
+function toggleMasterCheckbox(section, masterElement) {
+  const stateVal = masterElement.checked;
+  const targetArray = section === 'products' ? admin.products : (section === 'orders' ? admin.orders : admin.cust);
+  const keyField = section === 'products' ? 'sku' : (section === 'orders' ? 'id' : 'user');
+  
+  // Scramble filter configurations inside current page limit boundaries
+  let pool = targetArray.slice();
+  if(section === 'products' && admin.productFilterCat !== "All") pool = pool.filter(p => p.cat === admin.productFilterCat);
+  if(section === 'orders' && admin.orderFilter) pool = pool.filter(o => o.id.toLowerCase().includes(admin.orderFilter.toLowerCase()) || o.user.toLowerCase().includes(admin.orderFilter.toLowerCase()));
+  if(section === 'cust' && admin.custFilter) pool = pool.filter(u => u.user.toLowerCase().includes(admin.custFilter.toLowerCase()) || u.email.toLowerCase().includes(admin.custFilter.toLowerCase()));
+  
+  const pageState = admin.paging[section];
+  const start = (pageState.page - 1) * admin.pageSize;
+  const elements = pool.slice(start, start + admin.pageSize);
+  
+  elements.forEach(el => {
+    const val = el[keyField];
+    const checkedRef = section === 'products' ? admin.checkedProducts : (section === 'orders' ? admin.checkedOrders : admin.checkedCust);
+    const idx = checkedRef.indexOf(val);
+    if(stateVal && idx === -1) checkedRef.push(val);
+    if(!stateVal && idx !== -1) checkedRef.splice(idx, 1);
+  });
+  renderAdmin();
+}
+
+function updateElementCheckbox(section, key, element) {
+  const checkedRef = section === 'products' ? admin.checkedProducts : (section === 'orders' ? admin.checkedOrders : admin.checkedCust);
+  const idx = checkedRef.indexOf(key);
+  if(element.checked && idx === -1) checkedRef.push(key);
+  if(!element.checked && idx !== -1) checkedRef.splice(idx, 1);
+}
+
+function processBulkActions(section, actionType) {
+  const checkedRef = section === 'products' ? admin.checkedProducts : (section === 'orders' ? admin.checkedOrders : admin.checkedCust);
+  if(!checkedRef.length) {
+    showCustomModal('Selection Required', 'Please select checkboxes before applying a bulk modification configuration.', 'alert');
+    return;
+  }
+  
+  if(actionType === 'delete') {
+    showCustomModal('Bulk Deletion', `Are you certain you wish to purge all ${checkedRef.length} selected row contexts?`, 'confirm', () => {
+      if(section === 'products') {
+        admin.products = admin.products.filter(p => !admin.checkedProducts.includes(p.sku));
+        saveProducts();
+        admin.checkedProducts = [];
+      } else if(section === 'orders') {
+        admin.orders = admin.orders.filter(o => !admin.checkedOrders.includes(o.id));
+        saveOrders();
+        admin.checkedOrders = [];
+      } else if(section === 'cust') {
+        admin.cust = admin.cust.filter(c => !admin.checkedCust.includes(c.user));
+        saveCust();
+        admin.checkedCust = [];
+      }
+      spawnToastNotification(`Batch record erasure complete for selected ${section}.`);
+      renderAdmin();
+    });
+  } else if(actionType === 'status') {
+    if(section === 'orders') {
+      admin.orders.forEach(o => {
+        if(admin.checkedOrders.includes(o.id)) o.status = "Processed";
+      });
+      saveOrders();
+      admin.checkedOrders = [];
+      spawnToastNotification("Bulk update applied: Orders status altered to Processed.");
+    } else if(section === 'cust') {
+      admin.cust.forEach(c => {
+        if(admin.checkedCust.includes(c.user)) c.status = "Suspended";
+      });
+      saveCust();
+      admin.checkedCust = [];
+      spawnToastNotification("Bulk context modified: Selected clients flagged as Suspended.");
+    }
+    renderAdmin();
+  }
 }
 
 /** --- FRONTEND SECTION --- */
@@ -884,13 +1228,18 @@ function renderShop(){
     </div>
   </div>`;
   
+  if(document.body.classList.contains('light-theme')) {
+     html = html.replace(/border-top:1px solid var\(--color-surface\);/g, "border-top:1px solid #dfdfe8;");
+     html = html.replace(/border-bottom:1px solid var\(--color-surface\);/g, "border-bottom:1px solid #dfdfe8;");
+  }
+
   // MY ACCOUNT PAGE
   if (state.page=="account" && state.user) {
     let orders = admin.orders.filter(o=>o.user===state.user);
     html += `<div class="card account-box"><h2>My Account</h2>
        <div>Username: <b>${state.user}</b></div>
-       <div><b>Order History</b> (${orders.length}):${orders.map((o,i)=>`<br> #${o.id}, ${o.items.length} items, ₹${o.total}`)}</div>
-     <button onclick="shopTo('home')" class="btn-main">Back</button>
+       <div><b>Order History</b> (${orders.length}):${orders.map((o,i)=>`<br> #${o.id}, ${o.items.length} items, ₹${o.total} [${o.status}]`)}</div>
+     <button onclick="shopTo('home')" class="btn-main" style="margin-top:15px;">Back</button>
     </div>`;
     document.getElementById("shop").innerHTML=html; return;
   }
@@ -899,20 +1248,20 @@ function renderShop(){
     let p = admin.products.find(p=>p.sku==state.detailsSku);
     if(!p) { html += 'Product not found.'; document.getElementById("shop").innerHTML=html; return;}
     html += `<div class="row">
-      <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px"><br>
+      <div class="card" style="flex:2"><img src="${p.img}" alt="img" style="height:260px; width:100%; object-fit:cover; border-radius:6px;"><br>
         <span class="pname">${p.name}</span>
         <span class="cat-label">${p.cat}</span><br>
         <b>₹${p.price}</b> <span style="float:right">SKU: <b>${p.sku}</b></span>
         <br><small style="color:var(--color-text-secondary);">${p.desc}</small><br><br>
-        <button onclick="addToCart('${p.sku}')"><i class="fa fa-cart-plus"></i> Add to Cart</button>
-        <button onclick="toggleWish('${p.sku}')"><i class="fa fa-heart"></i></button>
-        <button onclick="toggleCompare('${p.sku}')"><i class="fa fa-list"></i></button>
-        <br><b>Reviews (${p.reviews.length}):</b>
+        <button onclick="addToCart('${p.sku}')" class="btn-main"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+        <button onclick="toggleWish('${p.sku}')"><i class="fa fa-heart"></i> Wishlist</button>
+        <button onclick="toggleCompare('${p.sku}')"><i class="fa fa-list"></i> Compare</button>
+        <br><br><b>Reviews (${p.reviews.length}):</b>
         ${p.reviews.map(r=>`<div class="review"><span class="star">${"★".repeat(r.star)}</span> <b>${r.by}</b>: ${r.text}</div>`).join("")}
         ${state.user?`
-        <form onsubmit="event.preventDefault();addReview('${p.sku}')">
-         <input type="number" min="1" max="5" id="revstar" placeholder="Stars" required style="width:50px;"/>
-         <input type="text" id="revtext" maxlength="100" placeholder="Your review..." required/>
+        <form onsubmit="event.preventDefault();addReview('${p.sku}')" style="margin-top:15px;">
+         <input type="number" min="1" max="5" id="revstar" placeholder="Stars" required style="width:70px; display:inline-block; padding:8px;"/>
+         <input type="text" id="revtext" maxlength="100" placeholder="Your review..." required style="width:60%; display:inline-block; padding:8px;"/>
          <button type="submit" class="btn-main">Post Review</button></form>`:"<div style='color:var(--color-error);margin-top:10px;'>Login to post review.</div>"}
       </div>
       <div class="suggest-slider" style="flex:1;">
@@ -925,9 +1274,27 @@ function renderShop(){
     <button onclick="shopTo('home')" class="btn-main" style="margin-top:15px;">Back to Shop</button>`;
     document.getElementById("shop").innerHTML=html; return;
   }
-  // CHECKOUT
+  // CHECKOUT WITH PROMO CODE COUPON ENGINE INTEGRATION
   if(state.page=="checkout"){
+    let checkoutSubtotal = state.cart.map(sku=>admin.products.find(p=>p.sku==sku)?.price||0).reduce((x,y)=>x+y,0);
+    let computedDeduction = 0;
+    if(state.appliedCoupon === "DISCOUNT10") computedDeduction = Math.round(checkoutSubtotal * 0.1);
+    if(state.appliedCoupon === "FREESHIP") computedDeduction = Math.min(checkoutSubtotal, state.flatDiscount);
+    let finalAggregateTotal = Math.max(0, checkoutSubtotal - computedDeduction);
+
     html += `<div class="card" style="max-width:500px; margin:auto;"><h2>Checkout</h2>
+     <div style="background:#252538; padding:12px; border-radius:6px; margin-bottom:15px;" id="checkoutSummaryPanel">
+       <div>Subtotal: <b>₹${checkoutSubtotal}</b></div>
+       ${state.appliedCoupon ? `<div style="color:var(--color-success);">Coupon Discount (${state.appliedCoupon}): <b>-₹${computedDeduction}</b></div>` : ''}
+       <div style="font-size:1.2em; font-weight:bold; border-top:1px dashed #3e4a68; margin-top:8px; padding-top:8px;">Total Due: <span style="color:var(--color-accent-main);">₹${finalAggregateTotal}</span></div>
+     </div>
+     
+     <!-- Promo Code Engine Layout Box -->
+     <div style="display:flex; gap:10px; margin-bottom:20px;">
+       <input type="text" id="couponInput" placeholder="Enter coupon (e.g. DISCOUNT10, FREESHIP)" style="padding:10px; flex-grow:1; background:var(--color-background); color:var(--color-text-primary); border:1px solid #3e4a68; border-radius:5px;" value="${state.appliedCoupon}">
+       <button type="button" onclick="executeCouponValidation()" class="btn-main">Apply</button>
+     </div>
+
      <form onsubmit="event.preventDefault();saveOrder()">
       ${['Name','Email','Address','Phone'].map(f=>`<div class="input"><label>${f}</label><input id="co${f}" required></div>`).join('')}
       <div class="input"><label>Country</label>
@@ -942,10 +1309,14 @@ function renderShop(){
       </div>
       <div style="margin-top:20px;">
         <button type="submit" class="btn-main">Submit Order</button>
-        <button type="button" onclick="shopTo('cart')" class="btn-main" style="background:var(--color-text-secondary);">Back to Cart</button>
+        <button type="button" onclick="shopTo('cart')" class="btn-main" style="background:var(--color-text-secondary); color:#fff;">Back to Cart</button>
       </div>
      </form>
     </div>`;
+    if(document.body.classList.contains('light-theme')) {
+      html = html.replace(/background:#252538;/g, "background:#e8e8f0;");
+      html = html.replace(/border:1px solid #3e4a68;/g, "border:1px solid #b0b0c5;");
+    }
     document.getElementById("shop").innerHTML=html; return;
   }
   // CART/MINICART
@@ -955,12 +1326,13 @@ function renderShop(){
     let s=0;
     let items = state.cart.map(sku=>{
       let p=admin.products.find(p=>p.sku==sku); s+=p.price;
-      return `<div class="flex" style="border-bottom:1px dashed #2d2d42; padding:10px 0;"><b>${p.name}</b> - <span style="color:var(--color-accent-main);">₹${p.price}</span><span class="right"><button onclick="cartRemove('${sku}')" style="background:var(--color-error);color:#fff;"><i class="fa fa-trash"></i> Remove</button></span></div>`;
+      return `<div class="flex" style="border-bottom:1px dashed #2d2d42; padding:10px 0;"><b>${p.name}</b> - <span style="color:var(--color-accent-main);">₹${p.price}</span><span class="right"><button onclick="cartRemove('${sku}')" style="background:var(--color-error);color:#fff; border:none; border-radius:4px; padding:6px 12px; cursor:pointer;"><i class="fa fa-trash"></i> Remove</button></span></div>`;
     }).join('');
+    if(document.body.classList.contains('light-theme')) items = items.replace(/border-bottom:1px dashed #2d2d42;/g, "border-bottom:1px dashed #dfdfe8;");
     html += `<div class="card"><h2>Cart</h2>${items}<hr style="border-color:#2d2d42;">Total: <b style="color:var(--color-accent-main);">₹${s}</b><br>
     <div style="margin-top:20px;">
       <button onclick="shopTo('checkout')" class="btn-main">Checkout</button>
-      <button onclick="shopTo('home')" class="btn-main" style="background:var(--color-text-secondary);">Continue Shopping</button>
+      <button onclick="shopTo('home')" class="btn-main" style="background:var(--color-text-secondary); color:#fff;">Continue Shopping</button>
     </div></div>`;
     document.getElementById("shop").innerHTML=html;
     return;
@@ -972,11 +1344,12 @@ function renderShop(){
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
         <div style="display:flex; gap:10px;">
-          <button onclick="shopTo('details','${p.sku}')" style="background:#3e4a68;"><i class="fa fa-eye"></i></button>
-          <button onclick="wishlistRemove('${p.sku}')" style="background:var(--color-error);"><i class="fa fa-trash"></i></button>
+          <button onclick="shopTo('details','${p.sku}')" style="background:#3e4a68; color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;"><i class="fa fa-eye"></i></button>
+          <button onclick="wishlistRemove('${p.sku}')" style="background:var(--color-error); color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;"><i class="fa fa-trash"></i></button>
         </div>
       </div>`;
     }).join('');
+    if(document.body.classList.contains('light-theme')) items = items.replace(/background:#191928;/g, "background:#e8e8f0;");
     html += `<h2>Wishlist</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html;return;
   }
   // COMPARE
@@ -986,25 +1359,37 @@ function renderShop(){
       let p=admin.products.find(p=>p.sku==sku);
       return `<div class="flex card" style="background:#191928; padding:12px; margin:8px 0;"><b>${p.name}</b> <span style="color:var(--color-accent-main);">₹${p.price}</span>
         <div style="display:flex; gap:10px;">
-          <button onclick="shopTo('details','${p.sku}')" style="background:#3e4a68;"><i class="fa fa-eye"></i></button>
-          <button onclick="compareRemove('${p.sku}')" style="background:var(--color-error);"><i class="fa fa-trash"></i></button>
+          <button onclick="shopTo('details','${p.sku}')" style="background:#3e4a68; color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;"><i class="fa fa-eye"></i></button>
+          <button onclick="compareRemove('${p.sku}')" style="background:var(--color-error); color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;"><i class="fa fa-trash"></i></button>
         </div>
       </div>`;
     }).join('');
+    if(document.body.classList.contains('light-theme')) items = items.replace(/background:#191928;/g, "background:#e8e8f0;");
     html += `<h2>Compare List</h2>${items}<button onclick="shopTo('home')" class="btn-main">Back</button>`; document.getElementById("shop").innerHTML=html;return;
   }
   
-  // --- SUB-PAGES COMPONENT ROUTER (About, Contact, Categories Pages) ---
+  // --- SUB-PAGES COMPONENT ROUTER ---
   if(state.page === "home" && state.subPage === "about"){
     html += `<div class="card">${dynamicContent.aboutText}</div>`;
     document.getElementById("shop").innerHTML=html;
     return;
   }
+  
+  // CONTACT SUBPAGE WITH INTERACTIVE INTAKE LOG FORM
   if(state.page === "home" && state.subPage === "contact"){
-    html += `<div class="card">${dynamicContent.contactText}</div>`;
+    html += `<div class="card">
+      ${dynamicContent.contactText}
+      <hr style="border-color:var(--color-background); margin:20px 0;">
+      <h3 style="color:var(--color-accent-main);">Intake Form Interface</h3>
+      <div class="input"><label>Full Name</label><input type="text" id="cFormName" placeholder="Enter name..."></div>
+      <div class="input"><label>Email Address</label><input type="email" id="cFormEmail" placeholder="name@domain.com"></div>
+      <div class="input"><label>Message Context</label><textarea id="cFormMsg" placeholder="Type messages here..." rows="4"></textarea></div>
+      <button onclick="saveContactMessageData()" class="btn-main">Submit Support Inquiry</button>
+    </div>`;
     document.getElementById("shop").innerHTML=html;
     return;
   }
+  
   if(state.page === "home" && state.subPage === "categories"){
     html += `<div class="card">
       <h2>${escapeHtml(dynamicContent.categoriesTitle)}</h2>
@@ -1022,15 +1407,21 @@ function renderShop(){
     return;
   }
 
-  // --- HOME PAGE SPECIFIC ENHANCEMENTS (Banner, Featured, Footer) ---
+  // --- HOME PAGE SLIDER ENHANCED ARRAY FRAME LAYOUT ---
   if(state.page === "home" && state.subPage === "home"){
     let isL = document.body.classList.contains('light-theme');
-    let overlayGrad = isL ? 'rgba(255,255,255,0.8), rgba(255,255,255,0.8)' : 'rgba(20, 20, 28, 0.75), rgba(20, 20, 28, 0.75)';
+    let overlayGrad = isL ? 'rgba(255,255,255,0.82), rgba(255,255,255,0.82)' : 'rgba(20, 20, 28, 0.78), rgba(20, 20, 28, 0.78)';
     let bannerTxtColor = isL ? '#1c1c28' : '#ffffff';
+    const pool = dynamicContent.bannerImagesPool || [];
+    const activeImg = pool[state.currentBannerIndex] || "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1200&q=80";
 
-    html += `<div class="banner-slider" style="background: linear-gradient(${overlayGrad}), url('${dynamicContent.bannerImg}') no-repeat center center; background-size: cover;">
+    html += `<div class="banner-slider" style="background: linear-gradient(${overlayGrad}), url('${activeImg}') no-repeat center center; background-size: cover; transition: background 0.5s ease-in-out;">
+        <button onclick="advanceBannerFrame(-1)" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; border:none; padding:10px 14px; border-radius:50%; cursor:pointer; font-size:1.2em; z-index:10;"><i class="fa fa-chevron-left" style="margin:0;"></i></button>
+        <button onclick="advanceBannerFrame(1)" style="position:absolute; right:15px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; border:none; padding:10px 14px; border-radius:50%; cursor:pointer; font-size:1.2em; z-index:10;"><i class="fa fa-chevron-right" style="margin:0;"></i></button>
+        
         <h1 style="color:var(--color-accent-main); font-size: 2.5em; margin-bottom: 10px;">${escapeHtml(dynamicContent.bannerTitle)}</h1>
         <p style="font-size:1.3em; color:${bannerTxtColor}; margin-bottom: 20px;">${escapeHtml(dynamicContent.bannerSub)}</p>
+        <div style="color:var(--color-text-secondary); margin-bottom:10px; font-size:0.85em;">Active slide asset framework frame: ${state.currentBannerIndex + 1} of ${pool.length}</div>
         <button class="btn-main" onclick="shopTo('search','sale')" style="padding:12px 25px; font-size:1.1em; margin-top:10px;">Shop Now</button>
     </div>`;
   }
@@ -1060,11 +1451,9 @@ function renderShop(){
 
   // --- Product List Logic (Filtered) ---
   let products = admin.products.slice();
-  
   if(state.shopFilters.selectedCategory !== "All"){
     products = products.filter(p=>p.cat==state.shopFilters.selectedCategory);
   }
-  
   products = products.filter(p=>p.price>=state.shopFilters.minPrice && p.price<=state.shopFilters.maxPrice);
 
   if(state.page=="search" && state.detailsSku) {
@@ -1073,7 +1462,6 @@ function renderShop(){
     html += `<div style="margin-bottom:15px; color:var(--color-text-secondary);">Search for <b style="color:var(--color-text-primary);">${state.detailsSku}</b>: ${products.length} found.</div>`;
   }
   
-  // Render Product Listing
   let productListHTML = `
     <div class="shop-product-list">
       <h2>${state.shopFilters.selectedCategory !== "All" ? state.shopFilters.selectedCategory : 'All Products'} (${products.length} Items)</h2>
@@ -1084,7 +1472,7 @@ function renderShop(){
       <div style="min-height:48px;"><span class="pname">${p.name}</span><span class="cat-label">${p.cat}</span></div>
       <div style="margin-bottom:10px; font-size:1.2em; color:var(--color-accent-main); font-weight:bold;">₹${p.price} <span class="right" style="font-size:0.8em; color:var(--color-text-secondary);">SKU: <b>${p.sku}</b></span></div>
       <div style="display:flex; justify-content:space-between; gap:5px;">
-        <button onclick="addToCart('${p.sku}')" style="flex-grow:1;"><i class="fa fa-cart-plus"></i> Add</button>
+        <button onclick="addToCart('${p.sku}')" style="flex-grow:1;" class="btn-main"><i class="fa fa-cart-plus"></i> Add</button>
         <button onclick="toggleWish('${p.sku}')" style="width:40px; background:#3e4a68;"><i class="fa fa-heart"></i></button>
         <button onclick="toggleCompare('${p.sku}')" style="width:40px; background:#3e4a68;"><i class="fa fa-list"></i></button>
       </div>
@@ -1121,6 +1509,9 @@ function renderShop(){
       </div>`).join('') +
       `</div>
     </div>`;
+    if(document.body.classList.contains('light-theme')) {
+      html = html.replace(/background:#191928;/g, "background:#e8e8f0;");
+    }
     
     html += `<div class="suggest-slider">
         <h2>Recommended for You</h2>
@@ -1132,7 +1523,7 @@ function renderShop(){
       `</div></div>`;
     
     html += `<div class="shop-footer">
-        &copy; ${new Date().getFullYear()} Modern E-commerce Demo. All rights reserved. | <a href="#" style="color:var(--color-accent-main);">Privacy Policy</a>
+        &copy; 2026 Modern E-commerce Demo. All rights reserved. | <a href="#" style="color:var(--color-accent-main);">Privacy Policy</a>
     </div>`;
   }
 
@@ -1151,14 +1542,26 @@ function shopTo(page, val){
 function loginShop(){
   let u = document.getElementById("userLog").value;
   let p = document.getElementById("passLog").value;
-  if(u=="user123"&&p=="user123"){state.user=u;state.page='home';state.subPage='home';renderShop();return;}
+  if(u=="user123"&&p=="user123"){
+    state.user=u;
+    state.page='home';
+    state.subPage='home';
+    spawnToastNotification("Logged in cleanly as user123.");
+    renderShop();
+    return;
+  }
   document.getElementById("elog").textContent = "Invalid credentials.";
 }
 
 function logoutShop(){state.user=null;state.page='login';renderShop();}
 function addToCart(sku){
   if(!state.user){state.page='login';renderShop();return;}
-  if(!state.cart.includes(sku)){state.cart.push(sku);}
+  if(!state.cart.includes(sku)){
+    state.cart.push(sku);
+    spawnToastNotification(`Added ${sku} to cart successfully.`);
+  } else {
+    spawnToastNotification(`${sku} is already inside your cart repository.`);
+  }
   renderShop();
 }
 function cartRemove(sku){
@@ -1166,6 +1569,7 @@ function cartRemove(sku){
 }
 function cartRemoveConfirm(sku){
   state.cart=state.cart.filter(x=>x!=sku);
+  spawnToastNotification(`Removed item ${sku} from cart.`);
   renderShop();
 }
 function toggleWish(sku){
@@ -1174,13 +1578,18 @@ function toggleWish(sku){
     wishlistRemove(sku);
   } else {
     state.wishlist.push(sku);
+    spawnToastNotification(`Product ${sku} logged into Wishlist.`);
     renderShop();
   }
 }
 function wishlistRemove(sku){
     showCustomModal('Remove from Wishlist', 'Remove this product from your wishlist?', 'confirm', wishlistRemoveConfirm, sku);
 }
-function wishlistRemoveConfirm(sku){state.wishlist=state.wishlist.filter(x=>x!=sku);renderShop();}
+function wishlistRemoveConfirm(sku){
+  state.wishlist=state.wishlist.filter(x=>x!=sku);
+  spawnToastNotification(`Purged item ${sku} from wishlist index.`);
+  renderShop();
+}
 
 function toggleCompare(sku){
   if(!state.user){state.page='login';renderShop();return;}
@@ -1188,13 +1597,18 @@ function toggleCompare(sku){
     compareRemove(sku);
   } else {
     state.compare.push(sku);
+    spawnToastNotification(`Product ${sku} tracked in compare matrices.`);
     renderShop();
   }
 }
 function compareRemove(sku){
     showCustomModal('Remove from Compare', 'Remove this product from your compare list?', 'confirm', compareRemoveConfirm, sku);
 }
-function compareRemoveConfirm(sku){state.compare=state.compare.filter(x=>x!=sku);renderShop();}
+function compareRemoveConfirm(sku){
+  state.compare=state.compare.filter(x=>x!=sku);
+  spawnToastNotification(`Removed item ${sku} from comparison tracking row.`);
+  renderShop();
+}
 
 function addReview(sku){
   let s = Number(document.getElementById("revstar").value), t = document.getElementById("revtext").value.trim();
@@ -1203,7 +1617,12 @@ function addReview(sku){
     return;
   }
   let p=admin.products.find(p=>p.sku==sku);
-  if(p){p.reviews.push({by:state.user,star:s,text:t});saveProducts();renderShop();}
+  if(p){
+    p.reviews.push({by:state.user,star:s,text:t});
+    saveProducts();
+    spawnToastNotification("Feedback parameter appended to reviews matrix.");
+    renderShop();
+  }
 }
 
 function saveOrder(){
@@ -1218,10 +1637,16 @@ function saveOrder(){
     return;
   }
   let id = Date.now().toString().slice(-6);
-  let total = state.cart.map(sku=>admin.products.find(p=>p.sku==sku).price).reduce((x,y)=>x+y,0);
-  admin.orders.push({id,user:state.user,items:[...state.cart],total, date: new Date().toISOString().substring(0, 10)});
+  let sub = state.cart.map(sku=>admin.products.find(p=>p.sku==sku).price).reduce((x,y)=>x+y,0);
+  let deduct = 0;
+  if(state.appliedCoupon === "DISCOUNT10") deduct = Math.round(sub * 0.1);
+  if(state.appliedCoupon === "FREESHIP") deduct = Math.min(sub, state.flatDiscount);
+  let total = Math.max(0, sub - deduct);
+
+  admin.orders.push({id,user:state.user,items:[...state.cart],total, date: new Date().toISOString().substring(0, 10), status: "Pending"});
   saveOrders();
   state.cart=[];state.page="home";state.subPage="home";
+  state.appliedCoupon = ""; state.discountPercent = 0; state.flatDiscount = 0;
   showCustomModal('Success', 'Order placed successfully! Order ID: #'+id, 'alert');
   renderShop();
 }
@@ -1235,6 +1660,7 @@ function renderAdmin(){
     <button onclick="loginAdmin()" class="btn-main">Login</button><br>
     <small style="color:var(--color-text-secondary); margin-top:10px; display:block;">Try: <b>admin/admin</b></small><div id="aderr" class="error"></div>
     </div>`;return;}
+    
   let sidebar = `<div class="sidebar">
     <button onclick="adminNav('dashboard')" class="${admin.mode=='dashboard'?'selected':''}"><i class="fa fa-table"></i> Dashboard</button>
     <button onclick="adminNav('products')" class="${admin.mode=='products'?'selected':''}"><i class="fa fa-cube"></i> Products</button>
@@ -1242,9 +1668,10 @@ function renderAdmin(){
     <button onclick="adminNav('orders')" class="${admin.mode=='orders'?'selected':''}"><i class="fa fa-receipt"></i> Orders</button>
     <button onclick="adminNav('cust')" class="${admin.mode=='cust'?'selected':''}"><i class="fa fa-user"></i> Customers</button>
     <button onclick="adminNav('reviews')" class="${admin.mode=='reviews'?'selected':''}"><i class="fa fa-star"></i> Reviews</button>
+    <button onclick="adminNav('messages')" class="${admin.mode=='messages'?'selected':''}"><i class="fa fa-envelope"></i> Intake Messages</button>
     <button onclick="adminNav('settings')" class="${admin.mode=='settings'?'selected':''}"><i class="fa fa-cogs"></i> Settings</button>
     <button onclick="adminNav('profile')" class="${admin.mode=='profile'?'selected':''}"><i class="fa fa-user"></i> My Account</button>
-    <button onclick="adminLogout()" style="margin-top:20px; background:var(--color-error);"><i class="fa fa-sign-out"></i> Logout</button>
+    <button onclick="adminLogout()" style="margin-top:20px; background:var(--color-error); color:#fff;"><i class="fa fa-sign-out"></i> Logout</button>
     </div>`;
   let main = '<div class="admin-main">';
   
@@ -1252,25 +1679,35 @@ function renderAdmin(){
     main+=`<div class="card"><h2>Dashboard Overview</h2>
       <p style="font-size:1.1em;">Products: <b style="color:var(--color-accent-main);">${admin.products.length}</b>, 
       Orders: <b style="color:var(--color-accent-main);">${admin.orders.length}</b>, 
-      Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b></p>
+      Customers: <b style="color:var(--color-accent-main);">${admin.cust.length}</b>,
+      Inquiries Received: <b style="color:var(--color-accent-main);">${admin.contactMessages.length}</b></p>
       
       <h3 style="margin-top:30px; border-bottom:1px solid #2d2d42; padding-bottom:5px;">Quick Access</h3>
       <div class="row" style="gap:20px;">
         <div class="dashboard-card" onclick="adminNav('products')"><i class="fa fa-cube"></i><p>Products</p></div>
         <div class="dashboard-card" onclick="adminNav('orders')"><i class="fa fa-receipt"></i><p>Orders</p></div>
         <div class="dashboard-card" onclick="adminNav('cust')"><i class="fa fa-user"></i><p>Customers</p></div>
-        <div class="dashboard-card" onclick="adminNav('cats')"><i class="fa fa-folder"></i><p>Categories</p></div>
+        <div class="dashboard-card" onclick="adminNav('messages')"><i class="fa fa-envelope"></i><p>Messages</p></div>
       </div>
       
       <div style="margin-top:30px;"><b>Sales Trend:</b><br> <svg width="280" height="70"><polyline fill="none" stroke="var(--color-accent-main)" stroke-width="4" 
           points="5,60 50,${Math.max(10,60-3*admin.orders.length%50)} 100,${Math.max(10,60-2*admin.products.length%50)} 150,45 200,30 250,60" stroke-linecap="round"/></svg>
       </div></div>`;
   }
+  
   if(admin.mode=="products"){
     let filteredProducts = admin.products.slice();
     if(admin.productFilterCat !== "All"){
         filteredProducts = filteredProducts.filter(p => p.cat === admin.productFilterCat);
     }
+    
+    // Process Interactive Column Sorting for Products
+    const prSort = admin.sorts.products;
+    filteredProducts.sort((a, b) => {
+      let valA = a[prSort.field], valB = b[prSort.field];
+      if(typeof valA === 'string') return prSort.direction === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      return prSort.direction === 'asc' ? valA - valB : valB - valA;
+    });
     
     const pageSize = admin.pageSize;
     const pageState = admin.paging.products;
@@ -1280,32 +1717,60 @@ function renderAdmin(){
     const startIdx = (pageState.page - 1) * pageSize;
     const pageItems = filteredProducts.slice(startIdx, startIdx + pageSize);
 
-    main+=`<div class="card"><h2>Products <button onclick="addEditProd('__new__')" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
+    // Render interactive header arrows logic
+    const getSortIcon = (f) => prSort.field === f ? (prSort.direction === 'asc' ? ' ▲' : ' ▼') : ' ↕';
+
+    main+=`<div class="card"><h2>Products Grid <button onclick="addEditProd('__new__')" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
       <div style="display:flex; justify-content:flex-start; align-items:center; gap:10px; margin-bottom:15px; border-bottom:1px solid #2d2d42; padding-bottom:10px;">
-        <label style="color:var(--color-accent-main); font-weight:bold;"><i class="fa fa-filter"></i> Filter by Category:</label>
+        <label style="color:var(--color-accent-main); font-weight:bold;"><i class="fa fa-filter"></i> Category Filter:</label>
         <select id="prodFilterCat" onchange="filterAdminProducts(this.value)" style="width:200px; padding:8px;">
           <option value="All">All Categories (${admin.products.length})</option>
-          ${admin.cats.map(c => `<option value="${c}" ${admin.productFilterCat === c ? 'selected' : ''}>${c} (${admin.products.filter(p=>p.cat===c).length})</option>`).join('')}
+          ${admin.cats.map(c => `<option value="${c}" ${admin.productFilterCat === c ? 'selected' : ''}>${c}</option>`).join('')}
         </select>
-        <div style="margin-left:auto; color:var(--color-text-secondary);">Showing ${total} products.</div>
       </div>
-      <div style="margin-top:15px;">${pageItems.map(p=>`<div class="product-admin flex" style="align-items:center; padding:10px; cursor:default;">
-        <img src="${p.img}" style="max-width:60px; height:60px; margin-right:15px;">
-        <div style="flex-grow:1;">
-          <b style="font-size:1.1em;">${p.name}</b> <span class="cat-label">${p.cat}</span><br> 
-          <span style="color:var(--color-accent-main); font-weight:bold;">₹${p.price}</span>, SKU: ${p.sku}
-        </div>
-        <div style="display:flex; gap:8px;">
-          <button onclick="addEditProd('${p.sku}')" style="background:#3e4a68;"><i class="fa fa-edit"></i> Edit</button>
-          <button onclick="delProd('${p.sku}')" style="background:var(--color-error);"><i class="fa fa-trash"></i> Del</button>
-        </div>
-      </div>`).join("")}</div>
+
+      <!-- Bulk Actions Toolbar -->
+      <div class="bulk-toolbar">
+         <span>Bulk Options (${admin.checkedProducts.length} selected):</span>
+         <button onclick="processBulkActions('products', 'delete')" style="background:var(--color-error); color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;"><i class="fa fa-trash"></i> Delete Selected</button>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px;"><input type="checkbox" onclick="toggleMasterCheckbox('products', this)"></th>
+            <th class="sortable-header" onclick="invokeColumnSort('products','sku')">SKU${getSortIcon('sku')}</th>
+            <th>Thumbnail</th>
+            <th class="sortable-header" onclick="invokeColumnSort('products','name')">Product Name${getSortIcon('name')}</th>
+            <th class="sortable-header" onclick="invokeColumnSort('products','cat')">Category${getSortIcon('cat')}</th>
+            <th class="sortable-header" onclick="invokeColumnSort('products','price')">Price${getSortIcon('price')}</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${pageItems.map(p => {
+            const isChecked = admin.checkedProducts.includes(p.sku) ? 'checked' : '';
+            return `<tr>
+              <td><input type="checkbox" ${isChecked} onclick="updateElementCheckbox('products', '${p.sku}', this)"></td>
+              <td style="font-weight:bold;">${p.sku}</td>
+              <td><img src="${p.img}" style="width:45px; height:45px; object-fit:cover; border-radius:4px;"></td>
+              <td><b>${p.name}</b></td>
+              <td><span class="cat-label" style="margin:0;">${p.cat}</span></td>
+              <td style="color:var(--color-accent-main); font-weight:bold;">₹${p.price}</td>
+              <td>
+                <button onclick="addEditProd('${p.sku}')" style="background:#3e4a68; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;"><i class="fa fa-edit"></i> Edit</button>
+                <button onclick="delProd('${p.sku}')" style="background:var(--color-error); color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;"><i class="fa fa-trash"></i> Del</button>
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
       
       <div class="pagination" style="margin-top:20px;">
         <button class="page-btn" onclick="adminPageChange('products', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('products', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('products', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} items)</div>
       </div>
     </div>`;
 
@@ -1313,35 +1778,45 @@ function renderAdmin(){
       let p = (typeof admin.curProd === 'string' && admin.curProd!=="__new__") ? admin.products.find(x=>x.sku==admin.curProd) : null;
       if(admin.curProd === "__new__") p = {};
       main+=`<div class="modal"><div class="modal-content">
-        <h3>${p && p.sku?'Edit':'Add'} Product</h3>
+        <h3>${p && p.sku?'Edit':'Add'} Product Form</h3>
         <div class="input"><label>Name</label><input id="prName" value="${p && p.name?escapeHtml(p.name):''}"></div>
         <div class="input"><label>SKU</label><input id="prSKU" value="${p && p.sku?escapeHtml(p.sku):''}" ${p && p.sku?"readonly":""}></div>
         <div class="input"><label>Category</label><input id="prCat" value="${p && p.cat?escapeHtml(p.cat):''}"></div>
         <div class="input"><label>Price</label><input id="prPrice" type="number" value="${p && p.price?p.price:''}"></div>
         <div class="input"><label>Image URL</label><input id="prImg" value="${p && p.img?escapeHtml(p.img):''}"></div>
         <div class="input"><label>Description</label><input id="prDesc" value="${p && p.desc?escapeHtml(p.desc):''}"></div>
-        <button onclick="saveProd('${p && p.sku ? p.sku : ''}')" class="btn-main">Save</button>
-        <button onclick="cancelEditProd()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
+        <button onclick="saveProd('${p && p.sku ? p.sku : ''}')" class="btn-main">Save Product</button>
+        <button onclick="cancelEditProd()" class="btn-main" style="background:var(--color-text-secondary); color:#fff;">Cancel</button></div></div>`;
     }
   }
+  
   if(admin.mode=='cats'){
     main+=`<div class="card"><h2>Categories  <button onclick="addCat()" class="btn-main"><i class="fa fa-plus-circle"></i> Add New</button></h2>
       <div style="margin-top:15px;">${admin.cats.map(c=>`<span class="cat-label" style="font-size:1.1em; display:inline-flex; align-items:center; margin:5px;">${c} 
-        <button onclick="delCat('${c}')" style="background:var(--color-error); padding:3px 7px; border-radius:50%; margin-left:7px;"><i class="fa fa-times"></i></button></span>`
+        <button onclick="delCat('${c}')" style="background:var(--color-error); border:none; color:#fff; padding:3px 7px; border-radius:50%; margin-left:7px; cursor:pointer;"><i class="fa fa-times"></i></button></span>`
       ).join("")}</div></div>`;
     if(admin.curCat){
       main+=`<div class="modal"><div class="modal-content">
-        <h3>Add Category</h3>
-        <input id="catval" placeholder="Category Name" style="width:70%;"><button onclick="saveCat()" class="btn-main">Save</button>
-        <button onclick="cancelCat()" class="btn-main" style="background:var(--color-text-secondary);">Cancel</button></div></div>`;
+        <h3>Add Category Parameters</h3>
+        <input id="catval" placeholder="Category Name" style="width:70%; padding:8px;"><button onclick="saveCat()" class="btn-main">Save</button>
+        <button onclick="cancelCat()" class="btn-main" style="background:var(--color-text-secondary); color:#fff;">Cancel</button></div></div>`;
     }
   }
+  
   if(admin.mode=="orders"){
     let filteredOrders = admin.orders.slice();
     if(admin.orderFilter){
       const q = admin.orderFilter.toLowerCase();
       filteredOrders = filteredOrders.filter(o => o.id.toLowerCase().includes(q) || o.user.toLowerCase().includes(q));
     }
+    
+    // Process Interactive Column Sorting for Orders
+    const ordSort = admin.sorts.orders;
+    filteredOrders.sort((a, b) => {
+      let valA = a[ordSort.field], valB = b[ordSort.field];
+      if(typeof valA === 'string') return ordSort.direction === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      return ordSort.direction === 'asc' ? valA - valB : valB - valA;
+    });
     
     const pageSize = admin.pageSize;
     const pageState = admin.paging.orders;
@@ -1350,38 +1825,71 @@ function renderAdmin(){
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page-1)*pageSize;
     const pageItems = filteredOrders.slice(startIdx, startIdx+pageSize);
+    
+    const getSortIcon = (f) => ordSort.field === f ? (ordSort.direction === 'asc' ? ' ▲' : ' ▼') : ' ↕';
 
-    main+=`<div class="card"><h2>Orders</h2>
-      <div class="search-bar" style="max-width:100%;">
+    main+=`<div class="card"><h2>Orders Intake Ledger</h2>
+      <div class="search-bar" style="max-width:100%; margin-bottom:15px;">
         <input id="orderFilterInput" placeholder="Filter by ID or User" value="${admin.orderFilter}" oninput="adminFilter('order', this.value)"/>
-        <button onclick="adminFilter('order', '')" class="btn-main" style="background:#3e4a68;"><i class="fa fa-times"></i> Clear</button>
+        <button onclick="adminFilter('order', '')" class="btn-main" style="background:#3e4a68; color:#fff;"><i class="fa fa-times"></i> Clear</button>
       </div>
-      <div style="margin-top:10px; color:var(--color-text-secondary);">Showing ${total} matching orders.</div>
+
+      <!-- Bulk Actions Controls Toolbar -->
+      <div class="bulk-toolbar">
+         <span>Bulk Actions (${admin.checkedOrders.length} selected):</span>
+         <button onclick="processBulkActions('orders', 'status')" style="background:var(--color-success); color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;"><i class="fa fa-check-circle"></i> Mark Processed</button>
+         <button onclick="processBulkActions('orders', 'delete')" style="background:var(--color-error); color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;"><i class="fa fa-trash"></i> Delete Selected</button>
+      </div>
+      
       <table>
-        <thead><tr><th>ID</th><th>User</th><th>Total</th><th>Items Count</th></tr></thead>
+        <thead>
+          <tr>
+            <th style="width:40px;"><input type="checkbox" onclick="toggleMasterCheckbox('orders', this)"></th>
+            <th class="sortable-header" onclick="invokeColumnSort('orders','id')">Order ID${getSortIcon('id')}</th>
+            <th class="sortable-header" onclick="invokeColumnSort('orders','user')">Client Username${getSortIcon('user')}</th>
+            <th class="sortable-header" onclick="invokeColumnSort('orders','date')">Date Logged${getSortIcon('date')}</th>
+            <th class="sortable-header" onclick="invokeColumnSort('orders','total')">Total Cost${getSortIcon('total')}</th>
+            <th>Item Count</th>
+            <th>Status Flag</th>
+          </tr>
+        </thead>
         <tbody>
-        ${pageItems.map(o=>`<tr>
-          <td style="font-weight:bold;">#${o.id}</td>
-          <td>${o.user}</td>
-          <td style="color:var(--color-accent-main); font-weight:bold;">₹${o.total}</td>
-          <td>${o.items.length}</td>
-        </tr>`).join('')||'<tr><td colspan="4">No orders.</td></tr>'}
+        ${pageItems.map(o => {
+          const isChecked = admin.checkedOrders.includes(o.id) ? 'checked' : '';
+          return `<tr>
+            <td><input type="checkbox" ${isChecked} onclick="updateElementCheckbox('orders', '${o.id}', this)"></td>
+            <td style="font-weight:bold;">#${o.id}</td>
+            <td>${o.user}</td>
+            <td>${o.date}</td>
+            <td style="color:var(--color-accent-main); font-weight:bold;">₹${o.total}</td>
+            <td>${o.items.length}</td>
+            <td><span style="padding:2px 6px; border-radius:4px; font-weight:bold; font-size:0.85em; background:${o.status==='Processed'?'rgba(76,175,80,0.2)':'rgba(255,193,7,0.2)'}; color:${o.status==='Processed'?'var(--color-success)':'var(--color-warning)'}">${o.status || 'Pending'}</span></td>
+          </tr>`;
+        }).join('')||'<tr><td colspan="7">No matching order rows.</td></tr>'}
         </tbody>
       </table>
       <div class="pagination">
         <button class="page-btn" onclick="adminPageChange('orders', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('orders', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('orders', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages}</div>
       </div>
     </div>`;
   }
+  
   if(admin.mode=="cust"){
     let filteredCust = admin.cust.slice();
     if(admin.custFilter){
       const q = admin.custFilter.toLowerCase();
       filteredCust = filteredCust.filter(u => u.user.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
     }
+    
+    // Process Column Sorting for Customers
+    const cSort = admin.sorts.cust;
+    filteredCust.sort((a, b) => {
+      let valA = a[cSort.field] || "", valB = b[cSort.field] || "";
+      return cSort.direction === 'asc' ? String(valA).localeCompare(String(valB)) : String(valB).localeCompare(String(valA));
+    });
     
     const pageSize = admin.pageSize;
     const pageState = admin.paging.cust;
@@ -1390,32 +1898,56 @@ function renderAdmin(){
     pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
     const startIdx = (pageState.page-1)*pageSize;
     const pageItems = filteredCust.slice(startIdx, startIdx+pageSize);
+    
+    const getSortIcon = (f) => cSort.field === f ? (cSort.direction === 'asc' ? ' ▲' : ' ▼') : ' ↕';
 
-    main+=`<div class="card"><h2>Customers</h2>
-      <div class="search-bar" style="max-width:100%;">
+    main+=`<div class="card"><h2>Registered Customer Base</h2>
+      <div class="search-bar" style="max-width:100%; margin-bottom:15px;">
         <input id="custFilterInput" placeholder="Filter by Username or Email" value="${admin.custFilter}" oninput="adminFilter('cust', this.value)"/>
-        <button onclick="adminFilter('cust', '')" class="btn-main" style="background:#3e4a68;"><i class="fa fa-times"></i> Clear</button>
+        <button onclick="adminFilter('cust', '')" class="btn-main" style="background:#3e4a68; color:#fff;"><i class="fa fa-times"></i> Clear</button>
       </div>
-      <div style="margin-top:10px; color:var(--color-text-secondary);">Showing ${total} matching customers.</div>
+
+      <!-- Bulk Actions Controls Toolbar -->
+      <div class="bulk-toolbar">
+         <span>Bulk Actions (${admin.checkedCust.length} selected):</span>
+         <button onclick="processBulkActions('cust', 'status')" style="background:var(--color-warning); color:#14141c; border:none; padding:6px 12px; border-radius:4px; font-weight:bold; cursor:pointer;"><i class="fa fa-ban"></i> Suspend Selected</button>
+         <button onclick="processBulkActions('cust', 'delete')" style="background:var(--color-error); color:#fff; border:none; padding:6px 12px; border-radius:4px; cursor:pointer;"><i class="fa fa-trash"></i> Delete Accounts</button>
+      </div>
+      
       <table>
-        <thead><tr><th>Username</th><th>Email</th><th>Phone</th><th>Orders</th></tr></thead>
+        <thead>
+          <tr>
+            <th style="width:40px;"><input type="checkbox" onclick="toggleMasterCheckbox('cust', this)"></th>
+            <th class="sortable-header" onclick="invokeColumnSort('cust','user')">Username${getSortIcon('user')}</th>
+            <th class="sortable-header" onclick="invokeColumnSort('cust','email')">Email Context${getSortIcon('email')}</th>
+            <th>Phone Route</th>
+            <th>Associated Orders</th>
+            <th>Account State</th>
+          </tr>
+        </thead>
         <tbody>
-        ${pageItems.map(u=>`<tr>
-          <td style="font-weight:bold; color:var(--color-accent-main);">${u.user}</td>
-          <td>${u.email}</td>
-          <td>${u.phone}</td>
-          <td>${u.orders.join(', ')}</td>
-        </tr>`).join('')}
+        ${pageItems.map(u => {
+          const isChecked = admin.checkedCust.includes(u.user) ? 'checked' : '';
+          return `<tr>
+            <td><input type="checkbox" ${isChecked} onclick="updateElementCheckbox('cust', '${u.user}', this)"></td>
+            <td style="font-weight:bold; color:var(--color-accent-main);">${u.user}</td>
+            <td>${u.email}</td>
+            <td>${u.phone}</td>
+            <td>${(u.orders || []).join(', ')}</td>
+            <td><span style="padding:2px 6px; border-radius:4px; font-weight:bold; font-size:0.85em; background:${u.status==='Suspended'?'rgba(255,82,82,0.2)':'rgba(76,175,80,0.2)'}; color:${u.status==='Suspended'?'var(--color-error)':'var(--color-success)'}">${u.status || 'Active'}</span></td>
+          </tr>`;
+        }).join('')}
         </tbody>
       </table>
       <div class="pagination">
         <button class="page-btn" onclick="adminPageChange('cust', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('cust', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('cust', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages}</div>
       </div>
     </div>`;
   }
+  
   if(admin.mode=="reviews"){
     const reviewRows = admin.products.flatMap(p=>p.reviews.map(r=>({...r, prod: p.name, sku: p.sku})));
     const pageSize = admin.pageSize;
@@ -1426,24 +1958,63 @@ function renderAdmin(){
     const startIdx = (pageState.page-1)*pageSize;
     const pageItems = reviewRows.slice(startIdx, startIdx+pageSize);
 
-    main+=`<div class="card"><h2>Reviews</h2>
+    main+=`<div class="card"><h2>User Submitted Reviews Matrix</h2>
       <div style="margin-top:15px;">${pageItems.map(r=>`<div class="review">
         <b style="color:var(--color-accent-main);">${r.prod}</b> [${r.sku}]: <span class="star">${'★'.repeat(r.star)}</span>
-        <b>${r.by}</b> - ${r.text}</div>`).join('')||'No reviews.'}</div>
+        <b>${r.by}</b> - ${r.text}</div>`).join('')||'No reviews found inside database records.'}</div>
       <div class="pagination">
         <button class="page-btn" onclick="adminPageChange('reviews', ${pageState.page-1})" ${pageState.page<=1? 'disabled':''}>Prev</button>
         ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="adminPageChange('reviews', ${i+1})">${i+1}</button>`).join('')}
         <button class="page-btn" onclick="adminPageChange('reviews', ${pageState.page+1})" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
-        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages} (${total} records)</div>
+        <div style="margin-left:15px;color:var(--color-text-secondary);"> Page ${pageState.page} of ${totalPages}</div>
       </div>
     </div>`;
   }
   
-  // Dynamic Admin Form Management Layout
+  // INTAKE MESSAGES MANAGEMENT MODULE RENDER VIEW
+  if(admin.mode=="messages"){
+    const pageSize = admin.pageSize;
+    const pageState = admin.paging.messages || {page:1};
+    const total = admin.contactMessages.length;
+    const totalPages = Math.max(1, Math.ceil(total/pageSize));
+    pageState.page = Math.min(Math.max(1, pageState.page || 1), totalPages);
+    const startIdx = (pageState.page-1)*pageSize;
+    const pageItems = admin.contactMessages.slice(startIdx, startIdx+pageSize);
+
+    main+=`<div class="card"><h2>Contact Us Intake Messages Log</h2>
+      <div style="color:var(--color-text-secondary); margin-bottom:10px;">Review form queries generated directly by site visitors.</div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Sender Name</th>
+            <th>Email Destination</th>
+            <th>Date Logged</th>
+            <th>Message Body Context</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${pageItems.map(m => `<tr>
+            <td style="font-weight:bold; color:var(--color-accent-main);">${m.id}</td>
+            <td><b>${escapeHtml(m.name)}</b></td>
+            <td>${escapeHtml(m.email)}</td>
+            <td>${m.date}</td>
+            <td><small>${escapeHtml(m.message)}</small></td>
+          </tr>`).join('') || '<tr><td colspan="5">No intake submissions recorded yet.</td></tr>'}
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button class="page-btn" onclick="admin.paging.messages.page=${pageState.page-1}; renderAdmin();" ${pageState.page<=1? 'disabled':''}>Prev</button>
+        ${Array.from({length: totalPages}).map((_,i)=>`<button class="page-num ${i+1===pageState.page?'active':''}" onclick="admin.paging.messages.page=${i+1}; renderAdmin();">${i+1}</button>`).join('')}
+        <button class="page-btn" onclick="admin.paging.messages.page=${pageState.page+1}; renderAdmin();" ${pageState.page>=totalPages? 'disabled':''}>Next</button>
+      </div>
+    </div>`;
+  }
+  
+  // Settings view
   if(admin.mode=="settings"){
     main+=`<div class="card"><h2>Settings & Dynamic Content Engine</h2>
-      <div class="input"><label>Store Name:</label> <input value="SPA Demo Store"></div>
-      <div class="input"><label>Enable Demo Marketing: <input type="checkbox" style="width:auto;"></label></div>
+      <div class="input"><label>Store Name Reference:</label> <input value="SPA Demo Store Framework"></div>
       
       <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Dynamic Header Menu Links</h3>
       <div class="input"><label>Home Label</label><input id="dynMenuHome" value="${escapeHtml(dynamicContent.menuHomeLabel)}"/></div>
@@ -1451,12 +2022,11 @@ function renderAdmin(){
       <div class="input"><label>About Us Label</label><input id="dynMenuAbout" value="${escapeHtml(dynamicContent.menuAboutLabel)}"/></div>
       <div class="input"><label>Contact Us Label</label><input id="dynMenuContact" value="${escapeHtml(dynamicContent.menuContactLabel)}"/></div>
 
-      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Homepage Slider Options</h3>
-      <div class="input"><label>Slider Title</label><input id="dynBannerTitle" value="${escapeHtml(dynamicContent.bannerTitle)}"/></div>
-      <div class="input"><label>Slider Subtitle</label><input id="dynBannerSub" value="${escapeHtml(dynamicContent.bannerSub)}"/></div>
-      <div class="input"><label>Slider Cover Image URL</label><input id="dynBannerImg" value="${escapeHtml(dynamicContent.bannerImg)}"/></div>
+      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Homepage Slider Controls</h3>
+      <div class="input"><label>Slider Header Title</label><input id="dynBannerTitle" value="${escapeHtml(dynamicContent.bannerTitle)}"/></div>
+      <div class="input"><label>Slider Marketing Subtitle</label><input id="dynBannerSub" value="${escapeHtml(dynamicContent.bannerSub)}"/></div>
       
-      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Dynamic Content Pages (HTML Compatible)</h3>
+      <h3 style="color:var(--color-accent-main); margin-top:25px; border-bottom:1px solid var(--color-background); padding-bottom:5px;">Dynamic Content Pages (HTML Injection Ready)</h3>
       <div class="input"><label>Categories Page Header Title</label><input id="dynCatsTitle" value="${escapeHtml(dynamicContent.categoriesTitle)}"/></div>
       <div class="input"><label>About Us Page Body Layout</label>
         <textarea id="dynAboutText" style="width:100%; height:110px; background:var(--color-background); color:var(--color-text-primary); border:1px solid #3e4a68; border-radius:5px; padding:10px; font-family:inherit;">${escapeHtml(dynamicContent.aboutText)}</textarea>
@@ -1467,11 +2037,15 @@ function renderAdmin(){
       
       <button onclick="saveDynamicSettings()" class="btn-main" style="margin-top:15px;">Save System Parameters</button>
     </div>`;
+    if(document.body.classList.contains('light-theme')) {
+      main = main.replace(/border-bottom:1px solid var\(--color-background\);/g, "border-bottom:1px solid #dfdfe8;");
+    }
   }
+  
   if(admin.mode=="profile"){
-    main+=`<div class="card"><h2>My Profile</h2>
-      <div><b>Username:</b> admin</div>
-      <div>Last login: just now</div>
+    main+=`<div class="card"><h2>My Profile Context</h2>
+      <div><b>Username Flag:</b> admin architecture controller</div>
+      <div>Configuration clearance role: Global Administrator</div>
     </div>`;
   }
   main+='</div>';
@@ -1485,7 +2059,6 @@ function saveDynamicSettings() {
   dynamicContent.menuContactLabel = document.getElementById("dynMenuContact").value;
   dynamicContent.bannerTitle = document.getElementById("dynBannerTitle").value;
   dynamicContent.bannerSub = document.getElementById("dynBannerSub").value;
-  dynamicContent.bannerImg = document.getElementById("dynBannerImg").value;
   dynamicContent.categoriesTitle = document.getElementById("dynCatsTitle").value;
   dynamicContent.aboutText = document.getElementById("dynAboutText").value;
   dynamicContent.contactText = document.getElementById("dynContactText").value;
@@ -1533,8 +2106,6 @@ function adminPageChange(section, pageNum){
     total = filteredOrders.length;
   } else if(section==='reviews'){
     total = admin.products.flatMap(p=>p.reviews).length;
-  } else {
-    total = 0;
   }
   
   const totalPages = Math.max(1, Math.ceil(total/pageSize));
@@ -1548,7 +2119,16 @@ function filterAdminProducts(cat) {
     renderAdmin();
 }
 
-function adminNav(mode){admin.mode=mode;admin.curProd=null;admin.curCat=null;renderAdmin();}
+function adminNav(mode){
+  admin.mode=mode;
+  admin.curProd=null;
+  admin.curCat=null;
+  // Flawless bulk array scrub on navigation steps
+  admin.checkedProducts = [];
+  admin.checkedOrders = [];
+  admin.checkedCust = [];
+  renderAdmin();
+}
 function loginAdmin(){if(document.getElementById("aduser").value=="admin" && document.getElementById("adpass").value=="admin"){admin.logged=true;renderAdmin();}else{document.getElementById("aderr").textContent='Wrong credentials.';}}
 function adminLogout(){admin.logged=false;renderAdmin();}
 
@@ -1584,7 +2164,7 @@ function saveProd(oldSku){
         showCustomModal('Validation Error', 'SKU already exists!', 'alert');
         return;
     }
-    admin.products.push({sku,name,cat,price,img,desc,reviews:[]});
+    admin.products.push({sku,name,cat,price,img,desc,reviews:[], status:"Active"});
   }
   if(!admin.cats.includes(cat)){
       admin.cats.push(cat);
@@ -1624,7 +2204,6 @@ function delCatConfirm(c){
     renderAdmin();
 }
 
-/** Utilities & small helpers **/
 function escapeHtml(s){
   if(!s) return '';
   return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];});
